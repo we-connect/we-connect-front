@@ -2,5 +2,18 @@
 <resources>
     <color name="colorPrimary">#4D9DE0</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/colorPrimaryDark</color>
+
+    <color name="background">@color/colorPrimary</color>
+
+    <!-- Interests -->
+    <array name="interests">
+        <item>#E06666</item>
+        <item>#93C47D</item>
+        <item>#FFD966</item>
+        <item>#9FC5F8</item>
+        <item>#C27BA0</item>
+    </array>
+
+    <color name="button_green">#38761D</color>
 </resources>

@@ -3,6 +3,8 @@ package berlin.weconnect.weconnect.view.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -31,9 +33,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
 
         // Load layout
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         LoginButton loginButton = (LoginButton) findViewById(R.
                 id.login_button);
         loginButton.setReadPermissions("public_profile");
+
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);
+                startActivity(openStartingPoint);
+                finish();
+            }
+        });
 
         // Add callback listener
         callbackManager = CallbackManager.Factory.create();

@@ -6,4 +6,10 @@
     <string name="login_cancelled">Login cancelled</string>
     <string name="login_succeeded">Login Succeeded</string>
     <string name="login_failed">Login failed</string>
+    <string name="welcome_to_we_connect">Welcome to WeConnect,</string>
+    <string name="name">Name !</string>
+    <string name="what_are_you_interested_in">What are you interested in?</string>
+    <string name="interest">interest</string>
+    <string name="continue_">Continue</string>
+    <string name="desc_icon">icon</string>
 </resources>
