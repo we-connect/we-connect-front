@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">WeConnect</string>
+    <string name="desc_logo">logo</string>
+    <string name="newcomers_meet_locals">Newcomers Meet Locals</string>
+    <string name="we_will_never_post_without_your_permission">We will never post without your permission.</string>
 </resources>
