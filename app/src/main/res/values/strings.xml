@@ -3,4 +3,7 @@
     <string name="desc_logo">logo</string>
     <string name="newcomers_meet_locals">Newcomers Meet Locals</string>
     <string name="we_will_never_post_without_your_permission">We will never post without your permission.</string>
+    <string name="login_cancelled">Login cancelled</string>
+    <string name="login_succeeded">Login Succeeded</string>
+    <string name="login_failed">Login failed</string>
 </resources>

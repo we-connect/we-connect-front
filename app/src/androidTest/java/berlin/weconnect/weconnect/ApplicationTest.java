@@ -1,4 +1,4 @@
-package weconnect.berlin.weconnect;
+package berlin.weconnect.weconnect;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -23,23 +23,27 @@
         android:textAlignment="center" />
 
     <TextView
-        android:layout_marginLeft="@dimen/subtitleMargin"
-        android:layout_marginRight="@dimen/subtitleMargin"
         android:id="@+id/tvSubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ivLogo"
+        android:layout_marginLeft="@dimen/subtitleMargin"
+        android:layout_marginRight="@dimen/subtitleMargin"
         android:text="@string/newcomers_meet_locals"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/md_white_1000"
         android:textSize="@dimen/text_size_subtitle" />
 
-    <LinearLayout
-        android:id="@+id/llFacebook"
-        android:layout_width="match_parent"
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_above="@+id/tvFacebook"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/tvFacebook"
