@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.controller.ContactsController;
+import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.ProfileController;
+import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class SettingsActivity extends BaseActivity {
     private ContactsController contactsController;

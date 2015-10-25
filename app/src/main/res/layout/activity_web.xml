@@ -4,13 +4,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".LoginActivity">
+    tools:context=".WebActivity">
 
     <WebView
-        android:id="@+id/ivLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/logo_height"
+        android:id="@+id/wbFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:baselineAlignBottom="true"
