@@ -78,6 +78,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         // Set values
         llInterest.setBackgroundColor(interest.getColor());
         tvName.setText(interest.getName());
+        ivIcon.setImageResource(interest.getIcon());
 
 
         // Add actions

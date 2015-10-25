@@ -46,12 +46,12 @@ public class InterestsController {
 
         int[] colors = getResources().getIntArray(R.array.interests);
 
-        // Hard coded
-        interests.add(new Interest("Arts", colors[0], null));
-        interests.add(new Interest("Sports", colors[1], null));
-        interests.add(new Interest("Music", colors[2], null));
-        interests.add(new Interest("Food", colors[3], null));
-        interests.add(new Interest("Education", colors[4], null));
+        interests.add(new Interest("Arts", colors[0], R.drawable.arts));
+        interests.add(new Interest("Sports", colors[1],R.drawable.sport));
+        interests.add(new Interest("Music", colors[2], R.drawable.music));
+        interests.add(new Interest("Food", colors[3], R.drawable.food));
+        interests.add(new Interest("Education", colors[4],R.drawable.education));
+
 
         // TODO : load possible interests from backend
     }
