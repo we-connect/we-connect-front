@@ -12,4 +12,9 @@
     <string name="interest">interest</string>
     <string name="continue_">Continue</string>
     <string name="desc_icon">icon</string>
+    <string name="desc_profile_picture">profile picture</string>
+    <string name="profile_name">Profile name</string>
+    <string name="discover_people">Discover people with the same interests and connect on Facebook:</string>
+    <string name="settings">Settings</string>
+    <string name="done">Done</string>
 </resources>

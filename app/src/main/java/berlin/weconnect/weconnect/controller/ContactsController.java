@@ -4,32 +4,32 @@ import android.app.Activity;
 import android.content.res.Resources;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.GetUsersTask;
 
-public class UsersController {
+public class ContactsController {
     // Activity
     private Activity activity;
 
     // Model
     private List<User> users;
-    private User me;
 
-    private static UsersController instance;
+    private static ContactsController instance;
 
     // --------------------
     // Constructors
     // --------------------
 
-    private UsersController(Activity activity) {
+    private ContactsController(Activity activity) {
         setActivity(activity);
         init();
     }
 
-    public static UsersController getInstance(Activity activity) {
+    public static ContactsController getInstance(Activity activity) {
         if (instance == null) {
-            instance = new UsersController(activity);
+            instance = new ContactsController(activity);
         }
 
         instance.setActivity(activity);
@@ -45,12 +45,12 @@ public class UsersController {
     }
 
     /**
-     * Determines whether a given card interest be displayed considering all filters
+     * Determines whether a given user be displayed considering all filters
      *
-     * @param interest interest to determine visibility of
-     * @return whether interest is visible or not
+     * @param user user to determine visibility of
+     * @return whether user is visible or not
      */
-    public boolean isVisible(Interest interest) {
+    public boolean isVisible(User user) {
         return true;
     }
 
@@ -58,10 +58,22 @@ public class UsersController {
     // Methods
     // --------------------
 
+    public void updateUsers() {
+        try {
+            users = new GetUsersTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
     public User getUserByFacebookId(String facebookId) {
-        for (User u : getUsers()) {
-            if (u.getFacebook_id() != null && u.getFacebook_id().equals(facebookId)) {
-                return u;
+        if (getUsers() != null) {
+            for (User u : getUsers()) {
+                if (u.getFacebook_id() != null && u.getFacebook_id().equals(facebookId)) {
+                    return u;
+                }
             }
         }
 
@@ -69,15 +81,16 @@ public class UsersController {
     }
 
     public User getUserByUsername(String username) {
-        for (User u : getUsers()) {
-            if (u.getUsername() != null && u.getUsername().equals(username)){
-                return u;
+        if (getUsers() != null) {
+            for (User u : getUsers()) {
+                if (u.getUsername() != null && u.getUsername().equals(username)) {
+                    return u;
+                }
             }
         }
 
         return null;
     }
-
 
     // --------------------
     // Methods - Util
@@ -102,13 +115,5 @@ public class UsersController {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    public User getMe() {
-        return me;
-    }
-
-    public void setMe(User me) {
-        this.me = me;
     }
 }

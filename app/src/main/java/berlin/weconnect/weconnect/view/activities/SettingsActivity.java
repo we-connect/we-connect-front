@@ -1,8 +1,7 @@
 package berlin.weconnect.weconnect.view.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,7 +13,7 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.controller.ContactsController;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
     private ContactsController contactsController;
     private InterestsController interestsController;
     private ProfileController profileController;
@@ -22,7 +21,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
 
         contactsController = ContactsController.getInstance(this);
         interestsController = InterestsController.getInstance(this);
@@ -30,6 +28,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
         contactsController.updateUsers();
         profileController.updateMyUser();
+
+        setDisplayHomeAsUpEnabled(true);
     }
 
     public void onResume() {
@@ -37,13 +37,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // Load layout
         ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
-        Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        Button btnDone = (Button) findViewById(R.id.btnDone);
 
         final InterestsAdapter interestsAdapter = new InterestsAdapter(this, this, R.layout.interest, interestsController.getInterests());
         lvInterests.setAdapter(interestsAdapter);
 
         // Add actions
-        btnContinue.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<Interest> interests = new ArrayList<>();
@@ -53,10 +53,24 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 profileController.getMyUser().setInterests(interests);
                 profileController.writeInterests();
-
-                Intent i = new Intent(WelcomeActivity.this, ContactsActivity.class);
-                startActivity(i);
+                finish();
             }
         });
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_settings;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+
+        // return true;
     }
 }

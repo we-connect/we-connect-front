@@ -22,6 +22,16 @@ public class User {
     private String date_register;
     private String locale;
 
+    private List<Interest> interests;
+
+    // --------------------
+    // Constructors
+    // --------------------
+
+    public User(String username) {
+        this.username = username;
+    }
+
     // --------------------
     // Getters / Setters
     // --------------------
@@ -168,5 +178,13 @@ public class User {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
     }
 }

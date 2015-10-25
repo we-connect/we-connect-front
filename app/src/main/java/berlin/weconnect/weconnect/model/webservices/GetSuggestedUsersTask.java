@@ -17,9 +17,10 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
+public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<User>> {
     private static final String ENCODING = "UTF-8";
     private static final String contentType = "text/plain";
 
@@ -31,10 +32,10 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     // Constructors
     // --------------------
 
-    public GetUsersTask() {
+    public GetSuggestedUsersTask() {
     }
 
-    public GetUsersTask(OnCompleteListener ocListener) {
+    public GetSuggestedUsersTask(OnCompleteListener ocListener) {
         this.ocListener = ocListener;
     }
 
@@ -48,9 +49,10 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     }
 
     @Override
-    protected List<User> doInBackground(Void... params) {
+    protected List<User> doInBackground(List<Interest>... params) {
+        List<Interest> interests = params[0];
         try {
-            return getUsers();
+            return getSuggestedUsers(interests);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,16 +75,23 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     // --------------------
 
     /**
-     * Gets all users
+     * Gets all users filtered
      *
      * @return
      * @throws Exception
      */
-    private static List<User> getUsers() throws Exception {
+    private static List<User> getSuggestedUsers(List<Interest> interests) throws Exception {
         // Connection
         final String URL = App.getContext().getResources().getString(R.string.url_get_users);
-        String info = "?infos[interests]";
-        HttpURLConnection con = (HttpURLConnection) new URL(URL + info).openConnection();
+
+        StringBuilder filter = new StringBuilder();
+        if (!interests.isEmpty())
+            filter.append("?");
+        for (Interest i : interests) {
+            filter.append("filters[interests][]=" + i.getId() + "&");
+        }
+
+        HttpURLConnection con = (HttpURLConnection) new URL(URL + filter).openConnection();
 
         // Request header
         con.setRequestMethod("GET");
@@ -117,7 +126,8 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
                 System.out.println(response.toString());
                 return null;
             } else {
-                Type listType = new TypeToken<List<User>>() {}.getType();
+                Type listType = new TypeToken<List<User>>() {
+                }.getType();
                 return new Gson().fromJson(response.toString(), listType);
             }
         } finally {

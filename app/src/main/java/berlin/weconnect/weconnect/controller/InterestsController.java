@@ -46,18 +46,18 @@ public class InterestsController {
 
         int[] colors = getResources().getIntArray(R.array.interests);
 
-        interests.add(new Interest("Arts", colors[0], R.drawable.arts));
-        interests.add(new Interest("Sports", colors[1],R.drawable.sport));
-        interests.add(new Interest("Music", colors[2], R.drawable.music));
-        interests.add(new Interest("Food", colors[3], R.drawable.food));
-        interests.add(new Interest("Education", colors[4],R.drawable.education));
+        interests.add(new Interest("1", "Arts", colors[0], R.drawable.arts));
+        interests.add(new Interest("2", "Sports", colors[1], R.drawable.sport));
+        interests.add(new Interest("3", "Music", colors[2], R.drawable.music));
+        interests.add(new Interest("4", "Food", colors[3], R.drawable.food));
+        interests.add(new Interest("5", "Education", colors[4], R.drawable.education));
 
 
         // TODO : load possible interests from backend
     }
 
     /**
-     * Determines whether a given card interest be displayed considering all filters
+     * Determines whether a given interest be displayed considering all filters
      *
      * @param interest interest to determine visibility of
      * @return whether interest is visible or not
