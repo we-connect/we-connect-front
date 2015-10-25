@@ -18,7 +18,7 @@ import java.util.List;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.InterestsController;
-import berlin.weconnect.weconnect.model.Interest;
+import berlin.weconnect.weconnect.model.entities.Interest;
 
 public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterable {
     private InterestsController interestsController;

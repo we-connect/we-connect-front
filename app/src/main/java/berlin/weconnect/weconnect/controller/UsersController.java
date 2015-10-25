@@ -3,33 +3,33 @@ package berlin.weconnect.weconnect.controller;
 import android.app.Activity;
 import android.content.res.Resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
 
-public class InterestsController {
+public class UsersController {
     // Activity
     private Activity activity;
 
     // Model
-    private List<Interest> interests;
+    private List<User> users;
+    private User me;
 
-    private static InterestsController instance;
+    private static UsersController instance;
 
     // --------------------
     // Constructors
     // --------------------
 
-    private InterestsController(Activity activity) {
+    private UsersController(Activity activity) {
         setActivity(activity);
         init();
     }
 
-    public static InterestsController getInstance(Activity activity) {
+    public static UsersController getInstance(Activity activity) {
         if (instance == null) {
-            instance = new InterestsController(activity);
+            instance = new UsersController(activity);
         }
 
         instance.setActivity(activity);
@@ -42,18 +42,6 @@ public class InterestsController {
     // --------------------
 
     public void init() {
-        interests = new ArrayList<>();
-
-        int[] colors = getResources().getIntArray(R.array.interests);
-
-        // Hard coded
-        interests.add(new Interest("Arts", colors[0], null));
-        interests.add(new Interest("Sports", colors[1], null));
-        interests.add(new Interest("Music", colors[2], null));
-        interests.add(new Interest("Food", colors[3], null));
-        interests.add(new Interest("Education", colors[4], null));
-
-        // TODO : load possible interests from backend
     }
 
     /**
@@ -69,6 +57,26 @@ public class InterestsController {
     // --------------------
     // Methods
     // --------------------
+
+    public User getUserByFacebookId(String facebookId) {
+        for (User u : getUsers()) {
+            if (u.getFacebook_id() != null && u.getFacebook_id().equals(facebookId)) {
+                return u;
+            }
+        }
+
+        return null;
+    }
+
+    public User getUserByUsername(String username) {
+        for (User u : getUsers()) {
+            if (u.getUsername() != null && u.getUsername().equals(username)){
+                return u;
+            }
+        }
+
+        return null;
+    }
 
 
     // --------------------
@@ -87,11 +95,20 @@ public class InterestsController {
         this.activity = activity;
     }
 
-    public List<Interest> getInterests() {
-        return interests;
+
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setInterests(List<Interest> interests) {
-        this.interests = interests;
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public User getMe() {
+        return me;
+    }
+
+    public void setMe(User me) {
+        this.me = me;
     }
 }

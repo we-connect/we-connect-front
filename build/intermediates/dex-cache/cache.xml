@@ -2,18 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Florian\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jar="C:\Users\Florian\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="C:\Users\Florian\git\we-connect-front\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-69d34d9977f4c2e91c8abcebc33faedad931ce76.jar" />
-    </item>
-    <item
-        jar="C:\Users\Florian\git\we-connect-front\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.7.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5bdb38b7e4b6094891648c1dc4dc08589b460f97">
-        <dex dex="C:\Users\Florian\git\we-connect-front\app\build\intermediates\pre-dexed\debug\classes-d0084ec8caea896c0364982fa10f64f492780568.jar" />
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Florian\git\we-connect-front\app\build\intermediates\pre-dexed\debug\gson-2.3.1-4594b40bc5b43961a034e5e4e99fc6d2e512391c.jar" />
     </item>
 
 </items>

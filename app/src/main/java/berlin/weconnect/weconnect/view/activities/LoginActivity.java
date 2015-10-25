@@ -1,7 +1,10 @@
 package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -38,9 +41,18 @@ public class LoginActivity extends AppCompatActivity {
                 id.login_button);
         loginButton.setReadPermissions("public_profile");
 
+        // TODO : remove
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Resources res = LoginActivity.this.getResources();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(res.getString(R.string.pref_fb_facebookid), "42");
+                editor.putString(res.getString(R.string.pref_fb_username), "florian");
+                editor.putString(res.getString(R.string.pref_fb_email), "flo@bar.de");
+                editor.apply();
+
                 Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);
                 startActivity(openStartingPoint);
                 finish();
@@ -52,8 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                // TODO : save profile info to prefs
+
                 Toast.makeText(LoginActivity.this, R.string.login_succeeded, Toast.LENGTH_LONG).show();
-                // TODO : call next activity
+                Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);
+                startActivity(openStartingPoint);
+                finish();
             }
 
             @Override

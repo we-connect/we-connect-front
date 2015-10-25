@@ -1,4 +1,4 @@
-package berlin.weconnect.weconnect.model;
+package berlin.weconnect.weconnect.model.entities;
 
 public class Interest {
     private String name;
