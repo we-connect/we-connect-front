@@ -16,8 +16,10 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
+import com.facebook.Profile;
+import java.util.Arrays;
 import berlin.weconnect.weconnect.R;
+import android.net.Uri;
 
 public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
@@ -59,12 +61,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+
         // Add callback listener
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // TODO : save profile info to prefs
+                 String userAppId = loginResult.getAccessToken().getUserId();
+                 String Id = Profile.getCurrentProfile().getId();
+                 String Name = Profile.getCurrentProfile().getName();
+                String First = Profile.getCurrentProfile().getFirstName();
+                 String Last = Profile.getCurrentProfile().getLastName();
+                Uri userLink = Profile.getCurrentProfile().getLinkUri();
+                Uri userBildLink = Profile.getCurrentProfile().getProfilePictureUri(50, 50);
+
+             //   Resources res = LoginActivity.this.getResources();
+             //   SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+             //   SharedPreferences.Editor editor = prefs.edit();
+
+             //   editor.putString(res.getString(R.string.pref_fb_Appid), loginResult.getAccessToken().getUserId());
+             //   editor.putString(res.getString(R.string.pref_fb_facebookid), Profile.getCurrentProfile().getId());
+             //   editor.putString(res.getString(R.string.pref_fb_username), Profile.getCurrentProfile().getName());
+             //   editor.putString(res.getString(R.string.pref_fb_firstname), Profile.getCurrentProfile().getFirstName());
+             //   editor.putString(res.getString(R.string.pref_fb_lastname), Profile.getCurrentProfile().getLastName());
+             //   editor.apply();
+
+                Toast.makeText(LoginActivity.this, "Logged-In to Facebook:" + Name, Toast.LENGTH_LONG).show();
+
+
+
 
                 Toast.makeText(LoginActivity.this, R.string.login_succeeded, Toast.LENGTH_LONG).show();
                 Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);

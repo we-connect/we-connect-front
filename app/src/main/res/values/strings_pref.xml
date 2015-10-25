@@ -1,5 +1,8 @@
 <resources>
-    <string name="pref_fb_facebookid" translatable="false">pref_fb_facebookid</string>
-    <string name="pref_fb_username" translatable="false">pref_fb_username</string>
-    <string name="pref_fb_email" translatable="false">pref_fb_email</string>
+        <string name="pref_fb_Appid" translatable="false">pref_fb_Appid</string>
+        <string name="pref_fb_facebookid" translatable="false">pref_fb_facebookid</string>
+        <string name="pref_fb_username" translatable="false">pref_fb_username</string>
+        <string name="pref_fb_firstname" translatable="false">pref_fb_firstname</string>
+        <string name="pref_fb_lastname" translatable="false">pref_fb_lastname</string>
+        <string name="pref_fb_email" translatable="false">pref_fb_email</string>
 </resources>
