@@ -82,7 +82,7 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
      */
     private static List<User> getSuggestedUsers(List<Interest> interests) throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_get_users);
+        final String URL = App.getContext().getResources().getString(R.string.url_users);
 
         StringBuilder filter = new StringBuilder();
         if (!interests.isEmpty())

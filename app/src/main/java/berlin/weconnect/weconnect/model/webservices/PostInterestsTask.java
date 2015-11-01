@@ -80,7 +80,7 @@ public class PostInterestsTask extends AsyncTask<User, Void, List<User>> {
      */
     private static void postInterests(User user) throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_get_users);
+        final String URL = App.getContext().getResources().getString(R.string.url_userinterests);
         String info = "?infos[interests]";
         HttpURLConnection con = (HttpURLConnection) new URL(URL + info).openConnection();
 
