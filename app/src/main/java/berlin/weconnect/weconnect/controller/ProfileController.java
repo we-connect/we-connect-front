@@ -58,7 +58,7 @@ public class ProfileController {
         if (users != null) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
             String myUsername = prefs.getString(activity.getResources().getString(R.string.pref_fb_username), null);
-            String myFacebookId = prefs.getString(activity.getResources().getString(R.string.pref_fb_facebookid), null);
+            String myFacebookId = prefs.getString(activity.getResources().getString(R.string.pref_fb_facebook_id), null);
 
             setMyUser(contactsController.getUserByFacebookId(myFacebookId));
             Log.d("User", getMyUser().getUsername());

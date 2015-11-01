@@ -1,11 +1,14 @@
 package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +42,13 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onResume();
 
         // Load layout
+        TextView tvName = (TextView) findViewById(R.id.tvName);
         ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
         Button btnContinue = (Button) findViewById(R.id.btnContinue);
+
+        // Set values
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WelcomeActivity.this);
+        tvName.setText(prefs.getString(getResources().getString(R.string.pref_fb_username), ""));
 
         final InterestsAdapter interestsAdapter = new InterestsAdapter(this, this, R.layout.interest, interestsController.getInterests());
         lvInterests.setAdapter(interestsAdapter);
