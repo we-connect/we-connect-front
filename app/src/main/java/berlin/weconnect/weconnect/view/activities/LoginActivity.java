@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -41,6 +42,28 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton loginButton = (LoginButton) findViewById(R.
                 id.login_button);
         loginButton.setReadPermissions("public_profile");
+
+        // TODO : remove
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Resources res = LoginActivity.this.getResources();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(res.getString(R.string.pref_fb_app_id), "");
+                editor.putString(res.getString(R.string.pref_fb_facebook_id), "");
+                editor.putString(res.getString(R.string.pref_fb_username), "John Doe");
+                editor.putString(res.getString(R.string.pref_fb_firstname), "John");
+                editor.putString(res.getString(R.string.pref_fb_lastname), "Doe");
+                editor.putString(res.getString(R.string.pref_fb_profile_uri), "");
+                editor.putString(res.getString(R.string.pref_fb_profile_picture_uri), "");
+                editor.apply();
+
+                Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);
+                startActivity(openStartingPoint);
+                finish();
+            }
+        });
 
         // LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
