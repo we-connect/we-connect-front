@@ -6,8 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -22,22 +20,7 @@ import berlin.weconnect.weconnect.model.entities.User;
 
 public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<User>> {
     private static final String ENCODING = "UTF-8";
-    private static final String contentType = "text/plain";
-
     private static final int RESPONSE_CODE_OKAY = 200;
-
-    private OnCompleteListener ocListener;
-
-    // --------------------
-    // Constructors
-    // --------------------
-
-    public GetSuggestedUsersTask() {
-    }
-
-    public GetSuggestedUsersTask(OnCompleteListener ocListener) {
-        this.ocListener = ocListener;
-    }
 
     // --------------------
     // Methods - Lifecycle
@@ -63,11 +46,6 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
     @Override
     protected void onPostExecute(List<User> result) {
         super.onPostExecute(result);
-
-        if (result != null) {
-            if (ocListener != null)
-                ocListener.onGetUsers(result);
-        }
     }
 
     // --------------------
@@ -77,7 +55,7 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
     /**
      * Gets all users filtered
      *
-     * @return
+     * @return list of users
      * @throws Exception
      */
     private static List<User> getSuggestedUsers(List<Interest> interests) throws Exception {
@@ -88,7 +66,7 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
         if (!interests.isEmpty())
             filter.append("?");
         for (Interest i : interests) {
-            filter.append("filters[interests][]=" + i.getId() + "&");
+            filter.append("filters[interests][]=").append(i.getId()).append("&");
         }
 
         HttpURLConnection con = (HttpURLConnection) new URL(URL + filter).openConnection();
@@ -133,33 +111,5 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
         } finally {
             con.disconnect();
         }
-    }
-
-    /**
-     * Converts an input stream to string
-     *
-     * @param inputStream input stream to be converted
-     * @return string value
-     */
-    private static String inputStreamToString(final InputStream inputStream) throws IOException {
-        final StringBuilder outputBuilder = new StringBuilder();
-
-        String string;
-        if (inputStream != null) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING));
-            while (null != (string = reader.readLine())) {
-                outputBuilder.append(string.replaceAll("\uFEFF", ""));
-            }
-        }
-
-        return outputBuilder.toString();
-    }
-
-    // --------------------
-    // Callback interfaces
-    // --------------------
-
-    public interface OnCompleteListener {
-        void onGetUsers(List<User> response);
     }
 }

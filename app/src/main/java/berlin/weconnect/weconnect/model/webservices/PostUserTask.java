@@ -12,10 +12,9 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
+public class PostUserTask extends AsyncTask<User, Void, Void> {
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 200;
 
@@ -29,11 +28,10 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Object... params) {
+    protected Void doInBackground(User... params) {
         User user = (User) params[0];
-        List<Interest> interests = (List<Interest>) params[1];
         try {
-            postInterests(user, interests);
+            postUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,9 +47,9 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
      *
      * @throws Exception
      */
-    private static void postInterests(User user, List<Interest> interests) throws Exception {
+    private static void postUser(User user) throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_userinterests);
+        final String URL = App.getContext().getResources().getString(R.string.url_users);
         HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();
 
         // Request header
@@ -68,7 +66,7 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
                 Log.d("PostInterestsTask", "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    Log.d("PostInterestsTask", entry.getKey() + " : " + entry.getValue());
+                    Log.d("PostUserTask", entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -85,7 +83,7 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
 
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.d("PostInterestsTask", response.toString());
+                Log.d("PostUserTask", response.toString());
             }
         } finally {
             con.disconnect();

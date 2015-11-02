@@ -22,8 +22,8 @@ import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class WelcomeActivity extends AppCompatActivity {
     private ContactsController contactsController;
-    private InterestsController interestsController;
     private ProfileController profileController;
+    private InterestsController interestsController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +31,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         contactsController = ContactsController.getInstance(this);
-        interestsController = InterestsController.getInstance(this);
         profileController = ProfileController.getInstance(this);
+        interestsController = InterestsController.getInstance(this);
 
         contactsController.updateUsers();
         profileController.updateMyUser();

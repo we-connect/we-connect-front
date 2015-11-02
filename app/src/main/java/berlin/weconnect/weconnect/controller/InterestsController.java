@@ -5,9 +5,11 @@ import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.webservices.GetInterestsTask;
 
 public class InterestsController {
     // Activity
@@ -52,8 +54,12 @@ public class InterestsController {
         interests.add(new Interest("4", "Food", colors[3], R.drawable.food));
         interests.add(new Interest("5", "Education", colors[4], R.drawable.education));
 
-
         // TODO : load possible interests from backend
+        try {
+            interests = new GetInterestsTask().execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -65,11 +71,6 @@ public class InterestsController {
     public boolean isVisible(Interest interest) {
         return true;
     }
-
-    // --------------------
-    // Methods
-    // --------------------
-
 
     // --------------------
     // Methods - Util

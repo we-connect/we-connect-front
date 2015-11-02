@@ -1,13 +1,12 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -21,22 +20,7 @@ import berlin.weconnect.weconnect.model.entities.User;
 
 public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     private static final String ENCODING = "UTF-8";
-    private static final String contentType = "text/plain";
-
     private static final int RESPONSE_CODE_OKAY = 200;
-
-    private OnCompleteListener ocListener;
-
-    // --------------------
-    // Constructors
-    // --------------------
-
-    public GetUsersTask() {
-    }
-
-    public GetUsersTask(OnCompleteListener ocListener) {
-        this.ocListener = ocListener;
-    }
 
     // --------------------
     // Methods - Lifecycle
@@ -61,11 +45,6 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     @Override
     protected void onPostExecute(List<User> result) {
         super.onPostExecute(result);
-
-        if (result != null) {
-            if (ocListener != null)
-                ocListener.onGetUsers(result);
-        }
     }
 
     // --------------------
@@ -75,7 +54,7 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     /**
      * Gets all users
      *
-     * @return
+     * @return list of users
      * @throws Exception
      */
     private static List<User> getUsers() throws Exception {
@@ -91,12 +70,12 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
 
         try {
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
-                System.out.println("Error from Web API Download");
-                System.out.println("ResponseCode : " + con.getResponseCode());
-                System.out.println("ResponseMethod : " + con.getRequestMethod());
+                Log.d("GetUsersTask", "Error from Web API Download");
+                Log.d("GetUsersTask", "ResponseCode : " + con.getResponseCode());
+                Log.d("GetUsersTask", "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
+                    Log.d("GetUsersTask", entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -111,10 +90,10 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
             }
             in.close();
 
-            System.out.println(response.toString());
+            Log.d("GetUsersTask", response.toString());
 
             if (response.toString().startsWith("ArgumentException")) {
-                System.out.println(response.toString());
+                Log.d("GetUsersTask", response.toString());
                 return null;
             } else {
                 Type listType = new TypeToken<List<User>>() {}.getType();
@@ -123,33 +102,5 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
         } finally {
             con.disconnect();
         }
-    }
-
-    /**
-     * Converts an input stream to string
-     *
-     * @param inputStream input stream to be converted
-     * @return string value
-     */
-    private static String inputStreamToString(final InputStream inputStream) throws IOException {
-        final StringBuilder outputBuilder = new StringBuilder();
-
-        String string;
-        if (inputStream != null) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING));
-            while (null != (string = reader.readLine())) {
-                outputBuilder.append(string.replaceAll("\uFEFF", ""));
-            }
-        }
-
-        return outputBuilder.toString();
-    }
-
-    // --------------------
-    // Callback interfaces
-    // --------------------
-
-    public interface OnCompleteListener {
-        void onGetUsers(List<User> response);
     }
 }
