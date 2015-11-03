@@ -2,6 +2,7 @@ package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,10 +77,12 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         final TextView tvName = (TextView) llInterest.findViewById(R.id.tvName);
 
         // Set values
-        llInterest.setBackgroundColor(interest.getColor());
-        tvName.setText(interest.getName());
-        ivIcon.setImageResource(interest.getIcon());
-
+        if (interest.getColor() != 0)
+            llInterest.setBackgroundColor(interest.getColor());
+        if (interest.getName() != null)
+            tvName.setText(interest.getName());
+        if (interest.getIcon() != 0)
+            ivIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), interest.getIcon()));
 
         // Add actions
         llInterest.setOnClickListener(new View.OnClickListener() {

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
     private ContactsController contactsController;
     private ProfileController profileController;
     private InterestsController interestsController;
@@ -28,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setDisplayHomeAsUpEnabled(false);
 
         contactsController = ContactsController.getInstance(this);
         profileController = ProfileController.getInstance(this);
@@ -69,5 +72,33 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_welcome, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout: {
+                LoginManager.getInstance().logOut();
+                Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
+                startActivity(i);
+                break;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+
+        return true;
     }
 }

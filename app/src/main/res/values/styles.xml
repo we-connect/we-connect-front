@@ -9,7 +9,7 @@
     </style>
 
     <style name="ThemeOverlay.WeConnect.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/md_white_1000</item>
     </style>
 
     <style name="Widget.WeConnect.ActionBar" parent="Widget.AppCompat.ActionBar">

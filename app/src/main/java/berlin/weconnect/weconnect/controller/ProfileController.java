@@ -60,7 +60,9 @@ public class ProfileController {
             String myFacebookId = prefs.getString(activity.getResources().getString(R.string.pref_fb_facebook_id), null);
 
             setMyUser(contactsController.getUserByFacebookId(myFacebookId));
-            Log.d("User", getMyUser().getUsername());
+
+            if (getMyUser() != null)
+                Log.d("User", getMyUser().getUsername());
         }
     }
 

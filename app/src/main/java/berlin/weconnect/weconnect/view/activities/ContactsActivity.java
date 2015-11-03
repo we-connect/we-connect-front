@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.facebook.login.LoginManager;
+
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.controller.ContactsController;
+import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.view.adapters.ContactsAdapter;
 
 public class ContactsActivity extends AppCompatActivity {
@@ -48,6 +50,12 @@ public class ContactsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_settings: {
                 Intent i = new Intent(ContactsActivity.this, SettingsActivity.class);
+                startActivity(i);
+                break;
+            }
+            case R.id.menu_logout: {
+                LoginManager.getInstance().logOut();
+                Intent i = new Intent(ContactsActivity.this, LoginActivity.class);
                 startActivity(i);
                 break;
             }

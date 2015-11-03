@@ -13,6 +13,7 @@ public class Interest {
     // ------------------------
 
     public Interest(String id, String name, int color, int icon) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.icon = icon;
@@ -21,6 +22,14 @@ public class Interest {
     // ------------------------
     // Methods
     // ------------------------
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -52,13 +61,5 @@ public class Interest {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
