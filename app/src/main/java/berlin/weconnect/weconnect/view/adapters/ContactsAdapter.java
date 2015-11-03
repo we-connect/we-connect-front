@@ -83,13 +83,11 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         // Set values
         tvName.setText(user.getFirst_name());
 
-
         // Add actions
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webController.setUrl("https://facebook.com/");
-                // webController.setUrl("https://facebook.com/" + user.getFirst_name() + "." + user.getLast_name());
+                webController.setUrl(user.getFacebookUrl());
 
                 Intent openStartingPoint = new Intent(activity, WebActivity.class);
                 activity.startActivity(openStartingPoint);

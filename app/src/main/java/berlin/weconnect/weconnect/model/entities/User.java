@@ -2,6 +2,9 @@ package berlin.weconnect.weconnect.model.entities;
 
 import java.util.List;
 
+import berlin.weconnect.weconnect.App;
+import berlin.weconnect.weconnect.R;
+
 public class User {
     private Integer id;
     private String username;
@@ -30,6 +33,15 @@ public class User {
 
     public User(String username) {
         this.username = username;
+    }
+
+    /**
+     * Returns the url leading to the user's Facebook profile page
+     *
+     * @return url to user's Facebook page
+     */
+    public String getFacebookUrl() {
+        return App.getContext().getString(R.string.url_facebook);
     }
 
     // --------------------
