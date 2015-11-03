@@ -51,7 +51,10 @@ public class ContactsController {
      * @return whether user is visible or not
      */
     public boolean isVisible(User user) {
-        return true;
+        User myUser = ProfileController.getInstance(activity).getMyUser();
+
+        // Exclude logged in user from search results
+        return myUser != null && myUser.getFacebook_id() != user.getFacebook_id();
     }
 
     // --------------------

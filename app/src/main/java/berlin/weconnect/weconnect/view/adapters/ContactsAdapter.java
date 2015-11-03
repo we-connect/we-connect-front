@@ -125,7 +125,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
      * @param user user
      * @return true if item is visible
      */
-    protected boolean filterInterest(User user) {
+    protected boolean filterContact(User user) {
         return contactsController.isVisible(user);
     }
 
@@ -151,7 +151,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
             for (int i = 0; i < count; i++) {
                 final User value = values.get(i);
-                if (filterInterest(value)) {
+                if (filterContact(value)) {
                     newValues.add(value);
                 }
             }
