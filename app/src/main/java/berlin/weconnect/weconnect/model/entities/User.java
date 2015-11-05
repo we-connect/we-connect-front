@@ -28,12 +28,8 @@ public class User {
     private List<Interest> interests;
 
     // --------------------
-    // Constructors
+    // Methods
     // --------------------
-
-    public User(String username) {
-        this.username = username;
-    }
 
     /**
      * Returns the url leading to the user's Facebook profile page

@@ -1,18 +1,14 @@
 package berlin.weconnect.weconnect.controller;
 
-import android.app.Activity;
-import android.content.res.Resources;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.GetInterestsTask;
+import berlin.weconnect.weconnect.model.webservices.PostInterestsTask;
 
 public class InterestsController {
-    // Activity
-    private Activity activity;
-
     // Model
     private List<Interest> interests;
 
@@ -22,17 +18,14 @@ public class InterestsController {
     // Constructors
     // --------------------
 
-    private InterestsController(Activity activity) {
-        setActivity(activity);
+    private InterestsController() {
         init();
     }
 
-    public static InterestsController getInstance(Activity activity) {
+    public static InterestsController getInstance() {
         if (instance == null) {
-            instance = new InterestsController(activity);
+            instance = new InterestsController();
         }
-
-        instance.setActivity(activity);
 
         return instance;
     }
@@ -42,25 +35,7 @@ public class InterestsController {
     // --------------------
 
     public void init() {
-        interests = new ArrayList<>();
-
-        int[] colors = getResources().getIntArray(R.array.interests);
-
-        interests.add(new Interest("1", "Arts", colors[0], R.drawable.arts));
-        interests.add(new Interest("2", "Sports", colors[1], R.drawable.sport));
-        interests.add(new Interest("3", "Music", colors[2], R.drawable.music));
-        interests.add(new Interest("4", "Food", colors[3], R.drawable.food));
-        interests.add(new Interest("5", "Education", colors[4], R.drawable.education));
-
-        // TODO : load possible interests from backend
-
-        /*
-        try {
-            interests = new GetInterestsTask().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        */
+        callGetInterests();
     }
 
     /**
@@ -70,24 +45,36 @@ public class InterestsController {
      * @return whether interest is visible or not
      */
     public boolean isVisible(Interest interest) {
-        return true;
+        return interest != null;
     }
 
-    // --------------------
-    // Methods - Util
-    // --------------------
+    /**
+     * Calls webservice to retrieve all interests
+     */
+    public void callGetInterests() {
+        try {
+            interests = new GetInterestsTask().execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private Resources getResources() {
-        return activity.getResources();
+    /**
+     * Calls webservice to set interests of a user
+     *
+     * @param user user containing interests
+     */
+    public void callPostInterests(User user) {
+        try {
+            new PostInterestsTask().execute(user).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     // --------------------
     // Getters / Setters
     // --------------------
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
 
     public List<Interest> getInterests() {
         return interests;

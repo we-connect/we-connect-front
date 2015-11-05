@@ -15,29 +15,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.ContactsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
-import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class WelcomeActivity extends BaseActivity {
-    private ContactsController contactsController;
-    private ProfileController profileController;
+    private UsersController usersController;
     private InterestsController interestsController;
+
+    // --------------------
+    // Methods - Lifecycle
+    // --------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setDisplayHomeAsUpEnabled(false);
 
-        contactsController = ContactsController.getInstance(this);
-        profileController = ProfileController.getInstance(this);
-        interestsController = InterestsController.getInstance(this);
-
-        contactsController.updateUsers();
-        profileController.updateMyUser();
+        usersController = UsersController.getInstance();
+        interestsController = InterestsController.getInstance();
     }
 
     public void onResume() {
@@ -49,10 +47,10 @@ public class WelcomeActivity extends BaseActivity {
         Button btnContinue = (Button) findViewById(R.id.btnContinue);
 
         // Set values
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WelcomeActivity.this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         tvName.setText(prefs.getString(getResources().getString(R.string.pref_fb_username), ""));
 
-        final InterestsAdapter interestsAdapter = new InterestsAdapter(this, this, R.layout.interest, interestsController.getInterests());
+        final InterestsAdapter interestsAdapter = new InterestsAdapter(this, R.layout.interest, interestsController.getInterests());
         lvInterests.setAdapter(interestsAdapter);
 
         // Add actions
@@ -64,11 +62,12 @@ public class WelcomeActivity extends BaseActivity {
                     interests.add(i);
                 }
 
-                profileController.getMyUser().setInterests(interests);
-                profileController.writeInterests();
+                usersController.getCurrentUser().setInterests(interests);
+                interestsController.callPostInterests(usersController.getCurrentUser());
 
                 Intent i = new Intent(WelcomeActivity.this, ContactsActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

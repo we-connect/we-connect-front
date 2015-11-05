@@ -1,7 +1,6 @@
 package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.ContactsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.view.activities.WebActivity;
 
 public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
-    private ContactsController contactsController;
+    private Activity activity;
+
+    private UsersController usersController;
     private WebController webController;
 
     // Filter
@@ -32,22 +33,18 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     private UserFilter userFilter;
     private final Object lock = new Object();
 
-    private Activity activity;
-
     // --------------------
     // Constructors
     // --------------------
 
-    public ContactsAdapter(Context context, Activity activity, int resource, List<User> items) {
-        super(context, resource, items);
-
+    public ContactsAdapter(Activity activity, int resource, List<User> items) {
+        super(activity, resource, items);
+        this.activity = activity;
         this.filteredItems = items;
         this.originalItems = items;
 
-        this.activity = activity;
-
-        contactsController = ContactsController.getInstance(activity);
-        webController = WebController.getInstance(activity);
+        usersController = UsersController.getInstance();
+        webController = WebController.getInstance();
 
         filter();
     }
@@ -128,7 +125,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
      * @return true if item is visible
      */
     protected boolean filterContact(User user) {
-        return contactsController.isVisible(user);
+        return usersController.isVisible(user);
     }
 
     // --------------------
@@ -141,7 +138,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
             FilterResults results = new FilterResults();
 
             // Copy items
-            originalItems = contactsController.getUsers();
+            originalItems = usersController.getUsers();
 
             ArrayList<User> values;
             synchronized (lock) {

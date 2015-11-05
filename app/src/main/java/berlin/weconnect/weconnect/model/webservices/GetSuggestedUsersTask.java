@@ -18,7 +18,7 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<User>> {
+public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 200;
 
@@ -32,10 +32,10 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
     }
 
     @Override
-    protected List<User> doInBackground(List<Interest>... params) {
-        List<Interest> interests = params[0];
+    protected List<User> doInBackground(User... params) {
+        User user = params[0];
         try {
-            return getSuggestedUsers(interests);
+            return getSuggestedUsers(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,15 +58,16 @@ public class GetSuggestedUsersTask extends AsyncTask<List<Interest>, Void, List<
      * @return list of users
      * @throws Exception
      */
-    private static List<User> getSuggestedUsers(List<Interest> interests) throws Exception {
+    private static List<User> getSuggestedUsers(User user) throws Exception {
         // Connection
         final String URL = App.getContext().getResources().getString(R.string.url_users);
 
         StringBuilder filter = new StringBuilder();
-        if (!interests.isEmpty())
+        if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
             filter.append("?");
-        for (Interest i : interests) {
-            filter.append("filters[interests][]=").append(i.getId()).append("&");
+            for (Interest i : user.getInterests()) {
+                filter.append("filters[interests][]=").append(i.getId()).append("&");
+            }
         }
 
         HttpURLConnection con = (HttpURLConnection) new URL(URL + filter).openConnection();

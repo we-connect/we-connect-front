@@ -1,11 +1,6 @@
 package berlin.weconnect.weconnect.controller;
 
-import android.app.Activity;
-
 public class WebController {
-    // Activity
-    private Activity activity;
-
     // Model
     private String url;
 
@@ -15,17 +10,14 @@ public class WebController {
     // Constructors
     // --------------------
 
-    private WebController(Activity activity) {
-        setActivity(activity);
+    private WebController() {
         init();
     }
 
-    public static WebController getInstance(Activity activity) {
+    public static WebController getInstance() {
         if (instance == null) {
-            instance = new WebController(activity);
+            instance = new WebController();
         }
-
-        instance.setActivity(activity);
 
         return instance;
     }
@@ -40,11 +32,6 @@ public class WebController {
     // --------------------
     // Getters / Setters
     // --------------------
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
 
     public String getUrl() {
         return url;

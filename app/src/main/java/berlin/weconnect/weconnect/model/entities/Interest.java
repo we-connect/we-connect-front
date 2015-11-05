@@ -3,7 +3,6 @@ package berlin.weconnect.weconnect.model.entities;
 public class Interest {
     private String id;
     private String name;
-    private int color;
     private int icon;
 
     private transient boolean selected;
@@ -12,10 +11,9 @@ public class Interest {
     // Constructors
     // ------------------------
 
-    public Interest(String id, String name, int color, int icon) {
+    public Interest(String id, String name, int icon) {
         this.id = id;
         this.name = name;
-        this.color = color;
         this.icon = icon;
     }
 
@@ -37,14 +35,6 @@ public class Interest {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 
     public int getIcon() {

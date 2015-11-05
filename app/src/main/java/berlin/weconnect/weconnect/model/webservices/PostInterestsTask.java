@@ -12,7 +12,6 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
 public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
@@ -31,9 +30,8 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
     @Override
     protected Void doInBackground(Object... params) {
         User user = (User) params[0];
-        List<Interest> interests = (List<Interest>) params[1];
         try {
-            postInterests(user, interests);
+            postInterests(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +47,7 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
      *
      * @throws Exception
      */
-    private static void postInterests(User user, List<Interest> interests) throws Exception {
+    private static void postInterests(User user) throws Exception {
         // Connection
         final String URL = App.getContext().getResources().getString(R.string.url_userinterests);
         HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();

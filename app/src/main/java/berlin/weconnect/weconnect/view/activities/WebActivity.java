@@ -20,7 +20,7 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
-        webController = WebController.getInstance(this);
+        webController = WebController.getInstance();
     }
 
     public void onResume() {

@@ -17,8 +17,13 @@ import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.util.List;
+
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
+import berlin.weconnect.weconnect.controller.UsersController;
+import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -103,11 +108,42 @@ public class LoginActivity extends AppCompatActivity {
     private void onLoginSuccessful() {
         Resources res = activity.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        String username = prefs.getString(res.getString(R.string.pref_fb_username), "");
+        String facebookId = prefs.getString(res.getString(R.string.pref_fb_facebook_id), "");
 
+        UsersController usersController = UsersController.getInstance();
+        User user;
+
+        // Check if user already exists
+        if (usersController.getUserByFacebookId(facebookId) != null) {
+            user = usersController.getUserByFacebookId(facebookId);
+        } else {
+            user = new User();
+            user.setFacebook_id(prefs.getString(res.getString(R.string.pref_fb_facebook_id), ""));
+            user.setUsername(prefs.getString(res.getString(R.string.pref_fb_username), ""));
+            user.setFirst_name(prefs.getString(res.getString(R.string.pref_fb_firstname), ""));
+            user.setLast_name(prefs.getString(res.getString(R.string.pref_fb_lastname), ""));
+            user.setEmail(prefs.getString(res.getString(R.string.pref_fb_email), ""));
+            user.setPassword("password");
+            usersController.callPostUser(user);
+        }
+
+        // Set current user
+        usersController.setCurrentUser(user);
+
+        // Show welcome message
+        String username = prefs.getString(res.getString(R.string.pref_fb_username), "");
         Toast.makeText(LoginActivity.this, getResources().getString(R.string.logged_in_as) + " " + username, Toast.LENGTH_LONG).show();
 
-        Intent openStartingPoint = new Intent(LoginActivity.this, WelcomeActivity.class);
+        // Check if user already has defined preferred interests
+        List<Interest> interests = usersController.getCurrentUser().getInterests();
+        Class destinationActivity;
+        if (interests != null && interests.isEmpty()) {
+            destinationActivity = ContactsActivity.class;
+        } else {
+            destinationActivity = WelcomeActivity.class;
+        }
+
+        Intent openStartingPoint = new Intent(LoginActivity.this, destinationActivity);
         startActivity(openStartingPoint);
         finish();
     }

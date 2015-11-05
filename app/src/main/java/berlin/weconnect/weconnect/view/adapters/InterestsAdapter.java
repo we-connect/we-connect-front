@@ -1,7 +1,6 @@
 package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,8 @@ import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 
 public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterable {
+    private Activity activity;
+
     private InterestsController interestsController;
 
     // Filter
@@ -34,13 +35,13 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     // Constructors
     // --------------------
 
-    public InterestsAdapter(Context context, Activity activity, int resource, List<Interest> items) {
-        super(context, resource, items);
-
+    public InterestsAdapter(Activity activity, int resource, List<Interest> items) {
+        super(activity, resource, items);
+        this.activity = activity;
         this.filteredItems = items;
         this.originalItems = items;
 
-        interestsController = InterestsController.getInstance(activity);
+        interestsController = InterestsController.getInstance();
 
         filter();
     }
@@ -62,10 +63,10 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         final Interest interest = getItem(position);
-        return getCardView(position, interest, parent);
+        return getInterestView(position, interest, parent);
     }
 
-    private View getCardView(final int position, final Interest interest, final ViewGroup parent) {
+    private View getInterestView(final int position, final Interest interest, final ViewGroup parent) {
         // Layout inflater
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
@@ -77,12 +78,16 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         final TextView tvName = (TextView) llInterest.findViewById(R.id.tvName);
 
         // Set values
-        if (interest.getColor() != 0)
-            llInterest.setBackgroundColor(interest.getColor());
         if (interest.getName() != null)
             tvName.setText(interest.getName());
         if (interest.getIcon() != 0)
             ivIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), interest.getIcon()));
+        if (interest.isSelected())
+            cb.setChecked(true);
+
+        // Set color
+        int[] colors = activity.getResources().getIntArray(R.array.interests);
+        llInterest.setBackgroundColor(colors[position % colors.length]);
 
         // Add actions
         llInterest.setOnClickListener(new View.OnClickListener() {

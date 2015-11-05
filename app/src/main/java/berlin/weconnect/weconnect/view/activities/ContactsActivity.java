@@ -2,30 +2,25 @@ package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.ContactsController;
 import berlin.weconnect.weconnect.controller.FacebookController;
-import berlin.weconnect.weconnect.controller.ProfileController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.view.adapters.ContactsAdapter;
 
-public class ContactsActivity extends AppCompatActivity {
-    private ContactsController contactsController;
-    private ProfileController profileController;
+public class ContactsActivity extends BaseActivity {
+    private UsersController usersController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+        setDisplayHomeAsUpEnabled(false);
 
-        contactsController = ContactsController.getInstance(this);
-        profileController = ProfileController.getInstance(this);
-
-        profileController.readSuggestedContacts();
+        usersController = UsersController.getInstance();
+        usersController.callGetSuggestedUsers(usersController.getCurrentUser());
     }
 
     public void onResume() {
@@ -34,7 +29,7 @@ public class ContactsActivity extends AppCompatActivity {
         // Load layout
         ListView lvContacts = (ListView) findViewById(R.id.lvContacts);
 
-        final ContactsAdapter contactsAdapter = new ContactsAdapter(this, this, R.layout.contact, profileController.getSuggestedContacts());
+        final ContactsAdapter contactsAdapter = new ContactsAdapter(this, R.layout.contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);
     }
 
@@ -62,5 +57,10 @@ public class ContactsActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_contacts;
     }
 }
