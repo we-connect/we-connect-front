@@ -10,17 +10,15 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.Profile;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
-import java.util.Collections;
+import com.facebook.login.widget.LoginButton;
 
 import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.controller.FacebookController;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,16 +40,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        LoginButton btnLogin = (LoginButton) findViewById(R.id.btnLogin);
+
         // Check if user is already logged in to Facebook with this app
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if (FacebookController.getInstance(this).isLoggedIn()) {
             writeProfileToPrefs(Profile.getCurrentProfile());
             onLoginSuccessful();
         }
 
-        // Handle callback from login manager
-        LoginManager.getInstance().logInWithReadPermissions(this, Collections.singletonList("public_profile"));
         callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 writeProfileToPrefs(Profile.getCurrentProfile());
@@ -88,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = prefs.edit();
 
+            editor.putBoolean(res.getString(R.string.pref_fb_logged_in), true);
             editor.putString(res.getString(R.string.pref_fb_facebook_id), id);
             editor.putString(res.getString(R.string.pref_fb_username), name);
             editor.putString(res.getString(R.string.pref_fb_firstname), firstName);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -78,15 +79,18 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
         // Load views
         final LinearLayout llUser = (LinearLayout) vi.inflate(R.layout.contact, parent, false);
+        final ImageView ivProfile = (ImageView) llUser.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
 
         // Set values
+        // ivProfile.setImageURI(user.getProfilePictureUrl());
         tvName.setText(user.getFirst_name());
 
         // Add actions
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO : go to details page instead
                 webController.setUrl(user.getFacebookUrl());
 
                 Intent openStartingPoint = new Intent(activity, WebActivity.class);

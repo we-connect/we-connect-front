@@ -11,13 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facebook.login.LoginManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.ContactsController;
+import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.ProfileController;
 import berlin.weconnect.weconnect.model.entities.Interest;
@@ -89,9 +88,7 @@ public class WelcomeActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout: {
-                LoginManager.getInstance().logOut();
-                Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(i);
+                FacebookController.getInstance(this).logout();
                 break;
             }
             default: {

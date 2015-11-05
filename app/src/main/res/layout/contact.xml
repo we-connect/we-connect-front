@@ -29,12 +29,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/md_white_1000"
             android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/llInterestIcons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
     </LinearLayout>
 
 </LinearLayout>
