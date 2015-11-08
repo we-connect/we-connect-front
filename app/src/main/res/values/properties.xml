@@ -1,6 +1,8 @@
 <resources>
     <string name="url_facebook">"https://facebook.com/"</string>
     <string name="url_users">http://ec2-52-23-165-65.compute-1.amazonaws.com/api/users</string>
-    <string name="url_userinterests">http://ec2-52-23-165-65.compute-1.amazonaws.com/api/userinterests</string>
+    <string name="url_userinterests">http://ec2-52-23-165-65.compute-1..amazonaws.com/api/userinterests</string>
     <string name="url_interests">http://ec2-52-23-165-65.compute-1.amazonaws.com/api/interests</string>
+
+    <integer name="refresh_delay">500</integer>
 </resources>

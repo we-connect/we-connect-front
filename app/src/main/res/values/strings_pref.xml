@@ -1,6 +1,5 @@
 <resources>
         <string name="pref_fb_logged_in" translatable="false">pref_fb_logged_in</string>
-        <string name="pref_fb_app_id" translatable="false">pref_fb_app_id</string>
         <string name="pref_fb_facebook_id" translatable="false">pref_fb_facebook_id</string>
         <string name="pref_fb_username" translatable="false">pref_fb_username</string>
         <string name="pref_fb_firstname" translatable="false">pref_fb_firstname</string>

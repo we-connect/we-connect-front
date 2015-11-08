@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:gravity="start"
             android:scaleType="fitStart"
+            android:contentDescription="@string/desc_toolbar_logo"
             android:src="@drawable/weconnect_logo"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 

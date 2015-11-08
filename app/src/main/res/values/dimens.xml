@@ -3,18 +3,18 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Floating action button -->
+    <dimen name="hide_cushion">10dp</dimen>
+
     <!-- Toolbar -->
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_image_width">140dp</dimen>
-    <dimen name="toolbar_image_padding">17dp</dimen>
-    <dimen name="toolbar_text_padding">13dp</dimen>
     <dimen name="toolbar_auto_hide_min_y">80dp</dimen>
-    <dimen name="toolbar_auto_hide_sensivity">48dp</dimen>
+    <dimen name="toolbar_auto_hide_sensitivity">48dp</dimen>
     <dimen name="swipe_refresh_progress_bar_start_margin">-40dp</dimen>
     <dimen name="swipe_refresh_progress_bar_end_margin">16dp</dimen>
 
     <!-- Login -->
-    <dimen name="logo_margin">50dp</dimen>
     <dimen name="logo_height">200dp</dimen>
     <dimen name="subtitleMargin">40dp</dimen>
     <dimen name="text_size_subtitle">40sp</dimen>
@@ -29,6 +29,9 @@
     <dimen name="interest_text_margin">10dp</dimen>
     <dimen name="button_margin">10dp</dimen>
     <dimen name="button_padding">10dp</dimen>
+
+    <!-- Contacts -->
+    <dimen name="text_padding_top">10dp</dimen>
 
     <dimen name="contact_height">70dp</dimen>
     <dimen name="contact_margin">20dp</dimen>

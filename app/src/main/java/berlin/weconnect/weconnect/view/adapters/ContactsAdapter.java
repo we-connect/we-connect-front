@@ -2,6 +2,7 @@ package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,8 +117,9 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
                     activity.startActivity(facebookAppIntent);
                 }
                 */
+                Resources res = activity.getResources();
 
-                webController.setUrl("https://facebook.com/" + user.getFacebook_id());
+                webController.setUrl(res.getString(R.string.url_facebook) + user.getFacebook_id());
                 facebookAppIntent = new Intent(activity, WebActivity.class);
                 activity.startActivity(facebookAppIntent);
             }

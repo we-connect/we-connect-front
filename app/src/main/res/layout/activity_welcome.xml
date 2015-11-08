@@ -29,7 +29,7 @@
                 android:text="@string/welcome_to_we_connect"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/md_white_1000"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_welcome" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:text="@string/name"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/md_white_1000"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_welcome" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:text="@string/what_are_you_interested_in"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/md_white_1000"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_welcome"
                 android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
             android:background="@color/button_green"
             android:padding="@dimen/button_padding"
             android:text="@string/continue_"
-            android:textColor="@color/md_white_1000"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <LinearLayout
