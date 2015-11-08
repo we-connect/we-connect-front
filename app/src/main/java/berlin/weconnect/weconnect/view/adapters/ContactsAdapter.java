@@ -2,6 +2,7 @@ package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
 import berlin.weconnect.weconnect.view.activities.WebActivity;
 
 public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
@@ -80,8 +83,20 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
 
         // Set values
-        // ivProfile.setImageURI(user.getProfilePictureUrl());
-        tvName.setText(user.getFirst_name());
+        if (user.getFacebook_id() != null) {
+            Bitmap bmp = null;
+            try {
+                bmp = new FacebookGetProfilePictureTask().execute(user.getFacebook_id()).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            if (bmp != null)
+                ivProfile.setImageBitmap(bmp);
+        }
+
+        if (user.getFirst_name() != null)
+            tvName.setText(user.getFirst_name());
 
         // Add actions
         llUser.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +140,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
      * @return true if item is visible
      */
     protected boolean filterContact(User user) {
-        return usersController.isVisible(user);
+        return true; /*usersController.isVisible(user);*/
     }
 
     // --------------------
@@ -138,7 +153,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
             FilterResults results = new FilterResults();
 
             // Copy items
-            originalItems = usersController.getUsers();
+            originalItems = usersController.getSuggestedUsers();
 
             ArrayList<User> values;
             synchronized (lock) {

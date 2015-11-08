@@ -138,9 +138,9 @@ public class LoginActivity extends AppCompatActivity {
         List<Interest> interests = usersController.getCurrentUser().getInterests();
         Class destinationActivity;
         if (interests != null && interests.isEmpty()) {
-            destinationActivity = ContactsActivity.class;
-        } else {
             destinationActivity = WelcomeActivity.class;
+        } else {
+            destinationActivity = ContactsActivity.class;
         }
 
         Intent openStartingPoint = new Intent(LoginActivity.this, destinationActivity);

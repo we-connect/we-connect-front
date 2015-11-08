@@ -1,5 +1,6 @@
 package berlin.weconnect.weconnect.model.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.App;
@@ -26,6 +27,14 @@ public class User {
     private String locale;
 
     private List<Interest> interests;
+
+    // --------------------
+    // Constructors
+    // --------------------
+
+    public User() {
+        interests = new ArrayList<>();
+    }
 
     // --------------------
     // Methods
