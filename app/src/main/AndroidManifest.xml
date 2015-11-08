@@ -40,7 +40,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activities.WebActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".view.activities.ContactsActivity"/>
     </application>
 
 </manifest>

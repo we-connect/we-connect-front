@@ -1,10 +1,10 @@
 package berlin.weconnect.weconnect.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.GetSuggestedUsersTask;
 import berlin.weconnect.weconnect.model.webservices.GetUsersTask;
 import berlin.weconnect.weconnect.model.webservices.PostUserTask;
 
@@ -47,8 +47,10 @@ public class UsersController {
      * @return whether user is visible or not
      */
     public boolean isVisible(User user) {
-        // Exclude logged in user from search results
-        return getCurrentUser() != null && !getCurrentUser().getFacebook_id().equals(user.getFacebook_id());
+        boolean isCurrentUser = getCurrentUser() != null && getCurrentUser().getFacebook_id().equals(user.getFacebook_id());
+        boolean isDummyUser = user != null && (user.getFirst_name() == null || user.getFacebook_id() == null);
+
+        return !isCurrentUser && !isDummyUser;
     }
 
     /**
@@ -81,18 +83,11 @@ public class UsersController {
      * @param user user to find matches for
      */
     public void callGetSuggestedUsers(User user) {
-        /*
         try {
-            suggestedUsers = new GetSuggestedUsersTask().execute(user).get();
+            setSuggestedUsers(new GetSuggestedUsersTask().execute(user).get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        */
-
-        suggestedUsers = new ArrayList<>();
-
-        // TODO : remove test user
-        suggestedUsers.add(getCurrentUser());
     }
 
     /**

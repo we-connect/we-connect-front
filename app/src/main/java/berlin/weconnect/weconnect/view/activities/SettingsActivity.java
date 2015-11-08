@@ -63,11 +63,6 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.activity_settings;
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_welcome, menu);
         return true;
@@ -80,6 +75,9 @@ public class SettingsActivity extends BaseActivity {
                 FacebookController.getInstance(this).logout();
                 break;
             }
+            case android.R.id.home: {
+                finish();
+            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
@@ -87,4 +85,10 @@ public class SettingsActivity extends BaseActivity {
 
         return true;
     }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_settings;
+    }
+
 }

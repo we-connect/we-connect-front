@@ -102,11 +102,24 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : go to details page instead
-                webController.setUrl(user.getFacebookUrl());
+                Intent facebookAppIntent;
+                /*
+                try {
+                    // TODO : find way to open profile page in Facebook app
+                    // facebookAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + user.getFacebook_id()));
+                    // facebookAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + user.getFacebook_id()));
+                    // facebookAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=" + user.getFacebook_id()));
+                    // activity.startActivity(facebookAppIntent);
+                } catch (ActivityNotFoundException e) {
+                    // Open standard browser calling Facebook page
+                    facebookAppIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://facebook.com/" + user.getFacebook_id()));
+                    activity.startActivity(facebookAppIntent);
+                }
+                */
 
-                Intent openStartingPoint = new Intent(activity, WebActivity.class);
-                activity.startActivity(openStartingPoint);
+                webController.setUrl("https://facebook.com/" + user.getFacebook_id());
+                facebookAppIntent = new Intent(activity, WebActivity.class);
+                activity.startActivity(facebookAppIntent);
             }
         });
 
@@ -140,7 +153,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
      * @return true if item is visible
      */
     protected boolean filterContact(User user) {
-        return true; /*usersController.isVisible(user);*/
+        return usersController.isVisible(user);
     }
 
     // --------------------

@@ -20,7 +20,7 @@ public class ContactsActivity extends BaseActivity {
         setDisplayHomeAsUpEnabled(false);
 
         usersController = UsersController.getInstance();
-        usersController.callGetSuggestedUsers(usersController.getCurrentUser());
+
     }
 
     public void onResume() {
@@ -28,6 +28,9 @@ public class ContactsActivity extends BaseActivity {
 
         // Load layout
         ListView lvContacts = (ListView) findViewById(R.id.lvContacts);
+
+        // Load suggested contacts
+        usersController.callGetSuggestedUsers(usersController.getCurrentUser());
 
         final ContactsAdapter contactsAdapter = new ContactsAdapter(this, R.layout.contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);

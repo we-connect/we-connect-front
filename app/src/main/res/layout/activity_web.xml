@@ -6,15 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".WebActivity">
 
-    <WebView
-        android:id="@+id/wbFacebook"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:baselineAlignBottom="true"
-        android:contentDescription="@string/desc_logo"
-        android:src="@drawable/weconnect_logo"
-        android:textAlignment="center" />
+        android:orientation="vertical"
+        android:paddingTop="@dimen/toolbar_height">
 
+        <WebView
+            android:id="@+id/wbFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAlignBottom="true"
+            android:contentDescription="@string/desc_logo"
+            android:src="@drawable/weconnect_logo"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbar_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <FrameLayout
+            android:id="@+id/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="@drawable/bottom_shadow" />
+    </LinearLayout>
 </RelativeLayout>
