@@ -60,8 +60,7 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     private static List<User> getUsers() throws Exception {
         // Connection
         final String URL = App.getContext().getResources().getString(R.string.url_users);
-        String info = "?infos[interests]";
-        HttpURLConnection con = (HttpURLConnection) new URL(URL + info).openConnection();
+        HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();
 
         // Request header
         con.setRequestMethod("GET");

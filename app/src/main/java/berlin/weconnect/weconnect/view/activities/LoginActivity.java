@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             String firstName = profile.getFirstName();
             String lastName = profile.getLastName();
             Uri profileUri = profile.getLinkUri();
-            Uri profilePictureUri = profile.getProfilePictureUri(50, 50);
+            Uri profilePictureUri = profile.getProfilePictureUri(100, 100);
 
             Resources res = LoginActivity.this.getResources();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString(res.getString(R.string.pref_fb_username), name);
             editor.putString(res.getString(R.string.pref_fb_firstname), firstName);
             editor.putString(res.getString(R.string.pref_fb_lastname), lastName);
+            editor.putString(res.getString(R.string.pref_fb_email), id + "@weconnect.berlin");
             editor.putString(res.getString(R.string.pref_fb_profile_uri), profileUri.getPath());
             editor.putString(res.getString(R.string.pref_fb_profile_picture_uri), profilePictureUri.getPath());
             editor.apply();
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             user.setLast_name(prefs.getString(res.getString(R.string.pref_fb_lastname), ""));
             user.setEmail(prefs.getString(res.getString(R.string.pref_fb_email), ""));
             user.setPassword("password");
+            user.setEnabled(true);
             usersController.callPostUser(user);
         }
 

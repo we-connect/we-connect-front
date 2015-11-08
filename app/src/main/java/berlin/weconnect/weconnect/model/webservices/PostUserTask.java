@@ -3,8 +3,11 @@ package berlin.weconnect.weconnect.model.webservices;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -16,7 +19,7 @@ import berlin.weconnect.weconnect.model.entities.User;
 
 public class PostUserTask extends AsyncTask<User, Void, Void> {
     private static final String ENCODING = "UTF-8";
-    private static final int RESPONSE_CODE_OKAY = 200;
+    private static final int RESPONSE_CODE_OKAY = 201;
 
     // --------------------
     // Methods - Lifecycle
@@ -29,7 +32,7 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
 
     @Override
     protected Void doInBackground(User... params) {
-        User user = (User) params[0];
+        User user = params[0];
         try {
             postUser(user);
         } catch (Exception e) {
@@ -54,16 +57,22 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
 
         // Request header
         con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=" + ENCODING);
+        con.setDoInput(true);
+        con.setRequestProperty("Content-Type", "application/json; charset=" + ENCODING);
         con.setRequestProperty("Accept-Charset", ENCODING);
 
-        // TODO : fill body
+        // Add JSON
+        String json = new Gson().toJson(user, User.class);
+        OutputStreamWriter out = new   OutputStreamWriter(con.getOutputStream());
+        out.write(json);
+        out.close();
 
         try {
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
-                Log.d("PostInterestsTask", "Error from Web API Download");
-                Log.d("PostInterestsTask", "ResponseCode : " + con.getResponseCode());
-                Log.d("PostInterestsTask", "ResponseMethod : " + con.getRequestMethod());
+                Log.d("PostUserTask", "Error from Web API Download");
+                Log.d("PostUserTask", json);
+                Log.d("PostUserTask", "ResponseCode : " + con.getResponseCode());
+                Log.d("PostUserTask", "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
                     Log.d("PostUserTask", entry.getKey() + " : " + entry.getValue());

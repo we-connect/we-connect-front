@@ -28,6 +28,9 @@ public class User {
 
     private List<Interest> interests;
 
+    private transient String profileUrl;
+    private transient String profilePictureUrl;
+
     // --------------------
     // Constructors
     // --------------------
@@ -203,5 +206,21 @@ public class User {
 
     public void setInterests(List<Interest> interests) {
         this.interests = interests;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 }

@@ -45,7 +45,6 @@
                 android:id="@+id/tvInterests"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:text="@string/what_are_you_interested_in"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
