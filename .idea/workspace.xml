@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6dee36a-e482-453f-bd26-be074b8760c4" name="Default" comment="" />
+    <list default="true" id="b57cd12f-4d15-428f-8ab4-3a4bd229530a" name="Default" comment="" />
     <ignored path="we-connect-front.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,6 +27,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
         <projects_view />
       </state>
     </system>
@@ -31,70 +39,168 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/LoginActivity.java">
+      <file leaf-file-name="activity_gender.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_gender.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.254818">
-              <caret line="111" column="42" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
+            <state vertical-scroll-proportion="-2.1272728">
+              <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
               <folding>
-                <element signature="e#2144#2168#0" expanded="true" />
-                <element signature="e#2348#2369#0" expanded="true" />
-                <element signature="e#3207#3248#0" expanded="true" />
-                <element signature="e#3286#3329#0" expanded="true" />
-                <element signature="e#3365#3405#0" expanded="true" />
-                <element signature="e#3443#3484#0" expanded="true" />
-                <element signature="e#3527#3567#0" expanded="true" />
-                <element signature="e#3609#3646#0" expanded="true" />
-                <element signature="e#3704#3747#0" expanded="true" />
-                <element signature="e#3801#3852#0" expanded="true" />
-                <element signature="e#4231#4274#0" expanded="true" />
-                <element signature="e#4650#4693#0" expanded="true" />
-                <element signature="e#4746#4786#0" expanded="true" />
-                <element signature="e#4841#4882#0" expanded="true" />
-                <element signature="e#4936#4976#0" expanded="true" />
-                <element signature="e#5026#5063#0" expanded="true" />
-                <element signature="e#5356#5396#0" expanded="true" />
-                <element signature="e#5446#5493#0" expanded="true" />
+                <element signature="e#887#920#0" expanded="true" />
+                <element signature="e#952#987#0" expanded="true" />
+                <element signature="e#1021#1056#0" expanded="true" />
+                <element signature="e#1088#1111#0" expanded="true" />
+                <element signature="e#1326#1359#0" expanded="true" />
+                <element signature="e#1389#1420#0" expanded="true" />
+                <element signature="e#1626#1651#0" expanded="true" />
+                <element signature="e#1853#1867#0" expanded="true" />
+                <element signature="e#2073#2098#0" expanded="true" />
+                <element signature="e#2311#2338#0" expanded="true" />
+                <element signature="e#2544#2569#0" expanded="true" />
+                <element signature="e#2776#2802#0" expanded="true" />
+                <element signature="e#2847#2874#0" expanded="true" />
+                <element signature="e#2916#2942#0" expanded="true" />
+                <element signature="e#2986#3012#0" expanded="true" />
+                <element signature="e#3054#3081#0" expanded="true" />
+                <element signature="e#3224#3251#0" expanded="true" />
+                <element signature="e#3370#3392#0" expanded="true" />
+                <element signature="e#3435#3457#0" expanded="true" />
+                <element signature="e#3561#3585#0" expanded="true" />
+                <element signature="e#3946#3973#0" expanded="true" />
+                <element signature="e#4007#4032#0" expanded="true" />
+                <element signature="e#4401#4427#0" expanded="true" />
+                <element signature="e#4472#4499#0" expanded="true" />
+                <element signature="e#4541#4567#0" expanded="true" />
+                <element signature="e#4611#4637#0" expanded="true" />
+                <element signature="e#4679#4706#0" expanded="true" />
+                <element signature="e#4849#4876#0" expanded="true" />
+                <element signature="e#4992#5014#0" expanded="true" />
+                <element signature="e#5057#5079#0" expanded="true" />
+                <element signature="e#5183#5207#0" expanded="true" />
+                <element signature="e#5565#5592#0" expanded="true" />
+                <element signature="e#5626#5648#0" expanded="true" />
+                <element signature="e#6292#6317#0" expanded="true" />
+                <element signature="e#6520#6546#0" expanded="true" />
+                <element signature="e#6591#6618#0" expanded="true" />
+                <element signature="e#6660#6686#0" expanded="true" />
+                <element signature="e#6730#6756#0" expanded="true" />
+                <element signature="e#6798#6825#0" expanded="true" />
+                <element signature="e#6968#6995#0" expanded="true" />
+                <element signature="e#7110#7132#0" expanded="true" />
+                <element signature="e#7175#7197#0" expanded="true" />
+                <element signature="e#7301#7325#0" expanded="true" />
+                <element signature="e#7682#7709#0" expanded="true" />
+                <element signature="e#7743#7757#0" expanded="true" />
+                <element signature="e#8127#8153#0" expanded="true" />
+                <element signature="e#8198#8225#0" expanded="true" />
+                <element signature="e#8267#8293#0" expanded="true" />
+                <element signature="e#8337#8363#0" expanded="true" />
+                <element signature="e#8405#8432#0" expanded="true" />
+                <element signature="e#8575#8602#0" expanded="true" />
+                <element signature="e#8719#8741#0" expanded="true" />
+                <element signature="e#8784#8806#0" expanded="true" />
+                <element signature="e#8910#8934#0" expanded="true" />
+                <element signature="e#9293#9320#0" expanded="true" />
+                <element signature="e#9354#9370#0" expanded="true" />
+                <element signature="e#9783#9804#0" expanded="true" />
+                <element signature="e#10010#10035#0" expanded="true" />
+                <element signature="e#10248#10274#0" expanded="true" />
+                <element signature="e#10319#10346#0" expanded="true" />
+                <element signature="e#10388#10414#0" expanded="true" />
+                <element signature="e#10458#10484#0" expanded="true" />
+                <element signature="e#10526#10553#0" expanded="true" />
+                <element signature="e#10696#10723#0" expanded="true" />
+                <element signature="e#10848#10870#0" expanded="true" />
+                <element signature="e#10913#10935#0" expanded="true" />
+                <element signature="e#11039#11063#0" expanded="true" />
+                <element signature="e#11430#11457#0" expanded="true" />
+                <element signature="e#11491#11517#0" expanded="true" />
+                <element signature="e#11890#11916#0" expanded="true" />
+                <element signature="e#11961#11988#0" expanded="true" />
+                <element signature="e#12030#12056#0" expanded="true" />
+                <element signature="e#12100#12126#0" expanded="true" />
+                <element signature="e#12168#12195#0" expanded="true" />
+                <element signature="e#12338#12365#0" expanded="true" />
+                <element signature="e#12485#12507#0" expanded="true" />
+                <element signature="e#12550#12572#0" expanded="true" />
+                <element signature="e#12676#12700#0" expanded="true" />
+                <element signature="e#13062#13089#0" expanded="true" />
+                <element signature="e#13123#13142#0" expanded="true" />
+                <element signature="e#13562#13584#0" expanded="true" />
+                <element signature="e#13677#13700#0" expanded="true" />
+                <element signature="e#13730#13749#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostUserTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/webservices/PostUserTask.java">
+      <file leaf-file-name="BaseActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/BaseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/entities/User.java">
+      <file leaf-file-name="SwipeRefreshBaseActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/SwipeRefreshBaseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="209" column="0" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+              <caret line="37" column="66" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="radio_button.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/radio_button.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.3076923">
+              <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dimens.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.8461537">
+              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenderActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/GenderActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3041145">
+              <caret line="117" column="21" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
               <folding>
-                <element signature="e#1282#1331#0" expanded="true" />
-                <element signature="e#1653#1654#0" expanded="true" />
-                <element signature="e#1693#1694#0" expanded="true" />
-                <element signature="e#2009#2010#0" expanded="true" />
-                <element signature="e#2043#2044#0" expanded="true" />
-                <element signature="e#3244#3245#0" expanded="true" />
-                <element signature="e#3278#3279#0" expanded="true" />
-                <element signature="e#4361#4362#0" expanded="true" />
-                <element signature="e#4393#4394#0" expanded="true" />
-                <element signature="e#4451#4452#0" expanded="true" />
-                <element signature="e#4493#4494#0" expanded="true" />
-                <element signature="e#4530#4531#0" expanded="true" />
-                <element signature="e#4563#4564#0" expanded="true" />
-                <element signature="e#4615#4616#0" expanded="true" />
-                <element signature="e#4659#4660#0" expanded="true" />
-                <element signature="e#4703#4704#0" expanded="true" />
-                <element signature="e#4743#4744#0" expanded="true" />
+                <element signature="e#2733#2784#0" expanded="true" />
+                <element signature="e#3754#3916#0" expanded="true" />
+                <element signature="e#3915#3916#0" expanded="true" />
+                <element signature="e#3955#4152#0" expanded="true" />
+                <element signature="e#4151#4152#0" expanded="true" />
+                <element signature="e#4190#4350#0" expanded="true" />
+                <element signature="e#4349#4350#0" expanded="true" />
+                <element signature="e#4579#4580#0" expanded="true" />
+                <element signature="e#6259#6260#0" expanded="true" />
+                <element signature="e#6306#6307#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Translations Editor" pinned="false" current-in-tab="false">
+        <entry file="android-dummy://C:\Users\Florian\git\we-connect-front/app/Translations Editor">
+          <provider selected="true" editor-type-id="string-resource-editor">
+            <state />
           </provider>
         </entry>
       </file>
@@ -1622,10 +1728,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/webservices/GetUsersTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/entities/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/webservices/PostUserTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/radio_button.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_gender.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/radio_button_checked.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/GenderActivity.java" />
       </list>
     </option>
   </component>
@@ -1661,8 +1769,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1679,6 +1785,46 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="we-connect-front" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="we-connect-front" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1732,10 +1878,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adapters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1786,10 +1928,6 @@
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1812,11 +1950,27 @@
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="we-connect-front" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1834,6 +1988,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.sdk.path" value="C:/Android/sdk" />
     <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0A3C202B04006014" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Jelly" />
     <property name="dynamic.classpath" value="false" />
@@ -1883,6 +2038,31 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -1964,19 +2144,48 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="Please select a project..." />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="Please select a project..." />
       <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="Cloud configuration not specified" />
       <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="Cloud configuration not specified" />
       <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="clean" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Android Application.app" />
+      <item index="1" class="java.lang.String" itemvalue="Gradle.clean" />
+      <item index="2" class="java.lang.String" itemvalue="Groovy.Unnamed" />
     </list>
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -1989,10 +2198,10 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a6dee36a-e482-453f-bd26-be074b8760c4" name="Default" comment="" />
-      <created>1447016562085</created>
+      <changelist id="b57cd12f-4d15-428f-8ab4-3a4bd229530a" name="Default" comment="" />
+      <created>1447112896784</created>
       <option name="number" value="Default" />
-      <updated>1447016562085</updated>
+      <updated>1447112896784</updated>
     </task>
     <servers />
   </component>
@@ -2001,22 +2210,23 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4241908" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4241908" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37621358" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39863715" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15672913" sideWeight="0.4969743" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616695" sideWeight="0.49394855" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43270868" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43270868" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5030257" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5060514" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Debug with JRebel for Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37594554" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="JRebel for Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5093697" sideWeight="0.4969743" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22617246" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="JRebel for Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.4969743" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -2039,75 +2249,215 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/app/src/main/res/drawable/radio_button_checked.xml</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/webservices/GetUsersTask.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings_pref.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3649374">
-          <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/webservices/PostUserTask.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36561266">
+          <caret line="16" column="45" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="android-dummy://C:\Users\Florian\git\we-connect-front/app/Translations Editor">
+      <provider selected="true" editor-type-id="string-resource-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/SwipeRefreshBaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+          <caret line="37" column="66" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_gender.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1272728">
+          <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
+          <folding>
+            <element signature="e#887#920#0" expanded="true" />
+            <element signature="e#952#987#0" expanded="true" />
+            <element signature="e#1021#1056#0" expanded="true" />
+            <element signature="e#1088#1111#0" expanded="true" />
+            <element signature="e#1326#1359#0" expanded="true" />
+            <element signature="e#1389#1420#0" expanded="true" />
+            <element signature="e#1626#1651#0" expanded="true" />
+            <element signature="e#1853#1867#0" expanded="true" />
+            <element signature="e#2073#2098#0" expanded="true" />
+            <element signature="e#2311#2338#0" expanded="true" />
+            <element signature="e#2544#2569#0" expanded="true" />
+            <element signature="e#2776#2802#0" expanded="true" />
+            <element signature="e#2847#2874#0" expanded="true" />
+            <element signature="e#2916#2942#0" expanded="true" />
+            <element signature="e#2986#3012#0" expanded="true" />
+            <element signature="e#3054#3081#0" expanded="true" />
+            <element signature="e#3224#3251#0" expanded="true" />
+            <element signature="e#3370#3392#0" expanded="true" />
+            <element signature="e#3435#3457#0" expanded="true" />
+            <element signature="e#3561#3585#0" expanded="true" />
+            <element signature="e#3946#3973#0" expanded="true" />
+            <element signature="e#4007#4032#0" expanded="true" />
+            <element signature="e#4401#4427#0" expanded="true" />
+            <element signature="e#4472#4499#0" expanded="true" />
+            <element signature="e#4541#4567#0" expanded="true" />
+            <element signature="e#4611#4637#0" expanded="true" />
+            <element signature="e#4679#4706#0" expanded="true" />
+            <element signature="e#4849#4876#0" expanded="true" />
+            <element signature="e#4992#5014#0" expanded="true" />
+            <element signature="e#5057#5079#0" expanded="true" />
+            <element signature="e#5183#5207#0" expanded="true" />
+            <element signature="e#5565#5592#0" expanded="true" />
+            <element signature="e#5626#5648#0" expanded="true" />
+            <element signature="e#6292#6317#0" expanded="true" />
+            <element signature="e#6520#6546#0" expanded="true" />
+            <element signature="e#6591#6618#0" expanded="true" />
+            <element signature="e#6660#6686#0" expanded="true" />
+            <element signature="e#6730#6756#0" expanded="true" />
+            <element signature="e#6798#6825#0" expanded="true" />
+            <element signature="e#6968#6995#0" expanded="true" />
+            <element signature="e#7110#7132#0" expanded="true" />
+            <element signature="e#7175#7197#0" expanded="true" />
+            <element signature="e#7301#7325#0" expanded="true" />
+            <element signature="e#7682#7709#0" expanded="true" />
+            <element signature="e#7743#7757#0" expanded="true" />
+            <element signature="e#8127#8153#0" expanded="true" />
+            <element signature="e#8198#8225#0" expanded="true" />
+            <element signature="e#8267#8293#0" expanded="true" />
+            <element signature="e#8337#8363#0" expanded="true" />
+            <element signature="e#8405#8432#0" expanded="true" />
+            <element signature="e#8575#8602#0" expanded="true" />
+            <element signature="e#8719#8741#0" expanded="true" />
+            <element signature="e#8784#8806#0" expanded="true" />
+            <element signature="e#8910#8934#0" expanded="true" />
+            <element signature="e#9293#9320#0" expanded="true" />
+            <element signature="e#9354#9370#0" expanded="true" />
+            <element signature="e#9783#9804#0" expanded="true" />
+            <element signature="e#10010#10035#0" expanded="true" />
+            <element signature="e#10248#10274#0" expanded="true" />
+            <element signature="e#10319#10346#0" expanded="true" />
+            <element signature="e#10388#10414#0" expanded="true" />
+            <element signature="e#10458#10484#0" expanded="true" />
+            <element signature="e#10526#10553#0" expanded="true" />
+            <element signature="e#10696#10723#0" expanded="true" />
+            <element signature="e#10848#10870#0" expanded="true" />
+            <element signature="e#10913#10935#0" expanded="true" />
+            <element signature="e#11039#11063#0" expanded="true" />
+            <element signature="e#11430#11457#0" expanded="true" />
+            <element signature="e#11491#11517#0" expanded="true" />
+            <element signature="e#11890#11916#0" expanded="true" />
+            <element signature="e#11961#11988#0" expanded="true" />
+            <element signature="e#12030#12056#0" expanded="true" />
+            <element signature="e#12100#12126#0" expanded="true" />
+            <element signature="e#12168#12195#0" expanded="true" />
+            <element signature="e#12338#12365#0" expanded="true" />
+            <element signature="e#12485#12507#0" expanded="true" />
+            <element signature="e#12550#12572#0" expanded="true" />
+            <element signature="e#12676#12700#0" expanded="true" />
+            <element signature="e#13062#13089#0" expanded="true" />
+            <element signature="e#13123#13142#0" expanded="true" />
+            <element signature="e#13562#13584#0" expanded="true" />
+            <element signature="e#13677#13700#0" expanded="true" />
+            <element signature="e#13730#13749#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/radio_button_checked.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22326455">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding>
+            <element signature="e#207#229#0" expanded="true" />
+            <element signature="e#261#283#0" expanded="true" />
+            <element signature="e#582#621#0" expanded="true" />
+            <element signature="e#643#682#0" expanded="true" />
+            <element signature="e#705#744#0" expanded="true" />
+            <element signature="e#765#804#0" expanded="true" />
+            <element signature="e#891#927#0" expanded="true" />
+            <element signature="e#959#995#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/radio_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3076923">
+          <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.8461537">
+          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/EGender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.060822897">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/model/entities/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="209" column="0" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-          <folding>
-            <element signature="e#1282#1331#0" expanded="true" />
-            <element signature="e#1653#1654#0" expanded="true" />
-            <element signature="e#1693#1694#0" expanded="true" />
-            <element signature="e#2009#2010#0" expanded="true" />
-            <element signature="e#2043#2044#0" expanded="true" />
-            <element signature="e#3244#3245#0" expanded="true" />
-            <element signature="e#3278#3279#0" expanded="true" />
-            <element signature="e#4361#4362#0" expanded="true" />
-            <element signature="e#4393#4394#0" expanded="true" />
-            <element signature="e#4451#4452#0" expanded="true" />
-            <element signature="e#4493#4494#0" expanded="true" />
-            <element signature="e#4530#4531#0" expanded="true" />
-            <element signature="e#4563#4564#0" expanded="true" />
-            <element signature="e#4615#4616#0" expanded="true" />
-            <element signature="e#4659#4660#0" expanded="true" />
-            <element signature="e#4703#4704#0" expanded="true" />
-            <element signature="e#4743#4744#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.21288015">
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/berlin/weconnect/weconnect/view/activities/GenderActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.254818">
-          <caret line="111" column="42" selection-start-line="111" selection-start-column="42" selection-end-line="111" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.3041145">
+          <caret line="117" column="21" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
           <folding>
-            <element signature="e#2144#2168#0" expanded="true" />
-            <element signature="e#2348#2369#0" expanded="true" />
-            <element signature="e#3207#3248#0" expanded="true" />
-            <element signature="e#3286#3329#0" expanded="true" />
-            <element signature="e#3365#3405#0" expanded="true" />
-            <element signature="e#3443#3484#0" expanded="true" />
-            <element signature="e#3527#3567#0" expanded="true" />
-            <element signature="e#3609#3646#0" expanded="true" />
-            <element signature="e#3704#3747#0" expanded="true" />
-            <element signature="e#3801#3852#0" expanded="true" />
-            <element signature="e#4231#4274#0" expanded="true" />
-            <element signature="e#4650#4693#0" expanded="true" />
-            <element signature="e#4746#4786#0" expanded="true" />
-            <element signature="e#4841#4882#0" expanded="true" />
-            <element signature="e#4936#4976#0" expanded="true" />
-            <element signature="e#5026#5063#0" expanded="true" />
-            <element signature="e#5356#5396#0" expanded="true" />
-            <element signature="e#5446#5493#0" expanded="true" />
+            <element signature="e#2733#2784#0" expanded="true" />
+            <element signature="e#3754#3916#0" expanded="true" />
+            <element signature="e#3915#3916#0" expanded="true" />
+            <element signature="e#3955#4152#0" expanded="true" />
+            <element signature="e#4151#4152#0" expanded="true" />
+            <element signature="e#4190#4350#0" expanded="true" />
+            <element signature="e#4349#4350#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
+            <element signature="e#6259#6260#0" expanded="true" />
+            <element signature="e#6306#6307#0" expanded="true" />
           </folding>
         </state>
       </provider>

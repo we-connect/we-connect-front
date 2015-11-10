@@ -1,27 +1,24 @@
 package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
-public class WelcomeActivity extends BaseActivity {
+public class InterestsActivity extends BaseActivity {
     private UsersController usersController;
     private InterestsController interestsController;
 
@@ -42,14 +39,10 @@ public class WelcomeActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        TextView tvName = (TextView) findViewById(R.id.tvName);
-        ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
-        Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        final ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
+        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
 
         // Set values
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        tvName.setText(prefs.getString(getResources().getString(R.string.pref_fb_username), ""));
-
         final InterestsAdapter interestsAdapter = new InterestsAdapter(this, R.layout.interest, interestsController.getInterests());
         lvInterests.setAdapter(interestsAdapter);
 
@@ -65,7 +58,7 @@ public class WelcomeActivity extends BaseActivity {
                 usersController.getCurrentUser().setInterests(interests);
                 interestsController.callPostInterests(usersController.getCurrentUser());
 
-                Intent i = new Intent(WelcomeActivity.this, ContactsActivity.class);
+                Intent i = new Intent(InterestsActivity.this, ContactsActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -74,12 +67,12 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_welcome;
+        return R.layout.activity_interests;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_welcome, menu);
+        getMenuInflater().inflate(R.menu.activity_interests, menu);
         return true;
     }
 
