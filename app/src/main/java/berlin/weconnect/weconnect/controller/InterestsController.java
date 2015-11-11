@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.model.entities.Interest;
-import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.GetInterestsTask;
-import berlin.weconnect.weconnect.model.webservices.PostInterestsTask;
 
 public class InterestsController {
     // Model
@@ -49,24 +47,11 @@ public class InterestsController {
     }
 
     /**
-     * Calls webservice to retrieve all interests
+     * Calls webservice to get interests
      */
     public void callGetInterests() {
         try {
             interests = new GetInterestsTask().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Calls webservice to set interests of a user
-     *
-     * @param user user containing interests
-     */
-    public void callPostInterests(User user) {
-        try {
-            new PostInterestsTask().execute(user).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

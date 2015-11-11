@@ -3,12 +3,8 @@ package berlin.weconnect.weconnect.model.webservices;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -16,14 +12,13 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
-    private static final String TAG = "GetSuggestedUsersTask";
+public class DeleteUserTask extends AsyncTask<User, Void, Void> {
+    private static final String TAG = "DeleteUserTask";
 
     private static final String ENCODING = "UTF-8";
-    private static final int RESPONSE_CODE_OKAY = 200;
+    private static final int RESPONSE_CODE_OKAY = 204;
 
     // --------------------
     // Methods - Lifecycle
@@ -35,24 +30,14 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     }
 
     @Override
-    protected List<User> doInBackground(User... params) {
+    protected Void doInBackground(User... params) {
         User user = params[0];
         try {
-            return getSuggestedUsers(user);
+            deleteUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(List<User> result) {
-        super.onPostExecute(result);
-
-        for (User user : result) {
-            Log.d(TAG, user.toString());
-        }
     }
 
     // --------------------
@@ -60,31 +45,20 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     // --------------------
 
     /**
-     * Gets all users filtered
+     * Updates a user's interests
      *
-     * @return list of users
      * @throws Exception
      */
-    private static List<User> getSuggestedUsers(User user) throws Exception {
+    private static void deleteUser(User user) throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
-        final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
-
-        StringBuilder filter = new StringBuilder();
-        if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
-            filter.append("?");
-            for (Interest i : user.getInterests()) {
-                filter.append("filters[interests][]=").append(i.getId()).append("&");
-            }
-        }
-
-        final URL url = new URL(host + api + resources + filter);
-
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_users);
+        final URL url = new URL(host + api + resources + "/" + user.getId());
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
-        con.setRequestMethod("GET");
+        con.setRequestMethod("DELETE");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=" + ENCODING);
         con.setRequestProperty("Accept-Charset", ENCODING);
 
@@ -112,15 +86,9 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
             }
             in.close();
 
-            Log.d(TAG, response.toString());
 
             if (response.toString().startsWith("ArgumentException")) {
                 Log.e(TAG, response.toString());
-                return null;
-            } else {
-                Type listType = new TypeToken<List<User>>() {
-                }.getType();
-                return new Gson().fromJson(response.toString(), listType);
             }
         } finally {
             con.disconnect();

@@ -65,11 +65,24 @@ public class UsersController {
     }
 
     /**
-     * Calls webservice to create a new user
+     * Calls webservice to post a user
      *
-     * @param user user to be created
+     * @param user user to be posted
      */
     public void callPostUser(User user) {
+        try {
+            new PostUserTask().execute(user).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Calls webservice to delete a user
+     *
+     * @param user user to be deleted
+     */
+    public void callDeleteUser(User user) {
         try {
             new PostUserTask().execute(user).get();
         } catch (InterruptedException | ExecutionException e) {
@@ -100,6 +113,7 @@ public class UsersController {
         if (getUsers() != null) {
             for (User u : getUsers()) {
                 if (u.getFacebook_id() != null && u.getFacebook_id().equals(facebookId)) {
+                    u.updateInterests();
                     return u;
                 }
             }

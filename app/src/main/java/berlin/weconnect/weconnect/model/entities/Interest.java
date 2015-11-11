@@ -17,8 +17,16 @@ public class Interest {
         this.icon = icon;
     }
 
-    // ------------------------
+    // --------------------
     // Methods
+    // --------------------
+
+    public String toString() {
+        return "[Interest " + getId() + " " + getName() + "]";
+    }
+
+    // ------------------------
+    // Getters / Setters
     // ------------------------
 
     public String getId() {

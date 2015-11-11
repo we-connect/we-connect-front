@@ -3,8 +3,7 @@ package berlin.weconnect.weconnect.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import berlin.weconnect.weconnect.App;
-import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.controller.UserInterestsController;
 
 public class User {
     private Integer id;
@@ -26,8 +25,7 @@ public class User {
     private String date_register;
     private String locale;
 
-    private List<Interest> interests;
-
+    private transient List<Interest> interests;
     private transient String profileUrl;
     private transient String profilePictureUrl;
 
@@ -35,7 +33,7 @@ public class User {
     // Constructors
     // --------------------
 
-    public User() {
+    public User () {
         interests = new ArrayList<>();
     }
 
@@ -43,13 +41,12 @@ public class User {
     // Methods
     // --------------------
 
-    /**
-     * Returns the url leading to the user's Facebook profile page
-     *
-     * @return url to user's Facebook page
-     */
-    public String getFacebookUrl() {
-        return App.getContext().getString(R.string.url_facebook);
+    public void updateInterests() {
+        interests = UserInterestsController.getInstance().getInterestsByUser(this);
+    }
+
+    public String toString() {
+        return "[User " + getId() + " " + getUsername() + "]";
     }
 
     // --------------------

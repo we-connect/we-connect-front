@@ -63,7 +63,7 @@ public class WelcomeActivity extends BaseActivity {
                 }
 
                 usersController.getCurrentUser().setInterests(interests);
-                interestsController.callPostInterests(usersController.getCurrentUser());
+                // TODO : update user interests via webservice call
 
                 Intent i = new Intent(WelcomeActivity.this, ContactsActivity.class);
                 startActivity(i);

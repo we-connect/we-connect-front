@@ -3,12 +3,11 @@ package berlin.weconnect.weconnect.model.webservices;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -19,11 +18,11 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
-    private static final String TAG = "GetSuggestedUsersTask";
+public class PostUserInterestTask extends AsyncTask<Object, Void, Void> {
+    private static final String TAG = "PostUserInterestTask";
 
     private static final String ENCODING = "UTF-8";
-    private static final int RESPONSE_CODE_OKAY = 200;
+    private static final int RESPONSE_CODE_OKAY = 201;
 
     // --------------------
     // Methods - Lifecycle
@@ -35,24 +34,15 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     }
 
     @Override
-    protected List<User> doInBackground(User... params) {
-        User user = params[0];
+    protected Void doInBackground(Object... params) {
+        User user = (User) params[0];
+        Interest interest = (Interest) params[1];
         try {
-            return getSuggestedUsers(user);
+            postInterest(user, interest);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(List<User> result) {
-        super.onPostExecute(result);
-
-        for (User user : result) {
-            Log.d(TAG, user.toString());
-        }
     }
 
     // --------------------
@@ -60,36 +50,33 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     // --------------------
 
     /**
-     * Gets all users filtered
+     * Updates a user's interests
      *
-     * @return list of users
      * @throws Exception
      */
-    private static List<User> getSuggestedUsers(User user) throws Exception {
+    private static void postInterest(User user, Interest interest) throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
-        final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
-
-        StringBuilder filter = new StringBuilder();
-        if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
-            filter.append("?");
-            for (Interest i : user.getInterests()) {
-                filter.append("filters[interests][]=").append(i.getId()).append("&");
-            }
-        }
-
-        final URL url = new URL(host + api + resources + filter);
-
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_userinterests);
+        final URL url = new URL(host + api + resources);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
-        con.setRequestMethod("GET");
+        con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=" + ENCODING);
         con.setRequestProperty("Accept-Charset", ENCODING);
 
+        // Add JSON
+        JSONObject jsonParam = new JSONObject();
+        jsonParam.put("user", user.getId());
+        jsonParam.put("interest", interest.getId());
+        OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+        out.write(jsonParam.toString());
+        out.close();
+
         try {
-            Log.d(TAG, "Call " + url.toString());
+            Log.d(TAG, "Call " + url.toString() + " with " + jsonParam.toString());
 
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
                 Log.e(TAG, "Error from Web API");
@@ -97,7 +84,7 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
                 Log.e(TAG, "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    Log.e(TAG, entry.getKey() + " : " + entry.getValue());
+                    Log.e("PostInterestsTask", entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -112,15 +99,9 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
             }
             in.close();
 
-            Log.d(TAG, response.toString());
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.e(TAG, response.toString());
-                return null;
-            } else {
-                Type listType = new TypeToken<List<User>>() {
-                }.getType();
-                return new Gson().fromJson(response.toString(), listType);
+                Log.d("PostInterestsTask", response.toString());
             }
         } finally {
             con.disconnect();

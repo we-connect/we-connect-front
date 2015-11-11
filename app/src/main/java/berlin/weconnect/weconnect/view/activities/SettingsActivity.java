@@ -56,7 +56,7 @@ public class SettingsActivity extends BaseActivity {
                 }
 
                 usersController.getCurrentUser().setInterests(interests);
-                interestsController.callPostInterests(usersController.getCurrentUser());
+                // TODO : update user interests via webservice call
                 finish();
             }
         });

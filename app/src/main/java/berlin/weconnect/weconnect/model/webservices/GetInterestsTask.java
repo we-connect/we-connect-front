@@ -19,6 +19,8 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
 
 public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
+    private static final String TAG = "GetInterests";
+
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 200;
 
@@ -45,6 +47,10 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
     @Override
     protected void onPostExecute(List<Interest> result) {
         super.onPostExecute(result);
+
+        for (Interest interest : result) {
+            Log.d(TAG, interest.toString());
+        }
     }
 
     // --------------------
@@ -59,8 +65,11 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
      */
     private static List<Interest> getInterests() throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_interests);
-        HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();
+        final String host = App.getContext().getResources().getString(R.string.backend_host);
+        final String api = App.getContext().getResources().getString(R.string.backend_api);
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
+        final URL url = new URL(host + api + resources);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
         con.setRequestMethod("GET");
@@ -68,13 +77,15 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
         con.setRequestProperty("Accept-Charset", ENCODING);
 
         try {
+            Log.d(TAG, "Call " + url.toString());
+
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
-                Log.d("GetInterestsTask", "Error from Web API Download");
-                Log.d("GetInterestsTask", "ResponseCode : " + con.getResponseCode());
-                Log.d("GetInterestsTask", "ResponseMethod : " + con.getRequestMethod());
+                Log.e(TAG, "Error from Web API");
+                Log.e(TAG, "ResponseCode : " + con.getResponseCode());
+                Log.e(TAG, "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    Log.d("GetInterestsTask", entry.getKey() + " : " + entry.getValue());
+                    Log.e(TAG, entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -89,10 +100,10 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
             }
             in.close();
 
-            Log.d("GetInterestsTask", response.toString());
+            Log.d(TAG, response.toString());
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.d("GetInterestsTask", response.toString());
+                Log.d(TAG, response.toString());
                 return null;
             } else {
                 Type listType = new TypeToken<List<Interest>>() {}.getType();

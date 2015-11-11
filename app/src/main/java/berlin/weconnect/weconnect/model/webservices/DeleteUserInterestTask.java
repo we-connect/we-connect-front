@@ -12,11 +12,13 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.entities.UserInterest;
 
-public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
+public class DeleteUserInterestTask extends AsyncTask<UserInterest, Void, Void> {
+    private static final String TAG = "DeleteUserInterestTask";
+
     private static final String ENCODING = "UTF-8";
-    private static final int RESPONSE_CODE_OKAY = 200;
+    private static final int RESPONSE_CODE_OKAY = 204;
 
     // --------------------
     // Methods - Lifecycle
@@ -28,10 +30,10 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Object... params) {
-        User user = (User) params[0];
+    protected Void doInBackground(UserInterest... params) {
+        UserInterest userInterest = params[0];
         try {
-            postInterests(user);
+            deleteUserInterest(userInterest);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,26 +49,29 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
      *
      * @throws Exception
      */
-    private static void postInterests(User user) throws Exception {
+    private static void deleteUserInterest(UserInterest userInterest) throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_userinterests);
-        HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();
+        final String host = App.getContext().getResources().getString(R.string.backend_host);
+        final String api = App.getContext().getResources().getString(R.string.backend_api);
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_userinterests);
+        final URL url = new URL(host + api + resources + "/" + userInterest.getId());
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
-        con.setRequestMethod("POST");
+        con.setRequestMethod("DELETE");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=" + ENCODING);
         con.setRequestProperty("Accept-Charset", ENCODING);
 
-        // TODO : fill body
-
         try {
+            Log.d(TAG, "Call " + url.toString());
+
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
-                Log.d("PostInterestsTask", "Error from Web API Download");
-                Log.d("PostInterestsTask", "ResponseCode : " + con.getResponseCode());
-                Log.d("PostInterestsTask", "ResponseMethod : " + con.getRequestMethod());
+                Log.e(TAG, "Error from Web API");
+                Log.e(TAG, "ResponseCode : " + con.getResponseCode());
+                Log.e(TAG, "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    Log.d("PostInterestsTask", entry.getKey() + " : " + entry.getValue());
+                    Log.e(TAG, entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -83,7 +88,7 @@ public class PostInterestsTask extends AsyncTask<Object, Void, Void> {
 
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.d("PostInterestsTask", response.toString());
+                Log.e(TAG, response.toString());
             }
         } finally {
             con.disconnect();

@@ -18,6 +18,8 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.User;
 
 public class PostUserTask extends AsyncTask<User, Void, Void> {
+    private static final String TAG = "PostUserTask";
+
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 201;
 
@@ -52,8 +54,11 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
      */
     private static void postUser(User user) throws Exception {
         // Connection
-        final String URL = App.getContext().getResources().getString(R.string.url_users);
-        HttpURLConnection con = (HttpURLConnection) new URL(URL).openConnection();
+        final String host = App.getContext().getResources().getString(R.string.backend_host);
+        final String api = App.getContext().getResources().getString(R.string.backend_api);
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_users);
+        final URL url = new URL(host + api + resources);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
         con.setRequestMethod("POST");
@@ -68,14 +73,15 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
         out.close();
 
         try {
+            Log.d(TAG, "Call " + url.toString() + " with " + json);
+
             if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
-                Log.d("PostUserTask", "Error from Web API Download");
-                Log.d("PostUserTask", json);
-                Log.d("PostUserTask", "ResponseCode : " + con.getResponseCode());
-                Log.d("PostUserTask", "ResponseMethod : " + con.getRequestMethod());
+                Log.e(TAG, "Error from Web API");
+                Log.e(TAG, "ResponseCode : " + con.getResponseCode());
+                Log.e(TAG, "ResponseMethod : " + con.getRequestMethod());
 
                 for (Map.Entry<String, List<String>> entry : con.getHeaderFields().entrySet()) {
-                    Log.d("PostUserTask", entry.getKey() + " : " + entry.getValue());
+                    Log.e(TAG, entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
             }
@@ -92,7 +98,7 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
 
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.d("PostUserTask", response.toString());
+                Log.d(TAG, response.toString());
             }
         } finally {
             con.disconnect();

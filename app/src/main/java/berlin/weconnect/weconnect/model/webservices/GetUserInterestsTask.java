@@ -16,11 +16,10 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.Interest;
-import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.entities.UserInterest;
 
-public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
-    private static final String TAG = "GetSuggestedUsersTask";
+public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInterest>> {
+    private static final String TAG = "GetUserInterests";
 
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 200;
@@ -35,10 +34,9 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     }
 
     @Override
-    protected List<User> doInBackground(User... params) {
-        User user = params[0];
+    protected List<UserInterest> doInBackground(Void... params) {
         try {
-            return getSuggestedUsers(user);
+            return getUserInterests();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,11 +45,11 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     }
 
     @Override
-    protected void onPostExecute(List<User> result) {
+    protected void onPostExecute(List<UserInterest> result) {
         super.onPostExecute(result);
 
-        for (User user : result) {
-            Log.d(TAG, user.toString());
+        for (UserInterest userInterest : result) {
+            Log.d(TAG, userInterest.toString());
         }
     }
 
@@ -60,27 +58,17 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     // --------------------
 
     /**
-     * Gets all users filtered
+     * Gets all user interests
      *
-     * @return list of users
+     * @return list of user interests
      * @throws Exception
      */
-    private static List<User> getSuggestedUsers(User user) throws Exception {
+    private static List<UserInterest> getUserInterests() throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
         final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
-
-        StringBuilder filter = new StringBuilder();
-        if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
-            filter.append("?");
-            for (Interest i : user.getInterests()) {
-                filter.append("filters[interests][]=").append(i.getId()).append("&");
-            }
-        }
-
-        final URL url = new URL(host + api + resources + filter);
-
+        final URL url = new URL(host + api + resources);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         // Request header
@@ -115,11 +103,10 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
             Log.d(TAG, response.toString());
 
             if (response.toString().startsWith("ArgumentException")) {
-                Log.e(TAG, response.toString());
+                Log.d(TAG, response.toString());
                 return null;
             } else {
-                Type listType = new TypeToken<List<User>>() {
-                }.getType();
+                Type listType = new TypeToken<List<UserInterest>>() {}.getType();
                 return new Gson().fromJson(response.toString(), listType);
             }
         } finally {
