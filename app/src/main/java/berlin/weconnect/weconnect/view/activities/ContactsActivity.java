@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
@@ -18,7 +20,6 @@ import berlin.weconnect.weconnect.view.adapters.ContactsAdapter;
 
 public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     private UsersController usersController;
-
     private ContactsAdapter contactsAdapter;
 
     // Properties
@@ -42,12 +43,12 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
         final LinearLayout toolbarWrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 
-        // Load suggested contacts
         usersController.callGetSuggestedUsers(usersController.getCurrentUser());
 
         contactsAdapter = new ContactsAdapter(this, R.layout.contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);
 
+        srl.setEnabled(false);
         srl.setOnRefreshListener(this);
         srl.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
 
@@ -63,7 +64,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings: {
                 Intent i = new Intent(ContactsActivity.this, SettingsActivity.class);
@@ -114,6 +115,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
             super.onPreExecute();
         }
 
+        @Nullable
         @Override
         protected Void doInBackground(Void... params) {
             // Load suggested contacts

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     private WebController webController;
 
     // Filter
+    @NonNull
     private List<User> filteredItems = new ArrayList<>();
     private List<User> originalItems = new ArrayList<>();
     private UserFilter userFilter;
@@ -41,7 +43,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     // Constructors
     // --------------------
 
-    public ContactsAdapter(Activity activity, int resource, List<User> items) {
+    public ContactsAdapter(Activity activity, int resource, @NonNull List<User> items) {
         super(activity, resource, items);
         this.activity = activity;
         this.filteredItems = items;
@@ -67,13 +69,15 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         return filteredItems.get(position);
     }
 
+    @NonNull
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         final User user = getItem(position);
         return getView(position, user, parent);
     }
 
-    private View getView(final int position, final User user, final ViewGroup parent) {
+    @NonNull
+    private View getView(final int position, @NonNull final User user, final ViewGroup parent) {
         // Layout inflater
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
@@ -84,11 +88,11 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
 
         // Set values
-        if (user.getFacebook_id() != null) {
+        if (user.getFacebookId() != null) {
             Bitmap bmp = null;
             try {
-                bmp = new FacebookGetProfilePictureTask().execute(user.getFacebook_id()).get();
-            } catch (InterruptedException | ExecutionException e) {
+                bmp = new FacebookGetProfilePictureTask().execute(user.getFacebookId()).get();
+            } catch (@NonNull InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
 
@@ -96,8 +100,8 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
                 ivProfile.setImageBitmap(bmp);
         }
 
-        if (user.getFirst_name() != null)
-            tvName.setText(user.getFirst_name());
+        if (user.getFirstName() != null)
+            tvName.setText(user.getFirstName());
 
         // Add actions
         llUser.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +123,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
                 */
                 Resources res = activity.getResources();
 
-                webController.setUrl(res.getString(R.string.url_facebook) + user.getFacebook_id());
+                webController.setUrl(res.getString(R.string.url_facebook) + user.getFacebookId());
                 facebookAppIntent = new Intent(activity, WebActivity.class);
                 activity.startActivity(facebookAppIntent);
             }
@@ -132,6 +136,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     // Methods - Filter
     // --------------------
 
+    @NonNull
     public List<User> getFilteredItems() {
         return filteredItems;
     }
@@ -163,6 +168,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     // --------------------
 
     public class UserFilter extends Filter {
+        @NonNull
         @Override
         protected FilterResults performFiltering(CharSequence prefix) {
             FilterResults results = new FilterResults();
@@ -193,7 +199,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
         @Override
         @SuppressWarnings("unchecked")
-        protected void publishResults(CharSequence constraint, FilterResults results) {
+        protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
             filteredItems = (List<User>) results.values;
 
             if (results.count > 0) {

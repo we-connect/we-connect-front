@@ -1,5 +1,8 @@
 package berlin.weconnect.weconnect.controller;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -42,7 +45,7 @@ public class InterestsController {
      * @param interest interest to determine visibility of
      * @return whether interest is visible or not
      */
-    public boolean isVisible(Interest interest) {
+    public boolean isVisible(@Nullable Interest interest) {
         return interest != null;
     }
 
@@ -52,7 +55,7 @@ public class InterestsController {
     public void callGetInterests() {
         try {
             interests = new GetInterestsTask().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }

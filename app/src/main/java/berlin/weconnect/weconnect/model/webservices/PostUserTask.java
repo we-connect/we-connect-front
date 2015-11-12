@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class PostUserTask extends AsyncTask<User, Void, Void> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected Void doInBackground(User... params) {
         User user = params[0];

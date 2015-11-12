@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,18 @@ import java.util.List;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
 
 public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterable {
     private Activity activity;
 
+    private UsersController usersController;
     private InterestsController interestsController;
 
     // Filter
+    @NonNull
     private List<Interest> filteredItems = new ArrayList<>();
     private List<Interest> originalItems = new ArrayList<>();
     private InterestFilter interestFilter;
@@ -35,12 +40,13 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     // Constructors
     // --------------------
 
-    public InterestsAdapter(Activity activity, int resource, List<Interest> items) {
+    public InterestsAdapter(Activity activity, int resource, @NonNull List<Interest> items) {
         super(activity, resource, items);
         this.activity = activity;
         this.filteredItems = items;
         this.originalItems = items;
 
+        usersController = UsersController.getInstance();
         interestsController = InterestsController.getInstance();
 
         filter();
@@ -60,13 +66,15 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         return filteredItems.get(position);
     }
 
+    @NonNull
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         final Interest interest = getItem(position);
         return getInterestView(position, interest, parent);
     }
 
-    private View getInterestView(final int position, final Interest interest, final ViewGroup parent) {
+    @NonNull
+    private View getInterestView(final int position, @NonNull final Interest interest, final ViewGroup parent) {
         // Layout inflater
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
@@ -77,12 +85,14 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         final ImageView ivIcon = (ImageView) llInterest.findViewById(R.id.ivIcon);
         final TextView tvName = (TextView) llInterest.findViewById(R.id.tvName);
 
+        final User user = usersController.getCurrentUser();
+
         // Set values
         if (interest.getName() != null)
             tvName.setText(interest.getName());
         if (interest.getIcon() != 0)
             ivIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), interest.getIcon()));
-        if (interest.isSelected())
+        if (user.hasInterest(interest))
             cb.setChecked(true);
 
         // Set color
@@ -95,12 +105,14 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
             public void onClick(View v) {
                 cb.toggle();
                 interest.setSelected(cb.isChecked());
+                user.updateInterest(interest);
             }
         });
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 interest.setSelected(cb.isChecked());
+                user.updateInterest(interest);
             }
         });
 
@@ -111,6 +123,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     // Methods - Filter
     // --------------------
 
+    @NonNull
     public List<Interest> getFilteredItems() {
         return filteredItems;
     }
@@ -142,6 +155,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     // --------------------
 
     public class InterestFilter extends Filter {
+        @NonNull
         @Override
         protected FilterResults performFiltering(CharSequence prefix) {
             FilterResults results = new FilterResults();
@@ -172,7 +186,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
 
         @Override
         @SuppressWarnings("unchecked")
-        protected void publishResults(CharSequence constraint, FilterResults results) {
+        protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
             filteredItems = (List<Interest>) results.values;
 
             if (results.count > 0) {

@@ -1,6 +1,8 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -15,10 +17,9 @@ import java.util.Map;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.entities.Interest;
-import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.entities.UserInterest;
 
-public class PostUserInterestTask extends AsyncTask<Object, Void, Void> {
+public class PostUserInterestTask extends AsyncTask<UserInterest, Void, Void> {
     private static final String TAG = "PostUserInterestTask";
 
     private static final String ENCODING = "UTF-8";
@@ -33,12 +34,12 @@ public class PostUserInterestTask extends AsyncTask<Object, Void, Void> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
-    protected Void doInBackground(Object... params) {
-        User user = (User) params[0];
-        Interest interest = (Interest) params[1];
+    protected Void doInBackground(UserInterest... params) {
+        UserInterest userInterest = params[0];
         try {
-            postInterest(user, interest);
+            postUserInterest(userInterest);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +55,7 @@ public class PostUserInterestTask extends AsyncTask<Object, Void, Void> {
      *
      * @throws Exception
      */
-    private static void postInterest(User user, Interest interest) throws Exception {
+    private static void postUserInterest(@NonNull UserInterest userInterest) throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
@@ -64,13 +65,13 @@ public class PostUserInterestTask extends AsyncTask<Object, Void, Void> {
 
         // Request header
         con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=" + ENCODING);
+        con.setRequestProperty("Content-Type", "application/json; charset=" + ENCODING);
         con.setRequestProperty("Accept-Charset", ENCODING);
 
         // Add JSON
         JSONObject jsonParam = new JSONObject();
-        jsonParam.put("user", user.getId());
-        jsonParam.put("interest", interest.getId());
+        jsonParam.put("user", userInterest.getUser().getId());
+        jsonParam.put("interest", userInterest.getInterest().getId());
         OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
         out.write(jsonParam.toString());
         out.close();

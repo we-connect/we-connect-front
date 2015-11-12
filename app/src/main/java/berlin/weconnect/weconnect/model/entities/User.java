@@ -1,28 +1,30 @@
 package berlin.weconnect.weconnect.model.entities;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.controller.UserInterestsController;
 
 public class User {
-    private Integer id;
+    private String id;
     private String username;
-    private String username_canonical;
+    private String usernameCanonical;
     private String email;
-    private String email_canonical;
+    private String emailCanonical;
     private boolean enabled;
     private String salt;
     private String password;
-    private String last_login;
+    private String lastLogin;
     private boolean locked;
     private boolean expired;
     private List<String> roles;
-    private boolean credential_expires;
-    private String facebook_id;
-    private String first_name;
-    private String last_name;
-    private String date_register;
+    private boolean credentialExpires;
+    private String facebookId;
+    private String firstName;
+    private String lastName;
+    private String dateRegister;
     private String locale;
 
     private transient List<Interest> interests;
@@ -33,7 +35,7 @@ public class User {
     // Constructors
     // --------------------
 
-    public User () {
+    public User() {
         interests = new ArrayList<>();
     }
 
@@ -41,10 +43,41 @@ public class User {
     // Methods
     // --------------------
 
+    /**
+     * Loads user's interests
+     */
     public void updateInterests() {
         interests = UserInterestsController.getInstance().getInterestsByUser(this);
     }
 
+    public void updateInterest(@NonNull Interest interest) {
+        UserInterestsController userInterestsController = UserInterestsController.getInstance();
+
+        UserInterest userInterest = userInterestsController.getUserInterestByUserAndInterest(this, interest);
+
+        if (!interest.isSelected() && userInterest != null) {
+            userInterestsController.delete(userInterest);
+        }else if (interest.isSelected()) {
+            userInterest = new UserInterest();
+            userInterest.setUser(this);
+            userInterest.setInterest(interest);
+            userInterestsController.post(userInterest);
+        }
+
+        userInterestsController.get();
+        updateInterests();
+    }
+
+    public boolean hasInterest(@NonNull Interest interest) {
+        for (Interest i : getInterests()) {
+            if (i.getId().equals(interest.getId()))
+                return true;
+        }
+
+        return false;
+    }
+
+    @NonNull
     public String toString() {
         return "[User " + getId() + " " + getUsername() + "]";
     }
@@ -53,11 +86,11 @@ public class User {
     // Getters / Setters
     // --------------------
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -69,12 +102,12 @@ public class User {
         this.username = username;
     }
 
-    public String getUsername_canonical() {
-        return username_canonical;
+    public String getUsernameCanonical() {
+        return usernameCanonical;
     }
 
-    public void setUsername_canonical(String username_canonical) {
-        this.username_canonical = username_canonical;
+    public void setUsernameCanonical(String usernameCanonical) {
+        this.usernameCanonical = usernameCanonical;
     }
 
     public String getEmail() {
@@ -85,12 +118,12 @@ public class User {
         this.email = email;
     }
 
-    public String getEmail_canonical() {
-        return email_canonical;
+    public String getEmailCanonical() {
+        return emailCanonical;
     }
 
-    public void setEmail_canonical(String email_canonical) {
-        this.email_canonical = email_canonical;
+    public void setEmailCanonical(String emailCanonical) {
+        this.emailCanonical = emailCanonical;
     }
 
     public boolean isEnabled() {
@@ -117,12 +150,12 @@ public class User {
         this.password = password;
     }
 
-    public String getLast_login() {
-        return last_login;
+    public String getLastLogin() {
+        return lastLogin;
     }
 
-    public void setLast_login(String last_login) {
-        this.last_login = last_login;
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public boolean isLocked() {
@@ -149,44 +182,44 @@ public class User {
         this.roles = roles;
     }
 
-    public boolean isCredential_expires() {
-        return credential_expires;
+    public boolean isCredentialExpires() {
+        return credentialExpires;
     }
 
-    public void setCredential_expires(boolean credential_expires) {
-        this.credential_expires = credential_expires;
+    public void setCredentialExpires(boolean credentialExpires) {
+        this.credentialExpires = credentialExpires;
     }
 
-    public String getFacebook_id() {
-        return facebook_id;
+    public String getFacebookId() {
+        return facebookId;
     }
 
-    public void setFacebook_id(String facebook_id) {
-        this.facebook_id = facebook_id;
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getDate_register() {
-        return date_register;
+    public String getDateRegister() {
+        return dateRegister;
     }
 
-    public void setDate_register(String date_register) {
-        this.date_register = date_register;
+    public void setDateRegister(String date_register) {
+        this.dateRegister = dateRegister;
     }
 
     public String getLocale() {

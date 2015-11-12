@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,14 +12,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
-import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class WelcomeActivity extends BaseActivity {
@@ -57,14 +54,6 @@ public class WelcomeActivity extends BaseActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Interest> interests = new ArrayList<>();
-                for (Interest i : interestsAdapter.getFilteredItems()) {
-                    interests.add(i);
-                }
-
-                usersController.getCurrentUser().setInterests(interests);
-                // TODO : update user interests via webservice call
-
                 Intent i = new Intent(WelcomeActivity.this, ContactsActivity.class);
                 startActivity(i);
                 finish();
@@ -84,7 +73,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();

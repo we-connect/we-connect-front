@@ -1,5 +1,7 @@
 package berlin.weconnect.weconnect.view.activities;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -12,7 +14,9 @@ import berlin.weconnect.weconnect.R;
 
 public abstract class SwipeRefreshBaseActivity extends BaseActivity {
     // View
+    @NonNull
     private ArrayList<View> hideableHeaderViews = new ArrayList<>();
+    @NonNull
     private ArrayList<View> hideableFooterViews = new ArrayList<>();
 
     private int actionBarAutoHideSensivity = 0;
@@ -35,7 +39,7 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity {
         actionBarAutoHideSensivity = getResources().getDimensionPixelSize(R.dimen.toolbar_auto_hide_sensitivity);
     }
 
-    protected void enableActionBarAutoHide(final ListView listView) {
+    protected void enableActionBarAutoHide(@NonNull final ListView listView) {
         initActionBarAutoHide();
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             final static int ITEMS_THRESHOLD = 1;
@@ -127,7 +131,7 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity {
         }
     }
 
-    protected void updateSwipeRefreshProgressBarTop(SwipeRefreshLayout srl) {
+    protected void updateSwipeRefreshProgressBarTop(@Nullable SwipeRefreshLayout srl) {
         if (srl == null) {
             return;
         }

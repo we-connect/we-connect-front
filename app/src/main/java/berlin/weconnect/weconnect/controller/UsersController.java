@@ -1,5 +1,8 @@
 package berlin.weconnect.weconnect.controller;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -46,9 +49,9 @@ public class UsersController {
      * @param user user to determine visibility of
      * @return whether user is visible or not
      */
-    public boolean isVisible(User user) {
-        boolean isCurrentUser = getCurrentUser() != null && getCurrentUser().getFacebook_id().equals(user.getFacebook_id());
-        boolean isDummyUser = user != null && (user.getFirst_name() == null || user.getFacebook_id() == null);
+    public boolean isVisible(@NonNull User user) {
+        boolean isCurrentUser = getCurrentUser() != null && getCurrentUser().getFacebookId().equals(user.getFacebookId());
+        boolean isDummyUser = user != null && (user.getUsername() == null || user.getFacebookId() == null);
 
         return !isCurrentUser && !isDummyUser;
     }
@@ -59,7 +62,7 @@ public class UsersController {
     public void callGetUsers() {
         try {
             users = new GetUsersTask().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -72,7 +75,7 @@ public class UsersController {
     public void callPostUser(User user) {
         try {
             new PostUserTask().execute(user).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -85,7 +88,7 @@ public class UsersController {
     public void callDeleteUser(User user) {
         try {
             new PostUserTask().execute(user).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -98,7 +101,7 @@ public class UsersController {
     public void callGetSuggestedUsers(User user) {
         try {
             setSuggestedUsers(new GetSuggestedUsersTask().execute(user).get());
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -109,10 +112,11 @@ public class UsersController {
      * @param facebookId Facebook id
      * @return user
      */
+    @Nullable
     public User getUserByFacebookId(String facebookId) {
         if (getUsers() != null) {
             for (User u : getUsers()) {
-                if (u.getFacebook_id() != null && u.getFacebook_id().equals(facebookId)) {
+                if (u.getFacebookId() != null && u.getFacebookId().equals(facebookId)) {
                     u.updateInterests();
                     return u;
                 }

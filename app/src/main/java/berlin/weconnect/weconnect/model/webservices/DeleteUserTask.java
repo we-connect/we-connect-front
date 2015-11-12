@@ -1,6 +1,8 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -29,6 +31,7 @@ public class DeleteUserTask extends AsyncTask<User, Void, Void> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected Void doInBackground(User... params) {
         User user = params[0];
@@ -49,7 +52,7 @@ public class DeleteUserTask extends AsyncTask<User, Void, Void> {
      *
      * @throws Exception
      */
-    private static void deleteUser(User user) throws Exception {
+    private static void deleteUser(@NonNull User user) throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);

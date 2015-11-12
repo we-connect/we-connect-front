@@ -6,7 +6,7 @@
     <string name="facebook_graph_host">"https://graph.facebook.com/"</string>
     <string name="facebook_graph_resource_picture_normal">/picture?type=normal</string>
 
-    <string name="backend_host">http://ec2-52-23-165-65.compute-1.amazonaws.com</string>
+    <string name="backend_host">http://ec2-52-29-94-11.eu-central-1.compute.amazonaws.com</string>
     <string name="backend_api">/app_dev.php/api</string>
 
     <string name="backend_resource_users">/users</string>

@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @param profile Facebook profile
      */
-    private void writeProfileToPrefs(Profile profile) {
+    private void writeProfileToPrefs(@Nullable Profile profile) {
         if (profile != null) {
             String id = profile.getId();
             String name = profile.getName();
@@ -119,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
             user = usersController.getUserByFacebookId(facebookId);
         } else {
             user = new User();
-            user.setFacebook_id(prefs.getString(res.getString(R.string.pref_fb_facebook_id), ""));
+            user.setFacebookId(prefs.getString(res.getString(R.string.pref_fb_facebook_id), ""));
             user.setUsername(prefs.getString(res.getString(R.string.pref_fb_username), ""));
-            user.setFirst_name(prefs.getString(res.getString(R.string.pref_fb_firstname), ""));
-            user.setLast_name(prefs.getString(res.getString(R.string.pref_fb_lastname), ""));
+            user.setFirstName(prefs.getString(res.getString(R.string.pref_fb_firstname), ""));
+            user.setLastName(prefs.getString(res.getString(R.string.pref_fb_lastname), ""));
             user.setEmail(prefs.getString(res.getString(R.string.pref_fb_email), ""));
             user.setPassword("password");
             user.setEnabled(true);

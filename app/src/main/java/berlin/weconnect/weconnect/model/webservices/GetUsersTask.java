@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import java.util.Map;
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.util.StringUtil;
 
 public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     private static final String TAG = "GetUsersTask";
@@ -33,6 +35,7 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected List<User> doInBackground(Void... params) {
         try {
@@ -45,11 +48,13 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     }
 
     @Override
-    protected void onPostExecute(List<User> result) {
+    protected void onPostExecute(@Nullable List<User> result) {
         super.onPostExecute(result);
 
-        for (User user : result) {
-            Log.d(TAG, user.toString());
+        if (result != null) {
+            for (User user : result) {
+                Log.d(TAG, user.toString());
+            }
         }
     }
 
@@ -108,7 +113,7 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
             } else {
                 Type listType = new TypeToken<List<User>>() {
                 }.getType();
-                return new Gson().fromJson(response.toString(), listType);
+                return new Gson().fromJson(StringUtil.jsonToCamelCase(response.toString()), listType);
             }
         } finally {
             con.disconnect();

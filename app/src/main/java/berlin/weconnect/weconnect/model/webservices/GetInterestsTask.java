@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -33,6 +34,7 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected List<Interest> doInBackground(Void... params) {
         try {
@@ -45,11 +47,13 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
     }
 
     @Override
-    protected void onPostExecute(List<Interest> result) {
+    protected void onPostExecute(@Nullable List<Interest> result) {
         super.onPostExecute(result);
 
-        for (Interest interest : result) {
-            Log.d(TAG, interest.toString());
+        if (result != null) {
+            for (Interest interest : result) {
+                Log.d(TAG, interest.toString());
+            }
         }
     }
 
@@ -106,7 +110,8 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
                 Log.d(TAG, response.toString());
                 return null;
             } else {
-                Type listType = new TypeToken<List<Interest>>() {}.getType();
+                Type listType = new TypeToken<List<Interest>>() {
+                }.getType();
                 return new Gson().fromJson(response.toString(), listType);
             }
         } finally {

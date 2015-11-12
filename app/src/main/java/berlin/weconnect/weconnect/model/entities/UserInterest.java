@@ -1,5 +1,7 @@
 package berlin.weconnect.weconnect.model.entities;
 
+import android.support.annotation.NonNull;
+
 public class UserInterest {
     private String id;
     private String date;
@@ -11,11 +13,12 @@ public class UserInterest {
     // Methods
     // --------------------
 
+    @NonNull
     public String toString() {
-        if (getInterest() != null)
-            return "[UserInterest " + getId() + " " + user.toString() + " " + interest.toString() + "]";
-        else
-            return "[UserInterest " + getId() + " " + user.toString() + " [Interest ---]]";
+        String u = (getUser() != null ? getUser().toString() : "[User ---]");
+        String i = (getInterest() != null ? getInterest().toString() : "[Interest ---]");
+
+        return "[UserInterest " + getId() + " " + u + " " + i + "]";
     }
 
     // --------------------

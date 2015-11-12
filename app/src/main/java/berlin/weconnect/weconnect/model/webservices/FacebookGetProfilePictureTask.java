@@ -3,6 +3,7 @@ package berlin.weconnect.weconnect.model.webservices;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.InputStream;
@@ -23,6 +24,7 @@ public class FacebookGetProfilePictureTask extends AsyncTask<String, Void, Bitma
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected Bitmap doInBackground(String... params) {
         String facebookId = params[0];
@@ -47,7 +49,7 @@ public class FacebookGetProfilePictureTask extends AsyncTask<String, Void, Bitma
     private static Bitmap getProfilePicture(final String facebookId) throws Exception {
         String host = App.getContext().getResources().getString(R.string.facebook_graph_host);
         String resource = App.getContext().getResources().getString(R.string.facebook_graph_resource_picture_normal);
-        URL url = new URL(host + facebookId + "/" + resource);
+        URL url = new URL(host + facebookId + resource);
 
         Log.d(TAG, "Call " + url.toString());
 

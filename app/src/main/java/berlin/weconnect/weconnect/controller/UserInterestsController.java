@@ -1,5 +1,8 @@
 package berlin.weconnect.weconnect.controller;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -38,16 +41,16 @@ public class UserInterestsController {
     // --------------------
 
     public void init() {
-        callGetUserInterests();
+        get();
     }
 
     /**
      * Calls webservice to get interests
      */
-    public void callGetUserInterests() {
+    public void get() {
         try {
             userInterests = new GetUserInterestsTask().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -57,10 +60,10 @@ public class UserInterestsController {
      *
      * @param userInterest user interest to be posted
      */
-    public void callPostUserInterest(UserInterest userInterest) {
+    public void post(UserInterest userInterest) {
         try {
             new PostUserInterestTask().execute(userInterest).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -70,15 +73,16 @@ public class UserInterestsController {
      *
      * @param userInterest user interest to be deleted
      */
-    public void callDeleteUserInterest(UserInterest userInterest) {
+    public void delete(UserInterest userInterest) {
         try {
             new DeleteUserInterestTask().execute(userInterest).get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Interest> getInterestsByUser(User user) {
+    @NonNull
+    public List<Interest> getInterestsByUser(@NonNull User user) {
         List<Interest> interests = new ArrayList<>();
 
         for (UserInterest userInterest : getUserInterests()) {
@@ -87,6 +91,18 @@ public class UserInterestsController {
         }
 
         return interests;
+    }
+
+    @Nullable
+    public UserInterest getUserInterestByUserAndInterest(@Nullable User user, @Nullable Interest interest) {
+        if (user != null && interest != null) {
+            for (UserInterest userInterest : getUserInterests()) {
+                if (userInterest != null && userInterest.getUser().getId().equals(user.getId()) && userInterest.getInterest().getId().equals(interest.getId()))
+                    return userInterest;
+            }
+        }
+
+        return null;
     }
 
     // --------------------

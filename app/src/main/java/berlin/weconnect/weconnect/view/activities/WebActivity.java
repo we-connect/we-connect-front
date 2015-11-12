@@ -2,6 +2,7 @@ package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +50,7 @@ public class WebActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         final WebView wbFacebook = (WebView) findViewById(R.id.wbFacebook);
 
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -74,7 +75,7 @@ public class WebActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();

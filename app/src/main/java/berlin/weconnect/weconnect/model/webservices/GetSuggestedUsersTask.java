@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.util.StringUtil;
 
 public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     private static final String TAG = "GetSuggestedUsersTask";
@@ -34,6 +36,7 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected List<User> doInBackground(User... params) {
         User user = params[0];
@@ -47,11 +50,13 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
     }
 
     @Override
-    protected void onPostExecute(List<User> result) {
+    protected void onPostExecute(@Nullable List<User> result) {
         super.onPostExecute(result);
 
-        for (User user : result) {
-            Log.d(TAG, user.toString());
+        if (result != null) {
+            for (User user : result) {
+                Log.d(TAG, user.toString());
+            }
         }
     }
 
@@ -65,11 +70,11 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
      * @return list of users
      * @throws Exception
      */
-    private static List<User> getSuggestedUsers(User user) throws Exception {
+    private static List<User> getSuggestedUsers(@Nullable User user) throws Exception {
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
-        final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_users);
 
         StringBuilder filter = new StringBuilder();
         if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
@@ -120,7 +125,7 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
             } else {
                 Type listType = new TypeToken<List<User>>() {
                 }.getType();
-                return new Gson().fromJson(response.toString(), listType);
+                return new Gson().fromJson(StringUtil.jsonToCamelCase(response.toString()), listType);
             }
         } finally {
             con.disconnect();

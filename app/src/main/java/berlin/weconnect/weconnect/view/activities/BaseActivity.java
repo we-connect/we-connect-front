@@ -17,6 +17,7 @@
 package berlin.weconnect.weconnect.view.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -58,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayoutResource();
 
+    @NonNull
     protected Toolbar getToolbar() {
         return (Toolbar) findViewById(R.id.toolbar);
     }

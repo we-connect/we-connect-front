@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.model.webservices;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import java.util.Map;
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.model.entities.UserInterest;
+import berlin.weconnect.weconnect.model.util.StringUtil;
 
 public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInterest>> {
     private static final String TAG = "GetUserInterests";
@@ -33,6 +35,7 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
         super.onPreExecute();
     }
 
+    @Nullable
     @Override
     protected List<UserInterest> doInBackground(Void... params) {
         try {
@@ -45,11 +48,13 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
     }
 
     @Override
-    protected void onPostExecute(List<UserInterest> result) {
+    protected void onPostExecute(@Nullable List<UserInterest> result) {
         super.onPostExecute(result);
 
-        for (UserInterest userInterest : result) {
-            Log.d(TAG, userInterest.toString());
+        if (result != null) {
+            for (UserInterest userInterest : result) {
+                Log.d(TAG, userInterest.toString());
+            }
         }
     }
 
@@ -67,7 +72,7 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
         // Connection
         final String host = App.getContext().getResources().getString(R.string.backend_host);
         final String api = App.getContext().getResources().getString(R.string.backend_api);
-        final String resources = App.getContext().getResources().getString(R.string.backend_resource_interests);
+        final String resources = App.getContext().getResources().getString(R.string.backend_resource_userinterests);
         final URL url = new URL(host + api + resources);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -106,8 +111,9 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
                 Log.d(TAG, response.toString());
                 return null;
             } else {
-                Type listType = new TypeToken<List<UserInterest>>() {}.getType();
-                return new Gson().fromJson(response.toString(), listType);
+                Type listType = new TypeToken<List<UserInterest>>() {
+                }.getType();
+                return new Gson().fromJson(StringUtil.jsonToCamelCase(response.toString()), listType);
             }
         } finally {
             con.disconnect();
