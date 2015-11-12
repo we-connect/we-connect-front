@@ -16,15 +16,16 @@ import android.widget.TextView;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
-import berlin.weconnect.weconnect.model.EGender;
-import berlin.weconnect.weconnect.model.EMeetingPreference;
-import berlin.weconnect.weconnect.model.EType;
 import berlin.weconnect.weconnect.model.entities.User;
 
 public class GenderActivity extends BaseActivity {
+    private enum EType {NEWCOMER, LOCAL}
+    private enum EGender {MALE, FEMALE}
+    private enum EMeetingPref {ONLY_OWN_GENDER, EVERYBODY}
+
     private EType type;
     private EGender gender;
-    private EMeetingPreference meetingPreference;
+    private EMeetingPref meetingPref;
     private boolean btnContinueActivated;
 
     private UsersController usersController;
@@ -125,28 +126,28 @@ public class GenderActivity extends BaseActivity {
         cbOnlySameGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectMeetingPreference(EMeetingPreference.ONLY_OWN_GENDER);
+                selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
             }
         });
         llOnlySameGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cbOnlySameGender.toggle();
-                selectMeetingPreference(EMeetingPreference.ONLY_OWN_GENDER);
+                selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
             }
         });
 
         cbEverybody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectMeetingPreference(EMeetingPreference.EVERYBODY);
+                selectMeetingPreference(EMeetingPref.EVERYBODY);
             }
         });
         llEverybody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cbEverybody.toggle();
-                selectMeetingPreference(EMeetingPreference.EVERYBODY);
+                selectMeetingPreference(EMeetingPref.EVERYBODY);
             }
         });
 
@@ -156,9 +157,38 @@ public class GenderActivity extends BaseActivity {
                 if (btnContinueActivated) {
                     User user = usersController.getCurrentUser();
 
-                    user.setType(type);
-                    user.setGender(gender);
-                    user.setMeetingPreference(meetingPreference);
+                    switch(type) {
+                        case NEWCOMER: {
+                            user.setType("newcomer");
+                            break;
+                        }
+                        case LOCAL: {
+                            user.setType("local");
+                            break;
+                        }
+                    }
+
+                    switch(gender) {
+                        case MALE: {
+                            user.setGender("male");
+                            break;
+                        }
+                        case FEMALE: {
+                            user.setGender("female");
+                            break;
+                        }
+                    }
+
+                    switch(meetingPref) {
+                        case ONLY_OWN_GENDER: {
+                            user.setMeetingPref(user.getGender());
+                            break;
+                        }
+                        case EVERYBODY: {
+                            user.setMeetingPref("both");
+                            break;
+                        }
+                    }
 
                     Intent i = new Intent(GenderActivity.this, InterestsActivity.class);
                     startActivity(i);
@@ -234,18 +264,18 @@ public class GenderActivity extends BaseActivity {
         updateContinueButton();
     }
 
-    private void selectMeetingPreference(EMeetingPreference p) {
+    private void selectMeetingPreference(EMeetingPref p) {
         final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
         final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
 
         switch (p) {
             case ONLY_OWN_GENDER: {
-                meetingPreference = EMeetingPreference.ONLY_OWN_GENDER;
+                meetingPref = EMeetingPref.ONLY_OWN_GENDER;
                 cbEverybody.setChecked(!cbOnlySameGender.isChecked());
                 break;
             }
             case EVERYBODY: {
-                meetingPreference = EMeetingPreference.EVERYBODY;
+                meetingPref = EMeetingPref.EVERYBODY;
                 cbOnlySameGender.setChecked(!cbEverybody.isChecked());
                 break;
             }

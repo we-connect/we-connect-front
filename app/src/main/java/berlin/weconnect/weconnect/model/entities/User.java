@@ -5,9 +5,6 @@ import java.util.List;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
-import berlin.weconnect.weconnect.model.EGender;
-import berlin.weconnect.weconnect.model.EMeetingPreference;
-import berlin.weconnect.weconnect.model.EType;
 
 public class User {
     private Integer id;
@@ -29,9 +26,9 @@ public class User {
     private String date_register;
     private String locale;
 
-    private EType type;
-    private EGender gender;
-    private EMeetingPreference meetingPreference;
+    private String type;
+    private String gender;
+    private String meetingPref;
 
     private List<Interest> interests;
 
@@ -207,28 +204,28 @@ public class User {
         this.locale = locale;
     }
 
-    public EType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(EType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public EGender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(EGender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public EMeetingPreference getMeetingPreference() {
-        return meetingPreference;
+    public String getMeetingPref() {
+        return meetingPref;
     }
 
-    public void setMeetingPreference(EMeetingPreference meetingPreference) {
-        this.meetingPreference = meetingPreference;
+    public void setMeetingPref(String meetingPref) {
+        this.meetingPref = meetingPref;
     }
 
     public List<Interest> getInterests() {

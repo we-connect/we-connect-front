@@ -22,7 +22,6 @@ import java.util.List;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
-import berlin.weconnect.weconnect.model.EGender;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
@@ -138,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(LoginActivity.this, getResources().getString(R.string.logged_in_as) + " " + username, Toast.LENGTH_LONG).show();
 
         // Check if user already has defined gender preferences
-        EGender gender = usersController.getCurrentUser().getGender();
+        String gender = usersController.getCurrentUser().getGender();
 
         // Check if user already has defined preferred interests
         List<Interest> interests = usersController.getCurrentUser().getInterests();
