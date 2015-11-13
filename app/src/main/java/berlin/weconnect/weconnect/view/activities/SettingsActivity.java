@@ -11,6 +11,7 @@ import android.widget.ListView;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class SettingsActivity extends BaseActivity {
@@ -49,13 +50,18 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_interests, menu);
+        getMenuInflater().inflate(R.menu.activity_settings, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_visit_us: {
+                WebController webController = WebController.getInstance();
+                webController.goToFacebookPage(this, getResources().getString(R.string.facebook_page_weconnect));
+                break;
+            }
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();
                 break;

@@ -1,9 +1,10 @@
 <resources>
-    <string name="url_facebook">"https://facebook.com/"</string>
+    <string name="url_facebook">https://facebook.com/</string>
+    <string name="facebook_page_weconnect">weconnect.berlin/</string>
 
     <!-- Web services -->
 
-    <string name="facebook_graph_host">"https://graph.facebook.com/"</string>
+    <string name="facebook_graph_host">https://graph.facebook.com/</string>
     <string name="facebook_graph_resource_picture_normal">/picture?type=normal</string>
 
     <string name="backend_host">http://ec2-52-29-94-11.eu-central-1.compute.amazonaws.com</string>

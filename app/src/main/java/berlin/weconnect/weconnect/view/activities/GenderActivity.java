@@ -16,11 +16,14 @@ import android.widget.TextView;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
+import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.entities.User;
 
 public class GenderActivity extends BaseActivity {
     private enum EType {NEWCOMER, LOCAL}
+
     private enum EGender {MALE, FEMALE}
+
     private enum EMeetingPref {ONLY_OWN_GENDER, EVERYBODY}
 
     private EType type;
@@ -159,7 +162,7 @@ public class GenderActivity extends BaseActivity {
                 if (btnContinueActivated) {
                     User user = usersController.getCurrentUser();
 
-                    switch(type) {
+                    switch (type) {
                         case NEWCOMER: {
                             user.setType("newcomer");
                             break;
@@ -170,7 +173,7 @@ public class GenderActivity extends BaseActivity {
                         }
                     }
 
-                    switch(gender) {
+                    switch (gender) {
                         case MALE: {
                             user.setGender("male");
                             break;
@@ -181,7 +184,7 @@ public class GenderActivity extends BaseActivity {
                         }
                     }
 
-                    switch(meetingPref) {
+                    switch (meetingPref) {
                         case ONLY_OWN_GENDER: {
                             user.setMeetingPref(user.getGender());
                             break;
@@ -218,6 +221,11 @@ public class GenderActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_visit_us: {
+                WebController webController = WebController.getInstance();
+                webController.goToFacebookPage(this, getResources().getString(R.string.facebook_page_weconnect));
+                break;
+            }
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();
                 break;

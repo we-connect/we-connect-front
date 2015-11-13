@@ -29,4 +29,5 @@
     <string name="maleOrFemale">Are you male or female?</string>
     <string name="male">male</string>
     <string name="female">female</string>
+    <string name="visit_us">Visit us</string>
 </resources>
