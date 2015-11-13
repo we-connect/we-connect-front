@@ -20,15 +20,27 @@
     <dimen name="text_size_subtitle">40sp</dimen>
     <dimen name="text_size_facebook">20sp</dimen>
 
-    <!-- Welcome -->
-    <dimen name="text_size_welcome">20sp</dimen>
-    <dimen name="interest_height">55dp</dimen>
-    <dimen name="interest_margin">20dp</dimen>
-    <dimen name="interest_spacing">10dp</dimen>
-    <dimen name="interest_padding">5dp</dimen>
-    <dimen name="interest_text_margin">10dp</dimen>
+    <!-- Common -->
+    <dimen name="common_text_size">20sp</dimen>
+    <dimen name="common_text_margin">5dp</dimen>
     <dimen name="button_margin">10dp</dimen>
     <dimen name="button_padding">10dp</dimen>
+    <dimen name="checkbox_size">25dp</dimen>
+    <dimen name="checkbox_margin">15dp</dimen>
+    <dimen name="radio_button_selection_size">17dp</dimen>
+    <dimen name="radio_button_selection_padding">4dp</dimen>
+
+    <!-- Gender -->
+    <dimen name="gender_box_height">55dp</dimen>
+    <dimen name="gender_box_margin">5dp</dimen>
+    <dimen name="gender_box_spacing">10dp</dimen>
+    <dimen name="gender_box_padding">5dp</dimen>
+
+    <!-- Interests -->
+    <dimen name="interest_box_height">55dp</dimen>
+    <dimen name="interest_box_margin">10dp</dimen>
+    <dimen name="interest_box_spacing">10dp</dimen>
+    <dimen name="interest_box_padding">5dp</dimen>
 
     <!-- Contacts -->
     <dimen name="text_padding_top">10dp</dimen>

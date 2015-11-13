@@ -43,7 +43,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
         final LinearLayout toolbarWrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 
-        usersController.callGetSuggestedUsers(usersController.getCurrentUser());
+        usersController.getSuggested(usersController.getCurrentUser());
 
         contactsAdapter = new ContactsAdapter(this, R.layout.contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);
@@ -119,7 +119,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
         @Override
         protected Void doInBackground(Void... params) {
             // Load suggested contacts
-            usersController.callGetSuggestedUsers(usersController.getCurrentUser());
+            usersController.getSuggested(usersController.getCurrentUser());
             return null;
         }
 

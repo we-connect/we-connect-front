@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.DeleteUserTask;
 import berlin.weconnect.weconnect.model.webservices.GetSuggestedUsersTask;
 import berlin.weconnect.weconnect.model.webservices.GetUsersTask;
 import berlin.weconnect.weconnect.model.webservices.PostUserTask;
@@ -40,7 +41,7 @@ public class UsersController {
     // --------------------
 
     public void init() {
-        callGetUsers();
+        get();
     }
 
     /**
@@ -51,7 +52,7 @@ public class UsersController {
      */
     public boolean isVisible(@NonNull User user) {
         boolean isCurrentUser = getCurrentUser() != null && getCurrentUser().getFacebookId().equals(user.getFacebookId());
-        boolean isDummyUser = user != null && (user.getUsername() == null || user.getFacebookId() == null);
+        boolean isDummyUser = user.getUsername() == null || user.getFacebookId() == null;
 
         return !isCurrentUser && !isDummyUser;
     }
@@ -59,7 +60,7 @@ public class UsersController {
     /**
      * Calls webservice to retrieve all users
      */
-    public void callGetUsers() {
+    public void get() {
         try {
             users = new GetUsersTask().execute().get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -72,7 +73,7 @@ public class UsersController {
      *
      * @param user user to be posted
      */
-    public void callPostUser(User user) {
+    public void post(User user) {
         try {
             new PostUserTask().execute(user).get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -85,20 +86,20 @@ public class UsersController {
      *
      * @param user user to be deleted
      */
-    public void callDeleteUser(User user) {
+    public void delete(User user) {
         try {
-            new PostUserTask().execute(user).get();
+            new DeleteUserTask().execute(user).get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Calls webservice to retrieve users having similar interests as @param user
+     * Calls webservice to get users having similar interests as @param user
      *
      * @param user user to find matches for
      */
-    public void callGetSuggestedUsers(User user) {
+    public void getSuggested(User user) {
         try {
             setSuggestedUsers(new GetSuggestedUsersTask().execute(user).get());
         } catch (@NonNull InterruptedException | ExecutionException e) {

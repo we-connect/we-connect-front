@@ -20,4 +20,13 @@
     <string name="logout">Logout</string>
     <string name="reloaded_contacts">Reloaded contacts</string>
     <string name="desc_toolbar_logo">toolbar logo</string>
+    <string name="newcomer_or_local">Are you a newcomer in Berlin or are you a local?</string>
+    <string name="i_am_a_newcomer">I am a newcomer</string>
+    <string name="i_am_a_local">I am a local</string>
+    <string name="only_same_gender">Only same gender like me</string>
+    <string name="who_to_meet">Who would you like to meet?</string>
+    <string name="everybody">Everybody</string>
+    <string name="maleOrFemale">Are you male or female?</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
 </resources>

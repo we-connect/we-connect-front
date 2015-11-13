@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             user.setEmail(prefs.getString(res.getString(R.string.pref_fb_email), ""));
             user.setPassword("password");
             user.setEnabled(true);
-            usersController.callPostUser(user);
+            usersController.setCurrentUser(user);
         }
 
         // Set current user
@@ -137,17 +137,20 @@ public class LoginActivity extends AppCompatActivity {
         String username = prefs.getString(res.getString(R.string.pref_fb_username), "");
         Toast.makeText(LoginActivity.this, getResources().getString(R.string.logged_in_as) + " " + username, Toast.LENGTH_LONG).show();
 
+        // Check if user already has defined gender preferences
+        String gender = usersController.getCurrentUser().getGender();
+
         // Check if user already has defined preferred interests
         List<Interest> interests = usersController.getCurrentUser().getInterests();
-        Class destinationActivity;
-        if (interests != null && interests.isEmpty()) {
-            destinationActivity = WelcomeActivity.class;
+
+        if (gender == null) {
+            startActivity(new Intent(LoginActivity.this, GenderActivity.class));
+        } else if (interests != null && interests.isEmpty()) {
+            startActivity(new Intent(LoginActivity.this, InterestsActivity.class));
         } else {
-            destinationActivity = ContactsActivity.class;
+            startActivity(new Intent(LoginActivity.this, ContactsActivity.class));
         }
 
-        Intent openStartingPoint = new Intent(LoginActivity.this, destinationActivity);
-        startActivity(openStartingPoint);
         finish();
     }
 

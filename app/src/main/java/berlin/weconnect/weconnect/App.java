@@ -6,9 +6,7 @@ import android.content.Context;
 import com.facebook.FacebookSdk;
 
 public class App extends Application {
-    // Context
     private static Context context;
-
     private static App instance;
 
     // --------------------

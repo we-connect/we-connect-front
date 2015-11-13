@@ -11,11 +11,9 @@ import android.widget.ListView;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
-import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class SettingsActivity extends BaseActivity {
-    private UsersController usersController;
     private InterestsController interestsController;
 
     // --------------------
@@ -27,7 +25,6 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setDisplayHomeAsUpEnabled(true);
 
-        usersController = UsersController.getInstance();
         interestsController = InterestsController.getInstance();
     }
 
@@ -52,7 +49,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_welcome, menu);
+        getMenuInflater().inflate(R.menu.activity_interests, menu);
         return true;
     }
 

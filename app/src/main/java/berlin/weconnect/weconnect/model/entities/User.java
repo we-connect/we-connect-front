@@ -27,7 +27,12 @@ public class User {
     private String dateRegister;
     private String locale;
 
+    private String type;
+    private String gender;
+    private String meetingPref;
+
     private transient List<Interest> interests;
+
     private transient String profileUrl;
     private transient String profilePictureUrl;
 
@@ -50,6 +55,11 @@ public class User {
         interests = UserInterestsController.getInstance().getInterestsByUser(this);
     }
 
+    /**
+     * Updates a certain @param interest
+     *
+     * @param interest interest to be updated
+     */
     public void updateInterest(@NonNull Interest interest) {
         UserInterestsController userInterestsController = UserInterestsController.getInstance();
 
@@ -57,7 +67,7 @@ public class User {
 
         if (!interest.isSelected() && userInterest != null) {
             userInterestsController.delete(userInterest);
-        }else if (interest.isSelected()) {
+        } else if (interest.isSelected()) {
             userInterest = new UserInterest();
             userInterest.setUser(this);
             userInterest.setInterest(interest);
@@ -68,6 +78,12 @@ public class User {
         updateInterests();
     }
 
+    /**
+     * Determines whether a user has a certain interest
+     *
+     * @param interest interest
+     * @return whether or not the user has the @param interest
+     */
     public boolean hasInterest(@NonNull Interest interest) {
         for (Interest i : getInterests()) {
             if (i.getId().equals(interest.getId()))
@@ -228,6 +244,30 @@ public class User {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMeetingPref() {
+        return meetingPref;
+    }
+
+    public void setMeetingPref(String meetingPref) {
+        this.meetingPref = meetingPref;
     }
 
     public List<Interest> getInterests() {

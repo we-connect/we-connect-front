@@ -4,7 +4,7 @@
     android:id="@+id/dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="berlin.weconnect.weconnect.view.activities.WelcomeActivity">
+    tools:context="berlin.weconnect.weconnect.view.activities.InterestsActivity">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -30,7 +30,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_welcome" />
+                android:textSize="@dimen/common_text_size" />
 
             <TextView
                 android:id="@+id/tvInterests"
@@ -40,16 +40,16 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_welcome"
+                android:textSize="@dimen/common_text_size"
                 android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/lvInterests"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/interest_margin"
+                android:layout_margin="@dimen/interest_box_margin"
                 android:divider="@color/background"
-                android:dividerHeight="@dimen/interest_spacing" />
+                android:dividerHeight="@dimen/interest_box_spacing" />
 
 
         </LinearLayout>
@@ -61,7 +61,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/button_margin"
-            android:background="@color/button_green"
+            android:background="@color/button_active"
             android:padding="@dimen/button_padding"
             android:text="@string/done"
             android:textColor="@color/white"

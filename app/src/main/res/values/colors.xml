@@ -3,6 +3,7 @@
     <color name="colorPrimary">#4D9DE0</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">@color/colorPrimaryDark</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
     <color name="background">@color/colorPrimary</color>
@@ -16,5 +17,6 @@
         <item>#C27BA0</item>
     </array>
 
-    <color name="button_green">#38761D</color>
+    <color name="button_active">#38761D</color>
+    <color name="button_inactive">#777</color>
 </resources>

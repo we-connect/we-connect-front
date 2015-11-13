@@ -61,7 +61,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
     @Override
     public int getCount() {
-        return filteredItems != null ? filteredItems.size() : 0;
+        return filteredItems.size();
     }
 
     @Override

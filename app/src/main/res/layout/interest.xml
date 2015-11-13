@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/interest_height"
-    android:layout_margin="@dimen/interest_margin"
+    android:layout_height="@dimen/interest_box_height"
+    android:layout_margin="@dimen/interest_box_margin"
     android:background="@color/colorPrimary"
     android:orientation="horizontal"
-    android:padding="@dimen/interest_padding">
+    android:padding="@dimen/interest_box_padding">
 
     <CheckBox
         android:id="@+id/cb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />
+        android:layout_width="@dimen/checkbox_size"
+        android:layout_height="@dimen/checkbox_size"
+        android:layout_gravity="center_vertical"
+        android:button="@drawable/checkbox" />
 
     <ImageView
         android:id="@+id/ivIcon"
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/interest_text_margin"
+        android:layout_marginStart="@dimen/common_text_margin"
         android:text="@string/interest"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"

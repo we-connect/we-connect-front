@@ -49,7 +49,7 @@ public class UserInterestsController {
      */
     public void get() {
         try {
-            userInterests = new GetUserInterestsTask().execute().get();
+            setUserInterests(new GetUserInterestsTask().execute().get());
         } catch (@NonNull InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

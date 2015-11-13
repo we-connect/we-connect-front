@@ -58,7 +58,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
 
     @Override
     public int getCount() {
-        return filteredItems != null ? filteredItems.size() : 0;
+        return filteredItems.size();
     }
 
     @Override
