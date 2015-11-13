@@ -11,6 +11,10 @@
     <string name="interest">interest</string>
     <string name="continue_">Continue</string>
     <string name="desc_icon">icon</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_subject">Feedback WeConnect App Version </string>
+    <string name="feedback_mail_text">Write your feedback here</string>
+    <string name="feedback_mail_send">Send</string>
     <string name="desc_profile_picture">profile picture</string>
     <string name="profile_name">Profile name</string>
     <string name="discover_people">Discover people with the same interests and connect on Facebook:</string>

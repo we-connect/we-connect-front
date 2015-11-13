@@ -13,6 +13,7 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.WebController;
+import berlin.weconnect.weconnect.model.util.MailUtil;
 import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
 
 public class InterestsActivity extends BaseActivity {
@@ -69,6 +70,10 @@ public class InterestsActivity extends BaseActivity {
             case R.id.menu_visit_us: {
                 WebController webController = WebController.getInstance();
                 webController.goToFacebookPage(this, getResources().getString(R.string.facebook_page_weconnect));
+                break;
+            }
+            case R.id.menu_feedback: {
+                MailUtil.sendFeedback(this);
                 break;
             }
             case R.id.menu_logout: {

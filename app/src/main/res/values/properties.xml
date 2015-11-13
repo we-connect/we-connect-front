@@ -1,6 +1,7 @@
 <resources>
     <string name="url_facebook">https://facebook.com/</string>
     <string name="facebook_page_weconnect">weconnect.berlin/</string>
+    <string name="feedback_mail_address">info@weconnect.berlin</string>
 
     <!-- Web services -->
 

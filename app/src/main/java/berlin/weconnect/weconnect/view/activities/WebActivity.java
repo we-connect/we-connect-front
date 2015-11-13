@@ -13,6 +13,7 @@ import android.widget.Toast;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.WebController;
+import berlin.weconnect.weconnect.model.util.MailUtil;
 
 public class WebActivity extends BaseActivity {
     private WebController webController;
@@ -79,6 +80,10 @@ public class WebActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();
+                break;
+            }
+            case R.id.menu_feedback: {
+                MailUtil.sendFeedback(this);
                 break;
             }
             case android.R.id.home: {

@@ -18,6 +18,7 @@ import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.util.MailUtil;
 
 public class GenderActivity extends BaseActivity {
     private enum EType {NEWCOMER, LOCAL}
@@ -224,6 +225,10 @@ public class GenderActivity extends BaseActivity {
             case R.id.menu_visit_us: {
                 WebController webController = WebController.getInstance();
                 webController.goToFacebookPage(this, getResources().getString(R.string.facebook_page_weconnect));
+                break;
+            }
+            case R.id.menu_feedback: {
+                MailUtil.sendFeedback(this);
                 break;
             }
             case R.id.menu_logout: {
