@@ -46,7 +46,7 @@ public class InterestsController {
      * @return whether interest is visible or not
      */
     public boolean isVisible(@Nullable Interest interest) {
-        return interest != null;
+        return true; //interest != null;
     }
 
     /**

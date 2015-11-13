@@ -17,16 +17,13 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
+import berlin.weconnect.weconnect.model.entities.EGender;
+import berlin.weconnect.weconnect.model.entities.EMeetingPref;
+import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 
 public class GenderActivity extends BaseActivity {
-    private enum EType {NEWCOMER, LOCAL}
-
-    private enum EGender {MALE, FEMALE}
-
-    private enum EMeetingPref {ONLY_OWN_GENDER, EVERYBODY}
-
     private EType type;
     private EGender gender;
     private EMeetingPref meetingPref;
@@ -163,31 +160,12 @@ public class GenderActivity extends BaseActivity {
                 if (btnContinueActivated) {
                     User user = usersController.getCurrentUser();
 
-                    switch (type) {
-                        case NEWCOMER: {
-                            user.setType("newcomer");
-                            break;
-                        }
-                        case LOCAL: {
-                            user.setType("local");
-                            break;
-                        }
-                    }
-
-                    switch (gender) {
-                        case MALE: {
-                            user.setGender("male");
-                            break;
-                        }
-                        case FEMALE: {
-                            user.setGender("female");
-                            break;
-                        }
-                    }
+                    user.setType(type.getValue());
+                    user.setGender(gender.getValue());
 
                     switch (meetingPref) {
                         case ONLY_OWN_GENDER: {
-                            user.setMeetingPref(user.getGender());
+                            user.setMeetingPref(gender.getValue());
                             break;
                         }
                         case EVERYBODY: {

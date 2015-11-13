@@ -77,11 +77,15 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
         final String resources = App.getContext().getResources().getString(R.string.backend_resource_users);
 
         StringBuilder filter = new StringBuilder();
-        if (user != null && user.getInterests() != null && !user.getInterests().isEmpty()) {
+        if (user.getInterests() != null && !user.getInterests().isEmpty()) {
             filter.append("?");
             for (Interest i : user.getInterests()) {
                 filter.append("filters[interests][]=").append(i.getId()).append("&");
             }
+        }
+
+        if(user.getMeetingPref() != null) {
+            filter.append("filters[gender][]=").append(user.getMeetingPref()).append("&");
         }
 
         final URL url = new URL(host + api + resources + filter);

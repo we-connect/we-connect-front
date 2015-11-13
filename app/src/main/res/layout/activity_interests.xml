@@ -12,49 +12,37 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/toolbar_height">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:id="@+id/tvInterests"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/what_are_you_interested_in"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:textSize="@dimen/common_text_size"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/toolbar_height">
 
-            <ListView
-                android:id="@+id/lvInterests"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/interest_box_margin"
-                android:divider="@color/background"
-                android:dividerHeight="@dimen/interest_box_spacing" />
+                <include
+                    android:id="@+id/fragment_interest_selection"
+                    layout="@layout/fragment_interest_selection" />
 
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnContinue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/button_margin"
-            android:background="@color/button_active"
-            android:padding="@dimen/button_padding"
-            android:text="@string/continue_"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+                <Button
+                    android:id="@+id/btnContinue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/button_margin"
+                    android:background="@color/button_active"
+                    android:padding="@dimen/button_padding"
+                    android:text="@string/continue_"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/toolbar_wrapper"
