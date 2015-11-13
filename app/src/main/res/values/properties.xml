@@ -16,4 +16,10 @@
     <string name="backend_resource_interests">/interests</string>
 
     <integer name="refresh_delay">500</integer>
+
+    <!-- Gradle properties -->
+
+    <string name="gradle_version_major">versionMajor</string>
+    <string name="gradle_version_minor">versionMinor</string>
+    <string name="gradle_version_patch">versionPatch</string>
 </resources>

@@ -1,4 +1,8 @@
+import java.util.regex.Pattern
+
 apply plugin: 'com.android.application'
+
+ext.versionPatch = project.hasProperty('patch') ? project.getProperty('patch') : versionPatch
 
 android {
     compileSdkVersion 23
@@ -8,9 +12,33 @@ android {
         applicationId "berlin.weconnect.weconnect"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.2"
+        versionCode versionPatch as Integer ?: 0
+        versionName versionMajor + "." + versionMinor + "." + versionPatch
     }
+
+    signingConfigs {
+        release {
+            if (System.getenv("KEYSTORE") != null)
+                storeFile file(System.getenv("KEYSTORE"))
+            if (System.getenv("KEYSTORE_PASSWORD") != null)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+            if (System.getenv("KEY_ALIAS") != null)
+                keyAlias System.getenv("KEY_ALIAS")
+            if (System.getenv("KEY_PASSWORD") != null)
+                keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            // versionNameSuffix ".debug"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,11 +49,44 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
-repositories {
-    mavenCentral()
+def version = versionMajor + '.' + versionMinor + '.' + versionPatch
+def apkName = 'app-release'
+
+// --------------------
+// Properties injection
+// --------------------
+
+task copyPropertiesDebug(type: Copy, dependsOn: "injectProperties") {
+    from '../gradle.properties'
+    into 'src/main/assets'
 }
+
+task copyPropertiesRelease(type: Copy, dependsOn: "injectProperties") {
+    from '../gradle.properties'
+    into 'src/main/assets'
+}
+
+task injectProperties() {
+    def propertiesFile = file('../gradle.properties')
+
+    def patternVersionPatch = Pattern.compile("versionPatch=.*")
+    def propertiesText = propertiesFile.getText()
+    def matcherVersionPatch = patternVersionPatch.matcher(propertiesText)
+    matcherVersionPatch.find()
+    def propertiesContent = matcherVersionPatch.replaceAll("versionPatch=" + versionPatch)
+    propertiesFile.write(propertiesContent)
+}
+
+assembleDebug.dependsOn(copyPropertiesDebug)
+assembleRelease.dependsOn(copyPropertiesRelease)
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
