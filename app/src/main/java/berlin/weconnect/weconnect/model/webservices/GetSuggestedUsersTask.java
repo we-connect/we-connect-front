@@ -84,10 +84,6 @@ public class GetSuggestedUsersTask extends AsyncTask<User, Void, List<User>> {
             }
         }
 
-        if(user.getMeetingPref() != null) {
-            filter.append("filters[gender][]=").append(user.getMeetingPref()).append("&");
-        }
-
         final URL url = new URL(host + api + resources + filter);
 
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

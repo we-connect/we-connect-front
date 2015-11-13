@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import berlin.weconnect.weconnect.model.entities.EMeetingPref;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.DeleteUserTask;
 import berlin.weconnect.weconnect.model.webservices.GetSuggestedUsersTask;
@@ -53,8 +54,13 @@ public class UsersController {
     public boolean isVisible(@NonNull User user) {
         boolean isCurrentUser = getCurrentUser() != null && getCurrentUser().getFacebookId().equals(user.getFacebookId());
         boolean isDummyUser = user.getUsername() == null || user.getFacebookId() == null;
+        boolean matchesMeetingPref = false;
 
-        return !isCurrentUser && !isDummyUser;
+        String meetingPref = getCurrentUser().getMeetingPref();
+        if (meetingPref.equals(EMeetingPref.BOTH.getValue()) || meetingPref.equals(user.getGender()))
+            matchesMeetingPref = true;
+
+        return !isCurrentUser && !isDummyUser && matchesMeetingPref;
     }
 
     /**
