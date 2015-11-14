@@ -1,7 +1,8 @@
 package berlin.weconnect.weconnect.model.entities;
 
 public enum EMeetingPref {
-    ONLY_OWN_GENDER(""), EVERYBODY(""), BOTH("both");
+    ONLY_OWN_GENDER(""), EVERYBODY(""),
+    BOTH("both"), MALE("male"), FEMALE("female");
 
     private String value;
 

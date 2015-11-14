@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import berlin.weconnect.weconnect.model.entities.EMeetingPref;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.DeleteUserTask;
 import berlin.weconnect.weconnect.model.webservices.GetSuggestedUsersTask;
@@ -56,9 +55,31 @@ public class UsersController {
         boolean isDummyUser = user.getUsername() == null || user.getFacebookId() == null;
         boolean matchesMeetingPref = false;
 
-        String meetingPref = getCurrentUser().getMeetingPref();
-        if (meetingPref.equals(EMeetingPref.BOTH.getValue()) || meetingPref.equals(user.getGender()))
-            matchesMeetingPref = true;
+        String ownGender = getCurrentUser().getGender();
+        String ownMeetingPref = getCurrentUser().getMeetingPref();
+        String otherGender = user.getGender();
+        String otherMeetingPref = user.getMeetingPref();
+
+        switch (ownMeetingPref) {
+            case "both": {
+                // If I want to meet both genders a match must like to meet
+                // either both genders or my gender
+                matchesMeetingPref = otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender);
+                break;
+            }
+            case "male": {
+                // If I want to meet only male persons a match must be male and either
+                // like to meet both genders or my gender
+                matchesMeetingPref = otherGender.equals("male") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
+                break;
+            }
+            case "female": {
+                // If I want to meet only female persons a match must be female and either
+                // like to meet both genders or my gender
+                matchesMeetingPref = otherGender.equals("female") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
+                break;
+            }
+        }
 
         return !isCurrentUser && !isDummyUser && matchesMeetingPref;
     }
