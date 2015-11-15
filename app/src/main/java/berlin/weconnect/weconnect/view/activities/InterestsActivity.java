@@ -14,7 +14,7 @@ import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.util.MailUtil;
-import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
+import berlin.weconnect.weconnect.view.adapters.InterestsSelectionAdapter;
 
 public class InterestsActivity extends BaseActivity {
     private InterestsController interestsController;
@@ -39,8 +39,8 @@ public class InterestsActivity extends BaseActivity {
         final Button btnContinue = (Button) findViewById(R.id.btnContinue);
 
         // Set values
-        final InterestsAdapter interestsAdapter = new InterestsAdapter(this, R.layout.interest, interestsController.getInterests());
-        lvInterests.setAdapter(interestsAdapter);
+        final InterestsSelectionAdapter interestsSelectionAdapter = new InterestsSelectionAdapter(this, R.layout.list_item_interest_selection, interestsController.getInterests());
+        lvInterests.setAdapter(interestsSelectionAdapter);
 
         // Add actions
         btnContinue.setOnClickListener(new View.OnClickListener() {

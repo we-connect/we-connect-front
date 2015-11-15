@@ -1,7 +1,9 @@
 package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +21,15 @@ import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
-import berlin.weconnect.weconnect.controller.WebController;
+import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
+import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
 public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     private Activity activity;
 
     private UsersController usersController;
-    private WebController webController;
 
     // Filter
     @NonNull
@@ -47,7 +49,6 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         this.originalItems = items;
 
         usersController = UsersController.getInstance();
-        webController = WebController.getInstance();
 
         filter();
     }
@@ -70,31 +71,31 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         final User user = getItem(position);
-        return getView(position, user, parent);
+        return getView(user, parent);
     }
 
     @NonNull
-    private View getView(final int position, @NonNull final User user, final ViewGroup parent) {
+    private View getView(@NonNull final User user, final ViewGroup parent) {
         // Layout inflater
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
 
         // Load views
-        final LinearLayout llUser = (LinearLayout) vi.inflate(R.layout.contact, parent, false);
-        final ImageView ivProfile = (ImageView) llUser.findViewById(R.id.ivProfilePicture);
+        final LinearLayout llUser = (LinearLayout) vi.inflate(R.layout.list_item_contact, parent, false);
+        final ImageView ivProfilePicture = (ImageView) llUser.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
 
         // Set values
         if (user.getFacebookId() != null) {
             Bitmap bmp = null;
             try {
-                bmp = new FacebookGetProfilePictureTask().execute(user.getFacebookId()).get();
+                bmp = new FacebookGetProfilePictureTask().execute(user.getFacebookId(), EFacebookPictureType.NORMAL.getValue()).get();
             } catch (@NonNull InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
 
             if (bmp != null)
-                ivProfile.setImageBitmap(bmp);
+                ivProfilePicture.setImageBitmap(bmp);
         }
 
         if (user.getFirstName() != null)
@@ -104,7 +105,13 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webController.goToFacebookPage(activity, user.getFacebookId());
+                ContactDialog dialog = new ContactDialog();
+                Resources res = activity.getResources();
+                Bundle bundle = new Bundle();
+                bundle.putString(res.getString(R.string.bundle_dialog_title), res.getString(R.string.contact));
+                bundle.putString(res.getString(R.string.bundle_contact_facebook_id), user.getFacebookId());
+                dialog.setArguments(bundle);
+                dialog.show(activity.getFragmentManager(), ContactDialog.TAG);
             }
         });
 
@@ -114,11 +121,6 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
     // --------------------
     // Methods - Filter
     // --------------------
-
-    @NonNull
-    public List<User> getFilteredItems() {
-        return filteredItems;
-    }
 
     public void filter() {
         getFilter().filter("");

@@ -34,4 +34,12 @@
     <string name="male">male</string>
     <string name="female">female</string>
     <string name="visit_us">Visit us</string>
+    <plurals name="shared_interests">
+        <item quantity="zero">no shared interests</item>
+        <item quantity="one">%d shared interest</item>
+        <item quantity="many">%d shared interests</item>
+    </plurals>
+    <string name="shared_interests"></string>
+    <string name="contact_on_facebook">Contact on Facebook</string>
+    <string name="contact">Contact</string>
 </resources>

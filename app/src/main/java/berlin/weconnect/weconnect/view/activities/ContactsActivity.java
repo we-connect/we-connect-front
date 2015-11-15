@@ -19,8 +19,9 @@ import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 import berlin.weconnect.weconnect.view.adapters.ContactsAdapter;
+import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
-public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener, ContactDialog.OnCompleteListener {
     private UsersController usersController;
     private ContactsAdapter contactsAdapter;
 
@@ -47,7 +48,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
 
         usersController.getSuggested(usersController.getCurrentUser());
 
-        contactsAdapter = new ContactsAdapter(this, R.layout.contact, usersController.getSuggestedUsers());
+        contactsAdapter = new ContactsAdapter(this, R.layout.list_item_contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);
 
         srl.setEnabled(false);
@@ -114,6 +115,12 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
      */
     private void updateListView() {
         contactsAdapter.filter();
+    }
+
+    @Override
+    public void onGoToFacebookPage(String page) {
+        WebController webController = WebController.getInstance();
+        webController.goToFacebookPage(this, page);
     }
 
     // --------------------

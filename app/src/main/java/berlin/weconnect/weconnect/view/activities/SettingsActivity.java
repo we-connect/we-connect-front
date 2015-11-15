@@ -20,13 +20,13 @@ import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.ListUtil;
 import berlin.weconnect.weconnect.model.util.MailUtil;
-import berlin.weconnect.weconnect.view.adapters.InterestsAdapter;
+import berlin.weconnect.weconnect.view.adapters.InterestsSelectionAdapter;
 
 public class SettingsActivity extends BaseActivity {
     private EType type;
     private EMeetingPref meetingPref;
 
-    private UsersController userController;
+    private UsersController usersController;
     private InterestsController interestsController;
 
     // --------------------
@@ -38,7 +38,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setDisplayHomeAsUpEnabled(true);
 
-        userController = UsersController.getInstance();
+        usersController = UsersController.getInstance();
         interestsController = InterestsController.getInstance();
     }
 
@@ -60,13 +60,13 @@ public class SettingsActivity extends BaseActivity {
         final Button btnDone = (Button) findViewById(R.id.btnDone);
 
         // Set values
-        User user = userController.getCurrentUser();
+        User user = usersController.getCurrentUser();
         cbNewcomer.setChecked(user.getType().equals(EType.NEWCOMER.getValue()));
         cbLocal.setChecked(user.getType().equals(EType.LOCAL.getValue()));
         cbOnlySameGender.setChecked(user.getMeetingPref().equals(user.getGender()));
         cbEverybody.setChecked(user.getMeetingPref().equals(EMeetingPref.BOTH.getValue()));
-        final InterestsAdapter interestsAdapter = new InterestsAdapter(this, R.layout.interest, interestsController.getInterests());
-        lvInterests.setAdapter(interestsAdapter);
+        final InterestsSelectionAdapter interestsSelectionAdapter = new InterestsSelectionAdapter(this, R.layout.list_item_interest_selection, interestsController.getInterests());
+        lvInterests.setAdapter(interestsSelectionAdapter);
         ListUtil.setListViewHeightBasedOnChildren(this, lvInterests);
 
         // Add actions
@@ -216,11 +216,11 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void updateType(EType type) {
-        userController.getCurrentUser().setType(type.getValue());
+        usersController.getCurrentUser().setType(type.getValue());
     }
 
     private void updateMeetingPref(EMeetingPref meetingPref) {
-        User user = userController.getCurrentUser();
+        User user = usersController.getCurrentUser();
 
         switch (meetingPref) {
             case ONLY_OWN_GENDER: {

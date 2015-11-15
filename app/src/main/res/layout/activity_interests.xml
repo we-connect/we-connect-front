@@ -25,6 +25,18 @@
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/toolbar_height">
 
+                <TextView
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:id="@+id/tvInterests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_are_you_interested_in"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size"
+                    android:textStyle="bold" />
+
                 <include
                     android:id="@+id/fragment_interest_selection"
                     layout="@layout/fragment_interest_selection" />

@@ -242,6 +242,7 @@ public class GenderActivity extends BaseActivity {
     }
 
     private void selectGender(EGender g) {
+
         final CheckBox cbMale = (CheckBox) findViewById(R.id.cbMale);
         final CheckBox cbFemale = (CheckBox) findViewById(R.id.cbFemale);
 

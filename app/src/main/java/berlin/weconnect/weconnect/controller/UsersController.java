@@ -64,19 +64,19 @@ public class UsersController {
             case "both": {
                 // If I want to meet both genders a match must like to meet
                 // either both genders or my gender
-                matchesMeetingPref = otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender);
+                matchesMeetingPref = otherMeetingPref == null || otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender);
                 break;
             }
             case "male": {
                 // If I want to meet only male persons a match must be male and either
                 // like to meet both genders or my gender
-                matchesMeetingPref = otherGender.equals("male") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
+                matchesMeetingPref = otherMeetingPref == null || otherGender == null || otherGender.equals("male") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
                 break;
             }
             case "female": {
                 // If I want to meet only female persons a match must be female and either
                 // like to meet both genders or my gender
-                matchesMeetingPref = otherGender.equals("female") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
+                matchesMeetingPref = otherMeetingPref == null || otherGender == null || otherGender.equals("female") && (otherMeetingPref.equals("both") || otherMeetingPref.equals(ownGender));
                 break;
             }
         }

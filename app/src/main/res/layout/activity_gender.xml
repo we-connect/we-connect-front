@@ -48,7 +48,7 @@
 
                 <include
                     android:id="@+id/fragment_gender_selection"
-                    layout="@layout/fragment_gender_selection" />
+                    layout="@layout/fragment_gender_list" />
 
                 <Button
                     android:id="@+id/btnContinue"

@@ -1,16 +1,15 @@
 package berlin.weconnect.weconnect.model.entities;
 
-public enum EMeetingPref {
-    ONLY_OWN_GENDER(""), EVERYBODY(""),
-    BOTH("both"), MALE("male"), FEMALE("female");
+public enum EFacebookPictureType {
+    SMALL("small"), NORMAL("normal"), ALBUM("album"), LARGE("large"), SQUARE("square");
 
-    private final String value;
+    private String value;
 
     // --------------------
     // Constructors
     // --------------------
 
-    EMeetingPref(String value) {
+    EFacebookPictureType(String value) {
         this.value = value;
     }
 

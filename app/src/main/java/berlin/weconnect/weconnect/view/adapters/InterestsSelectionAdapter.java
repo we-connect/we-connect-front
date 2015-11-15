@@ -23,7 +23,7 @@ import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterable {
+public class InterestsSelectionAdapter extends ArrayAdapter<Interest> implements Filterable {
     private Activity activity;
 
     private UsersController usersController;
@@ -40,7 +40,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
     // Constructors
     // --------------------
 
-    public InterestsAdapter(Activity activity, int resource, @NonNull List<Interest> items) {
+    public InterestsSelectionAdapter(Activity activity, int resource, @NonNull List<Interest> items) {
         super(activity, resource, items);
         this.activity = activity;
         this.filteredItems = items;
@@ -80,7 +80,7 @@ public class InterestsAdapter extends ArrayAdapter<Interest> implements Filterab
         vi = LayoutInflater.from(getContext());
 
         // Load views
-        final LinearLayout llInterest = (LinearLayout) vi.inflate(R.layout.interest, parent, false);
+        final LinearLayout llInterest = (LinearLayout) vi.inflate(R.layout.list_item_interest_selection, parent, false);
         final CheckBox cb = (CheckBox) llInterest.findViewById(R.id.cb);
         final ImageView ivIcon = (ImageView) llInterest.findViewById(R.id.ivIcon);
         final TextView tvName = (TextView) llInterest.findViewById(R.id.tvName);

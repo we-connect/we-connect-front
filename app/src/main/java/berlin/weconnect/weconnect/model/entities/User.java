@@ -93,6 +93,22 @@ public class User {
         return false;
     }
 
+    /**
+     * Returns a list of interests that a this user shares with a given @param user
+     *
+     * @param user given user
+     * @return interests both share
+     */
+    public List<Interest> getSharedInterestsWith(User user) {
+        List<Interest> interests = new ArrayList<>();
+        for (Interest i : getInterests()) {
+            if (user.hasInterest(i))
+                interests.add(i);
+        }
+
+        return interests;
+    }
+
     @NonNull
     public String toString() {
         return "[User " + getId() + " " + getUsername() + "]";
