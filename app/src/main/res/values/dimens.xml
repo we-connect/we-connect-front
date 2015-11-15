@@ -36,6 +36,11 @@
     <dimen name="gender_box_spacing">10dp</dimen>
     <dimen name="gender_box_padding">5dp</dimen>
 
+    <dimen name="grid_item_interest_size">100dp</dimen>
+    <dimen name="grid_item_interest_checkbox_size">40dp</dimen>
+    <dimen name="grid_item_spacing">5dp</dimen>
+    <dimen name="interest_category_box_padding">10dp</dimen>
+
     <!-- Interests -->
     <dimen name="interest_box_height">55dp</dimen>
     <dimen name="interest_box_margin">10dp</dimen>

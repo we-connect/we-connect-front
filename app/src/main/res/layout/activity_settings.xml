@@ -30,10 +30,10 @@
                     layout="@layout/fragment_gender_list" />
 
                 <TextView
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:id="@+id/tvInterests"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/what_are_you_interested_in"
                     android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -41,9 +41,13 @@
                     android:textSize="@dimen/common_text_size"
                     android:textStyle="bold" />
 
-                <include
-                    android:id="@+id/fragment_interest_selection"
-                    layout="@layout/fragment_interest_selection" />
+                <ListView
+                    android:id="@+id/lvInterestCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interest_box_margin"
+                    android:divider="@color/background"
+                    android:dividerHeight="@dimen/interest_box_spacing" />
 
                 <Button
                     android:id="@+id/btnDone"

@@ -20,7 +20,7 @@ import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.ListUtil;
 import berlin.weconnect.weconnect.model.util.MailUtil;
-import berlin.weconnect.weconnect.view.adapters.InterestsSelectionAdapter;
+import berlin.weconnect.weconnect.view.adapters.InterestCategoriesSelectionAdapter;
 
 public class SettingsActivity extends BaseActivity {
     private EType type;
@@ -56,7 +56,7 @@ public class SettingsActivity extends BaseActivity {
         final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
         final LinearLayout llEverybody = (LinearLayout) findViewById(R.id.llEverybody);
         final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
-        final ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
+        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
         final Button btnDone = (Button) findViewById(R.id.btnDone);
 
         // Set values
@@ -65,9 +65,10 @@ public class SettingsActivity extends BaseActivity {
         cbLocal.setChecked(user.getType().equals(EType.LOCAL.getValue()));
         cbOnlySameGender.setChecked(user.getMeetingPref().equals(user.getGender()));
         cbEverybody.setChecked(user.getMeetingPref().equals(EMeetingPref.BOTH.getValue()));
-        final InterestsSelectionAdapter interestsSelectionAdapter = new InterestsSelectionAdapter(this, R.layout.list_item_interest_selection, interestsController.getInterests());
-        lvInterests.setAdapter(interestsSelectionAdapter);
-        ListUtil.setListViewHeightBasedOnChildren(this, lvInterests);
+
+        final InterestCategoriesSelectionAdapter interestCategoriesSelectionAdapter = new InterestCategoriesSelectionAdapter(this, R.layout.list_item_interest_category_selection, interestsController.getInterestCategories());
+        lvInterestCategories.setAdapter(interestCategoriesSelectionAdapter);
+        ListUtil.setListViewHeightBasedOnChildren(this, lvInterestCategories);
 
         // Add actions
         cbNewcomer.setOnClickListener(new View.OnClickListener() {

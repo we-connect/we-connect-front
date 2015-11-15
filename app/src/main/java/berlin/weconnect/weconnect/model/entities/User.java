@@ -32,6 +32,7 @@ public class User {
     private String meetingPref;
 
     private transient List<Interest> interests;
+    private transient List<InterestCategory> interestCategories;
 
     private transient String profileUrl;
     private transient String profilePictureUrl;
@@ -107,6 +108,44 @@ public class User {
         }
 
         return interests;
+    }
+
+    public List<InterestCategory> getInterestCategories() {
+        interestCategories = new ArrayList<>();
+
+        for (Interest i : getInterests()) {
+            String category = i.getCategory();
+
+            if (containsCategory(category)) {
+                InterestCategory ic = getCategoryByName(category);
+                ic.getInterests().add(i);
+            } else {
+                InterestCategory ic = new InterestCategory(category);
+                ic.getInterests().add(i);
+
+                interestCategories.add(ic);
+            }
+        }
+
+        return interestCategories;
+    }
+
+    private boolean containsCategory(String category) {
+        for (InterestCategory ic : interestCategories) {
+            if (ic.getName().equals(category))
+                return true;
+        }
+
+        return false;
+    }
+
+    private InterestCategory getCategoryByName(String category) {
+        for (InterestCategory ic : interestCategories) {
+            if (ic.getName().equals(category))
+                return ic;
+        }
+
+        return null;
     }
 
     @NonNull

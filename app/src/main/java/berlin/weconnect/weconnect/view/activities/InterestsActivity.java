@@ -7,16 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.util.MailUtil;
-import berlin.weconnect.weconnect.view.adapters.InterestsSelectionAdapter;
+import berlin.weconnect.weconnect.view.adapters.InterestCategoriesSelectionAdapter;
 
-public class InterestsActivity extends BaseActivity {
+public class InterestsActivity extends SwipeRefreshBaseActivity {
     private InterestsController interestsController;
 
     // --------------------
@@ -35,12 +37,20 @@ public class InterestsActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        final ListView lvInterests = (ListView) findViewById(R.id.lvInterests);
-        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        final LinearLayout toolbar_wrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
+        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
+        final TextView tvQuestion = (TextView) getLayoutInflater().inflate(R.layout.tv_question, null);
+        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
 
         // Set values
-        final InterestsSelectionAdapter interestsSelectionAdapter = new InterestsSelectionAdapter(this, R.layout.list_item_interest_selection, interestsController.getInterests());
-        lvInterests.setAdapter(interestsSelectionAdapter);
+        tvQuestion.setText(R.string.what_are_you_interested_in);
+        btnContinue.setText(R.string.continue_);
+
+        lvInterestCategories.addHeaderView(tvQuestion);
+        lvInterestCategories.addFooterView(btnContinue);
+
+        final InterestCategoriesSelectionAdapter interestCategoriesSelectionAdapter = new InterestCategoriesSelectionAdapter(this, R.layout.list_item_interest_category_selection, interestsController.getInterestCategories());
+        lvInterestCategories.setAdapter(interestCategoriesSelectionAdapter);
 
         // Add actions
         btnContinue.setOnClickListener(new View.OnClickListener() {

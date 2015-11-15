@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/grid_item_interest_size"
+    android:layout_height="@dimen/grid_item_interest_size"
+    android:orientation="vertical"
+    android:padding="@dimen/grid_item_spacing">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="#44FFFFFF"
+        android:orientation="vertical"
+        android:padding="@dimen/interest_box_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/cb"
+                android:layout_width="@dimen/checkbox_size"
+                android:layout_height="@dimen/checkbox_size"
+                android:layout_gravity="center_vertical"
+                android:button="@drawable/checkbox"
+                android:checked="false"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interest"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
