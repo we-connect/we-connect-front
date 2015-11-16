@@ -1,6 +1,7 @@
 import java.util.regex.Pattern
 
 apply plugin: 'com.android.application'
+apply plugin: 'maven'
 
 ext.versionPatch = project.hasProperty('patch') ? project.getProperty('patch') : versionPatch
 
@@ -59,6 +60,8 @@ android {
 
 def version = versionMajor + '.' + versionMinor + '.' + versionPatch
 def apkName = 'app-release'
+def apkNameMaven = artifactId + '-' + version
+def apkNameFrdoid = (System.getenv("GIT_COMMIT") == null) ? apkNameMaven : apkNameMaven + '.' + System.getenv("GIT_COMMIT").substring(0, 8)
 
 // --------------------
 // Properties injection
@@ -83,6 +86,163 @@ task injectProperties() {
     matcherVersionPatch.find()
     def propertiesContent = matcherVersionPatch.replaceAll("versionPatch=" + versionPatch)
     propertiesFile.write(propertiesContent)
+}
+
+// --------------------
+// Fdroid
+// --------------------
+
+ext.fdroidDir = project.hasProperty('fdroid') ? project.getProperty('fdroid') : null
+ext.fdroidMessage = project.hasProperty('message') ? project.getProperty('message') : "git log --format=%B -n 1".execute().text.trim()
+
+// Run update command
+task publishFdroid(type: Exec, dependsOn: "updateMetadata") {
+    onlyIf { project.hasProperty('fdroid') }
+    workingDir fdroidDir + '/..'
+    commandLine './fdroid'
+    args 'update'
+
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = {
+        return standardOutput.toString()
+    }
+}
+
+// Update fdroid meta
+task updateMetadata(type: Exec, dependsOn: "writeMetadata") {
+    onlyIf { project.hasProperty('fdroid') }
+    workingDir fdroidDir + '/..'
+    commandLine './fdroid'
+    args 'rewritemeta'
+
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = {
+        return standardOutput.toString()
+    }
+}
+
+// Write into metadata
+task writeMetadata(dependsOn: "copy") {
+    onlyIf { project.hasProperty('fdroid') }
+    if (fdroidDir != null) {
+        def manifestFile = file(fdroidDir + '/../metadata/' + groupId + '.' + artifactId + '.txt')
+
+        def patternLicense = Pattern.compile("License:.*")
+        def manifestText = manifestFile.getText()
+        def matcherLicense = patternLicense.matcher(manifestText)
+        matcherLicense.find()
+        def manifestContent = matcherLicense.replaceAll("License:" + license)
+        manifestFile.write(manifestContent)
+
+        def patternWebsite = Pattern.compile("Web Site:.*")
+        manifestText = manifestFile.getText()
+        def matcherWebsite = patternWebsite.matcher(manifestText)
+        matcherWebsite.find()
+        manifestContent = matcherWebsite.replaceAll("Web Site:" + website)
+        manifestFile.write(manifestContent)
+
+        def patternSourcecode = Pattern.compile("Source Code:.*")
+        manifestText = manifestFile.getText()
+        def matcherSourcecode = patternSourcecode.matcher(manifestText)
+        matcherSourcecode.find()
+        manifestContent = matcherSourcecode.replaceAll("Source Code:" + sourcecode)
+        manifestFile.write(manifestContent)
+
+        def patternIssuetracker = Pattern.compile("Issue Tracker:.*")
+        manifestText = manifestFile.getText()
+        def matcherIssuetracker = patternIssuetracker.matcher(manifestText)
+        matcherIssuetracker.find()
+        manifestContent = matcherIssuetracker.replaceAll("Issue Tracker:" + issuetracker)
+        manifestFile.write(manifestContent)
+
+        def patternSummary = Pattern.compile("Summary:.*")
+        manifestText = manifestFile.getText()
+        def matcherSummary = patternSummary.matcher(manifestText)
+        matcherSummary.find()
+        manifestContent = matcherSummary.replaceAll("Summary:" + summary)
+        manifestFile.write(manifestContent)
+
+        def patternDescription = Pattern.compile("Description:.*")
+        manifestText = manifestFile.getText()
+        def matcherDescription = patternDescription.matcher(manifestText)
+        matcherDescription.find()
+        manifestContent = matcherDescription.replaceAll('Description:\n* \'\'\'' + versionMajor + '.' + versionMinor + '.' + versionPatch + '\'\'\' ' + fdroidMessage)
+        manifestFile.write(manifestContent)
+
+        def patternCurrentVersion = Pattern.compile("Current Version:.*")
+        manifestText = manifestFile.getText()
+        def matcherCurrentVersion = patternCurrentVersion.matcher(manifestText)
+        matcherCurrentVersion.find()
+        manifestContent = matcherCurrentVersion.replaceAll('Current Version: ' + versionMajor + "." + versionMinor + "." + versionPatch)
+        manifestFile.write(manifestContent)
+
+        def patternCurrentVersionCode = Pattern.compile("Current Version Code:.*")
+        manifestText = manifestFile.getText()
+        def matcherCurrentVersionCode = patternCurrentVersionCode.matcher(manifestText)
+        matcherCurrentVersionCode.find()
+        manifestContent = matcherCurrentVersionCode.replaceAll('Current Version Code: ' + System.getenv("BUILD_NUMBER"))
+        manifestFile.write(manifestContent)
+    }
+}
+
+// Copy artifact to fdroid repo
+task "copy"(type: Copy, dependsOn: "tidy") {
+    onlyIf { project.hasProperty('fdroid') }
+    from 'build/outputs/apk/' + apkName + '.apk'
+    into fdroidDir
+
+    rename { String fileName ->
+        fileName.replace(apkName, apkNameFrdoid)
+    }
+}
+
+// Tidy fdroid repo
+task tidy(type: Delete) {
+    onlyIf { project.hasProperty('fdroid') }
+    delete fdroidDir + '/' + apkNameFrdoid + '.apk'
+}
+
+// --------------------
+// Javadoc
+// --------------------
+
+ext.javadocDir = project.hasProperty('javadoc') ? project.getProperty('javadoc') : project.path + 'javadoc'
+
+android.applicationVariants.all { variant ->
+    // Tidy javadoc dir
+    task "tidyJavadoc${variant.name}"(type: Delete) {
+        delete new File(javadocDir + '/' + groupId + '/' + artifactId);
+    }
+
+    task "publishJavadoc${variant.name}"(type: Javadoc, dependsOn: "tidyJavadoc${variant.name}") {
+        title = artifactId.capitalize()
+        description = summary
+        source = variant.javaCompile.source
+        classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath())
+        destinationDir = new File(javadocDir + '/' + groupId + '/' + artifactId)
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+        }
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+}
+
+// --------------------
+// Maven
+// --------------------
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+            pom.groupId = groupId
+            pom.artifactId = artifactId
+            if (System.getenv("BUILD_NUMBER") != null)
+                pom.version = versionMajor + '.' + versionMinor + '.' + versionPatch
+        }
+    }
 }
 
 assembleDebug.dependsOn(copyPropertiesDebug)
