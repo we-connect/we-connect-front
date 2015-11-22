@@ -15,11 +15,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
+import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
 import berlin.weconnect.weconnect.view.adapters.InterestsDisplayAdapter;
@@ -76,11 +78,13 @@ public class ContactDialog extends DialogFragment {
                 ivProfilePicture.setImageBitmap(bmp);
 
             tvName.setText(user.getFirstName());
-            int sharedInterests = user.getSharedInterestsWith(user).size();
-            tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests), sharedInterests));
+            List<Interest> sharedInterests = user.getSharedInterestsWith(user);
+            tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
-            final InterestsDisplayAdapter interestsSelectionAdapter = new InterestsDisplayAdapter(getActivity(), R.layout.list_item_interest_display, user.getInterests());
+            final InterestsDisplayAdapter interestsSelectionAdapter = new InterestsDisplayAdapter(getActivity(), R.layout.list_item_interest_display, sharedInterests);
             lvInterests.setAdapter(interestsSelectionAdapter);
+
+            interestsSelectionAdapter.filter(user);
         }
 
         // Add positive button

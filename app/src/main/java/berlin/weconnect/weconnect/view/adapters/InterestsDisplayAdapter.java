@@ -18,12 +18,15 @@ import java.util.List;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
 
 public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements Filterable {
     private Activity activity;
 
     private InterestsController interestsController;
+    private UsersController usersController;
 
     // Filter
     @NonNull
@@ -43,6 +46,7 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
         this.originalItems = items;
 
         interestsController = InterestsController.getInstance();
+        usersController = UsersController.getInstance();
 
         filter();
     }
@@ -105,6 +109,10 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
         getFilter().filter("");
     }
 
+    public void filter(User user) {
+        getFilter().filter(user.getFacebookId());
+    }
+
     @Override
     public Filter getFilter() {
         if (interestFilter == null) {
@@ -121,6 +129,17 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
      */
     protected boolean filterInterest(Interest interest) {
         return interestsController.isVisible(interest);
+    }
+
+    /**
+     * Determines if an interest shall be displayed
+     *
+     * @param interest interest
+     * @param user     user
+     * @return true if item is visible
+     */
+    protected boolean filterInterest(Interest interest, User user) {
+        return interestsController.isVisible(interest, user);
     }
 
     // --------------------
@@ -146,8 +165,15 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
 
             for (int i = 0; i < count; i++) {
                 final Interest value = values.get(i);
-                if (filterInterest(value)) {
-                    newValues.add(value);
+                if (prefix.toString().isEmpty()) {
+                    if (filterInterest(value)) {
+                        newValues.add(value);
+                    }
+                } else {
+                    User user = usersController.getUserByFacebookId(prefix.toString());
+                    if (filterInterest(value, user)) {
+                        newValues.add(value);
+                    }
                 }
             }
 

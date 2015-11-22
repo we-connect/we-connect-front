@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.GetInterestsTask;
 
 public class InterestsController {
@@ -46,7 +47,18 @@ public class InterestsController {
      * @return whether interest is visible or not
      */
     public boolean isVisible(@Nullable Interest interest) {
-        return true; //interest != null;
+        return interest != null;
+    }
+
+    /**
+     * Determines whether a given interest be displayed considering all filters
+     *
+     * @param interest interest to determine visibility of
+     * @param user     user
+     * @return whether interest is visible or not
+     */
+    public boolean isVisible(@Nullable Interest interest, User user) {
+        return interest != null && user != null && user.hasInterest(interest);
     }
 
     /**
