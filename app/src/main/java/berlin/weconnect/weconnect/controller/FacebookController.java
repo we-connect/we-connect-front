@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
@@ -56,6 +57,7 @@ public class FacebookController {
         AccessToken.setCurrentAccessToken(null);
         Profile.setCurrentProfile(null);
         LoginManager.getInstance().logOut();
+        FacebookSdk.sdkInitialize(activity);
 
         Resources res = activity.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);

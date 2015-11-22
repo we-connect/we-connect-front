@@ -55,6 +55,7 @@ public class ContactDialog extends DialogFragment {
         // final String dialogTitle = bundle.getString(res.getString(R.string.bundle_dialog_title));
         final String contactFacebookId = bundle.getString(res.getString(R.string.bundle_contact_facebook_id));
 
+        User currentUser = usersController.getCurrentUser();
         User user = usersController.getUserByFacebookId(contactFacebookId);
 
         // Close dialog if user does not exist
@@ -78,7 +79,7 @@ public class ContactDialog extends DialogFragment {
                 ivProfilePicture.setImageBitmap(bmp);
 
             tvName.setText(user.getFirstName());
-            List<Interest> sharedInterests = user.getSharedInterestsWith(user);
+            List<Interest> sharedInterests = user.getSharedInterestsWith(currentUser);
             tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
             final InterestsDisplayAdapter interestsSelectionAdapter = new InterestsDisplayAdapter(getActivity(), R.layout.list_item_interest_display, sharedInterests);

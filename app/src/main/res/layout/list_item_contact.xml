@@ -29,6 +29,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSharedInterests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/common_text_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

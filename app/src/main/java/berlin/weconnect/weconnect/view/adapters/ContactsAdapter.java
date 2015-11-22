@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
+import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.ConnectionUtil;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
@@ -82,10 +83,14 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
 
+        Resources res = activity.getResources();
+        user.updateInterests();
+
         // Load views
         final LinearLayout llUser = (LinearLayout) vi.inflate(R.layout.list_item_contact, parent, false);
         final ImageView ivProfilePicture = (ImageView) llUser.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
+        final TextView tvSharedInterests = (TextView) llUser.findViewById(R.id.tvSharedInterests);
 
         // Set values
         if (user.getFacebookId() != null) {
@@ -102,6 +107,9 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
         if (user.getFirstName() != null)
             tvName.setText(user.getFirstName());
+
+        List<Interest> sharedInterests = user.getSharedInterestsWith(usersController.getCurrentUser());
+        tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
         // Add actions
         llUser.setOnClickListener(new View.OnClickListener() {
