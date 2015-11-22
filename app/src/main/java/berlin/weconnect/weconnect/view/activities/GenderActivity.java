@@ -158,6 +158,8 @@ public class GenderActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (btnContinueActivated) {
+                    testInternetConnection();
+
                     User user = usersController.getCurrentUser();
 
                     user.setType(type.getValue());
@@ -184,6 +186,8 @@ public class GenderActivity extends BaseActivity {
                 }
             }
         });
+
+        testInternetConnection();
     }
 
     @Override

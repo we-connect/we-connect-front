@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/sv"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="false"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dialog_fragment_padding"
     android:theme="@style/Theme.AppCompat.Light.Dialog">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dialog_fragment_padding">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/desc_profile_picture"
+            android:src="@drawable/profile" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dialog_fragment_padding">
 
-            <ImageView
-                android:id="@+id/ivProfilePicture"
+            <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="@string/desc_profile_picture"
-                android:src="@drawable/profile" />
+                android:layout_marginStart="@dimen/common_text_margin"
+                android:text="@string/profile_name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/card_text"
+                android:textStyle="bold" />
 
-            <LinearLayout
-                android:paddingStart="@dimen/dialog_fragment_padding"
+            <TextView
+                android:id="@+id/tvSharedInterests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/common_text_margin"
-                    android:text="@string/profile_name"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/card_text"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvSharedInterests"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/common_text_margin"
-                    android:text="@string/shared_interests"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/card_text" />
-            </LinearLayout>
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/common_text_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/card_text" />
         </LinearLayout>
-
-        <include
-            android:id="@+id/fragment_interest_list"
-            layout="@layout/fragment_interest_list" />
-
     </LinearLayout>
-</ScrollView>
+
+    <include
+        android:id="@+id/fragment_interest_list"
+        layout="@layout/fragment_interest_list" />
+
+</LinearLayout>

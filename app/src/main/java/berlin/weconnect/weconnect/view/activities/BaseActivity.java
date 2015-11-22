@@ -22,8 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.model.util.ConnectionUtil;
+import berlin.weconnect.weconnect.view.dialogs.NoInternetDialog;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements NoInternetDialog.OnCompleteListener {
     // --------------------
     // Methods - Lifecycle
     // --------------------
@@ -46,11 +48,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
+
+        testInternetConnection();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    public void testInternetConnection() {
+        if (!ConnectionUtil.isNetworkAvailable()) {
+            new NoInternetDialog().show(getFragmentManager(), NoInternetDialog.TAG);
+        }
     }
 
     // --------------------
@@ -71,5 +81,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void setDisplayHomeAsUpEnabled(boolean enabled) {
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(enabled);
+    }
+
+    @Override
+    public void onRetry() {
+        testInternetConnection();
+    }
+
+    @Override
+    public void onCloseApp() {
+        finish();
+        System.exit(0);
     }
 }

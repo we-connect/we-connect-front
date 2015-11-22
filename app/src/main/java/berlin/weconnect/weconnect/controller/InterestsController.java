@@ -36,7 +36,7 @@ public class InterestsController {
     // --------------------
 
     public void init() {
-        callGetInterests();
+        get();
     }
 
     /**
@@ -52,7 +52,7 @@ public class InterestsController {
     /**
      * Calls webservice to get interests
      */
-    public void callGetInterests() {
+    public void get() {
         try {
             interests = new GetInterestsTask().execute().get();
         } catch (@NonNull InterruptedException | ExecutionException e) {

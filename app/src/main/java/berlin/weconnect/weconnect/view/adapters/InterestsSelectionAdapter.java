@@ -22,6 +22,7 @@ import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class InterestsSelectionAdapter extends ArrayAdapter<Interest> implements Filterable {
     private Activity activity;
@@ -103,6 +104,8 @@ public class InterestsSelectionAdapter extends ArrayAdapter<Interest> implements
         llInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((BaseActivity) activity).testInternetConnection();
+
                 cb.toggle();
                 interest.setSelected(cb.isChecked());
                 user.updateInterest(interest);
@@ -111,6 +114,8 @@ public class InterestsSelectionAdapter extends ArrayAdapter<Interest> implements
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((BaseActivity) activity).testInternetConnection();
+
                 interest.setSelected(cb.isChecked());
                 user.updateInterest(interest);
             }

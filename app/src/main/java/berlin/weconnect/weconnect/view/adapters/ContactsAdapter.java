@@ -23,7 +23,9 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.util.ConnectionUtil;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
 public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
@@ -105,13 +107,17 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContactDialog dialog = new ContactDialog();
-                Resources res = activity.getResources();
-                Bundle bundle = new Bundle();
-                bundle.putString(res.getString(R.string.bundle_dialog_title), res.getString(R.string.contact));
-                bundle.putString(res.getString(R.string.bundle_contact_facebook_id), user.getFacebookId());
-                dialog.setArguments(bundle);
-                dialog.show(activity.getFragmentManager(), ContactDialog.TAG);
+                ((BaseActivity) activity).testInternetConnection();
+
+                if (ConnectionUtil.isNetworkAvailable()) {
+                    ContactDialog dialog = new ContactDialog();
+                    Resources res = activity.getResources();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(res.getString(R.string.bundle_dialog_title), res.getString(R.string.contact));
+                    bundle.putString(res.getString(R.string.bundle_contact_facebook_id), user.getFacebookId());
+                    dialog.setArguments(bundle);
+                    dialog.show(activity.getFragmentManager(), ContactDialog.TAG);
+                }
             }
         });
 
