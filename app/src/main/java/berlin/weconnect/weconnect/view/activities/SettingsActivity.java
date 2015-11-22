@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
@@ -46,10 +47,8 @@ public class SettingsActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        final LinearLayout llNewcomer = (LinearLayout) findViewById(R.id.llNewcomer);
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final LinearLayout llLocal = (LinearLayout) findViewById(R.id.llLocal);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
+        final TextView tvNewcomerOrLocal = (TextView) findViewById(R.id.tvNewcomerOrLocal);
+        final TextView tvMaleOrFemale = (TextView) findViewById(R.id.tvMaleOrFemale);
         final LinearLayout llMale = (LinearLayout) findViewById(R.id.llMale);
         final LinearLayout llFemale = (LinearLayout) findViewById(R.id.llFemale);
         final LinearLayout llOnlySameGender = (LinearLayout) findViewById(R.id.llOnlySameGender);
@@ -61,8 +60,6 @@ public class SettingsActivity extends BaseActivity {
 
         // Set values
         User user = usersController.getCurrentUser();
-        cbNewcomer.setChecked(user.getType().equals(EType.NEWCOMER.getValue()));
-        cbLocal.setChecked(user.getType().equals(EType.LOCAL.getValue()));
         cbOnlySameGender.setChecked(user.getMeetingPref().equals(user.getGender()));
         cbEverybody.setChecked(user.getMeetingPref().equals(EMeetingPref.BOTH.getValue()));
         final InterestsSelectionAdapter interestsSelectionAdapter = new InterestsSelectionAdapter(this, R.layout.list_item_interest_selection, interestsController.getInterests());
@@ -70,34 +67,8 @@ public class SettingsActivity extends BaseActivity {
         ListUtil.setListViewHeightBasedOnChildren(this, lvInterests);
 
         // Add actions
-        cbNewcomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectType(EType.NEWCOMER);
-            }
-        });
-        llNewcomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cbNewcomer.toggle();
-                selectType(EType.NEWCOMER);
-            }
-        });
-
-        cbLocal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectType(EType.LOCAL);
-            }
-        });
-        llLocal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cbLocal.toggle();
-                selectType(EType.LOCAL);
-            }
-        });
-
+        tvNewcomerOrLocal.setVisibility(View.GONE);
+        tvMaleOrFemale.setVisibility(View.GONE);
         llMale.setVisibility(View.GONE);
         llFemale.setVisibility(View.GONE);
 

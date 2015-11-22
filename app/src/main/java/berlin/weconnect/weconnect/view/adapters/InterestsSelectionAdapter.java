@@ -92,7 +92,7 @@ public class InterestsSelectionAdapter extends ArrayAdapter<Interest> implements
             tvName.setText(interest.getName());
         if (interest.getIcon() != 0)
             ivIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), interest.getIcon()));
-        if (user.hasInterest(interest))
+        if (user != null && user.hasInterest(interest))
             cb.setChecked(true);
 
         // Set color
