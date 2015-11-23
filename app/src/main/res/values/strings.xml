@@ -47,4 +47,12 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="retry">Retry</string>
     <string name="close_app">Close App</string>
+    <string name="developer">developer</string>
+    <string name="issuetracker">issue tracker</string>
+    <string name="license">license</string>
+    <string name="website">website</string>
+    <string name="version">version</string>
+    <string name="company">company</string>
+    <string name="by">by</string>
+    <string name="about">About</string>
 </resources>

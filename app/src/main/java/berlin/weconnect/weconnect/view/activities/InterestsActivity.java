@@ -76,6 +76,11 @@ public class InterestsActivity extends BaseActivity {
                 MailUtil.sendFeedback(this);
                 break;
             }
+            case R.id.menu_about: {
+                Intent i = new Intent(InterestsActivity.this, AboutActivity.class);
+                startActivity(i);
+                break;
+            }
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();
                 break;

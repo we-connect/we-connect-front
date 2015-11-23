@@ -1,23 +1,27 @@
 package berlin.weconnect.weconnect.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
+import java.io.File;
+
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.view.activities.LoginActivity;
 
 public class FacebookController {
-    // Activity
-    private Activity activity;
+    private static final String TAG = "FacebookController";
 
+    private Activity activity;
     private static FacebookController instance;
 
     // --------------------
@@ -58,6 +62,7 @@ public class FacebookController {
         Profile.setCurrentProfile(null);
         LoginManager.getInstance().logOut();
         FacebookSdk.sdkInitialize(activity);
+        clearCache(activity);
 
         Resources res = activity.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -75,6 +80,42 @@ public class FacebookController {
         Intent i = new Intent(activity, LoginActivity.class);
         activity.startActivity(i);
         activity.finish();
+    }
+
+    /**
+     * Clear the apllication's cache
+     *
+     * @param context context
+     */
+    public static void clearCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            if (dir != null && dir.isDirectory()) {
+                deleteDir(dir);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes a directory recursively
+     *
+     * @param dir directory to delete
+     * @return whether delete worked
+     */
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (String c : children) {
+                boolean success = deleteDir(new File(dir, c));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        return (dir != null) && dir.delete();
     }
 
     // --------------------

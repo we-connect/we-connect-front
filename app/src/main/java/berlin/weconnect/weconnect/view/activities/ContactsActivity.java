@@ -83,6 +83,11 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
                 startActivity(i);
                 break;
             }
+            case R.id.menu_about: {
+                Intent i = new Intent(ContactsActivity.this, AboutActivity.class);
+                startActivity(i);
+                break;
+            }
             case R.id.menu_logout: {
                 FacebookController.getInstance(this).logout();
                 break;

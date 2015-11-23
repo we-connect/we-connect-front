@@ -22,4 +22,8 @@
     <string name="gradle_version_major">versionMajor</string>
     <string name="gradle_version_minor">versionMinor</string>
     <string name="gradle_version_patch">versionPatch</string>
+    <string name="gradle_company">company</string>
+    <string name="gradle_sourcecode">sourcecode</string>
+    <string name="gradle_website">website</string>
+    <string name="gradle_license">license</string>
 </resources>

@@ -1,5 +1,6 @@
 package berlin.weconnect.weconnect.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Menu;
@@ -124,6 +125,11 @@ public class SettingsActivity extends BaseActivity {
             }
             case R.id.menu_feedback: {
                 MailUtil.sendFeedback(this);
+                break;
+            }
+            case R.id.menu_about: {
+                Intent i = new Intent(SettingsActivity.this, AboutActivity.class);
+                startActivity(i);
                 break;
             }
             case R.id.menu_logout: {

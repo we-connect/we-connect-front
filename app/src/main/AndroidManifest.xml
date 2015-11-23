@@ -44,6 +44,10 @@
             android:name=".view.activities.WebActivity"
             android:parentActivityName=".view.activities.ContactsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activities.AboutActivity"
+            android:parentActivityName=".view.activities.ContactsActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.activities.GenderActivity" >
         </activity>
     </application>

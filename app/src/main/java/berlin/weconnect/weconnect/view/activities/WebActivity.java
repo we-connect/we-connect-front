@@ -86,6 +86,11 @@ public class WebActivity extends BaseActivity {
                 MailUtil.sendFeedback(this);
                 break;
             }
+            case R.id.menu_about: {
+                Intent i = new Intent(WebActivity.this, AboutActivity.class);
+                startActivity(i);
+                break;
+            }
             case android.R.id.home: {
                 finish();
             }
