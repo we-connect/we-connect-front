@@ -18,7 +18,7 @@
     <string name="desc_profile_picture">profile picture</string>
     <string name="profile_name">Profile name</string>
     <string name="discover_people">Discover people with the same interests and connect on Facebook:</string>
-    <string name="no_interest">No shared interests at the moment. Come back soon!</string>
+    <string name="no_interest">Sorry, no shared interests at the moment. Try again soon!</string>
     <string name="settings">Settings</string>
     <string name="done">Done</string>
     <string name="logged_in_as">Logged in as</string>
