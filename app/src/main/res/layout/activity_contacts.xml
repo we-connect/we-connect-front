@@ -43,7 +43,22 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="@dimen/interest_box_margin"
                     android:divider="@color/white"
-                    android:dividerHeight="1dp" />
+                    android:dividerHeight="1dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@android:id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/interest_box_margin"
+                    android:paddingTop="@dimen/text_padding_top"
+                    android:text="@string/no_interest"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size"
+
+                />
 
             </LinearLayout>
 
