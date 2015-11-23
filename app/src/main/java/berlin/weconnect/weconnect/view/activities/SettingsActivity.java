@@ -17,14 +17,13 @@ import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.entities.EMeetingPref;
-import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.ListUtil;
 import berlin.weconnect.weconnect.model.util.MailUtil;
+import berlin.weconnect.weconnect.model.webservices.PutUserTask;
 import berlin.weconnect.weconnect.view.adapters.InterestsSelectionAdapter;
 
 public class SettingsActivity extends BaseActivity {
-    private EType type;
     private EMeetingPref meetingPref;
 
     private UsersController usersController;
@@ -103,6 +102,7 @@ public class SettingsActivity extends BaseActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new PutUserTask().execute(usersController.getCurrentUser());
                 finish();
             }
         });
@@ -146,26 +146,6 @@ public class SettingsActivity extends BaseActivity {
         return R.layout.activity_settings;
     }
 
-    private void selectType(EType t) {
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
-
-        switch (t) {
-            case NEWCOMER: {
-                type = EType.NEWCOMER;
-                cbLocal.setChecked(!cbNewcomer.isChecked());
-                break;
-            }
-            case LOCAL: {
-                type = EType.LOCAL;
-                cbNewcomer.setChecked(!cbLocal.isChecked());
-                break;
-            }
-        }
-
-        updateType(type);
-    }
-
     private void selectMeetingPreference(EMeetingPref p) {
         final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
         final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
@@ -184,10 +164,6 @@ public class SettingsActivity extends BaseActivity {
         }
 
         updateMeetingPref(meetingPref);
-    }
-
-    private void updateType(EType type) {
-        usersController.getCurrentUser().setType(type.getValue());
     }
 
     private void updateMeetingPref(EMeetingPref meetingPref) {
