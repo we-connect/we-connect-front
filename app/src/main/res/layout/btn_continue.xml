@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btnContinue"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="@dimen/button_margin"
+    android:background="@color/button_active"
+    android:padding="@dimen/button_padding"
+    android:text="@string/continue_"
+    android:textColor="@color/white"
+    android:textStyle="bold" />

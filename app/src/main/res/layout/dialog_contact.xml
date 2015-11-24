@@ -45,10 +45,18 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/card_text" />
         </LinearLayout>
+
     </LinearLayout>
 
-    <include
-        android:id="@+id/fragment_interest_list"
-        layout="@layout/fragment_interest_list" />
+    <ListView
+        android:id="@+id/lvInterestCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interest_box_margin"
+        android:divider="@color/transparent"
+        android:dividerHeight="@dimen/interest_box_spacing"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" />
 
 </LinearLayout>

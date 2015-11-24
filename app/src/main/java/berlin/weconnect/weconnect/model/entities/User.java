@@ -32,6 +32,7 @@ public class User {
     private String meetingPref;
 
     private transient List<Interest> interests;
+    private transient List<InterestCategory> interestCategories;
 
     private transient String profileUrl;
     private transient String profilePictureUrl;
@@ -81,6 +82,21 @@ public class User {
     /**
      * Determines whether a user has a certain interest
      *
+     * @param interestCategory interestCategory
+     * @return whether or not the user has the @param interest
+     */
+    public boolean hasInterestCategory(@NonNull InterestCategory interestCategory) {
+        for (Interest i : getInterests()) {
+            if (i.getCategory().equals(interestCategory.getName()))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines whether a user has a certain interest
+     *
      * @param interest interest
      * @return whether or not the user has the @param interest
      */
@@ -107,6 +123,44 @@ public class User {
         }
 
         return interests;
+    }
+
+    public List<InterestCategory> getInterestCategories() {
+        interestCategories = new ArrayList<>();
+
+        for (Interest i : getInterests()) {
+            String category = i.getCategory();
+
+            if (containsCategory(category)) {
+                InterestCategory ic = getCategoryByName(category);
+                ic.getInterests().add(i);
+            } else {
+                InterestCategory ic = new InterestCategory(category);
+                ic.getInterests().add(i);
+
+                interestCategories.add(ic);
+            }
+        }
+
+        return interestCategories;
+    }
+
+    private boolean containsCategory(String category) {
+        for (InterestCategory ic : interestCategories) {
+            if (ic.getName().equals(category))
+                return true;
+        }
+
+        return false;
+    }
+
+    private InterestCategory getCategoryByName(String category) {
+        for (InterestCategory ic : interestCategories) {
+            if (ic.getName().equals(category))
+                return ic;
+        }
+
+        return null;
     }
 
     @NonNull

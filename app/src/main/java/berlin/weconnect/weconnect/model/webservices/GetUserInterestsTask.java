@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
 
     private static final String ENCODING = "UTF-8";
     private static final int RESPONSE_CODE_OKAY = 200;
+    private static final int RESPONSE_CODE_EMPTY = 204;
 
     // --------------------
     // Methods - Lifecycle
@@ -84,7 +86,7 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
         try {
             Log.d(TAG, "Call " + url.toString());
 
-            if (con.getResponseCode() != RESPONSE_CODE_OKAY) {
+            if (con.getResponseCode() != RESPONSE_CODE_OKAY && con.getResponseCode() != RESPONSE_CODE_EMPTY) {
                 Log.e(TAG, "Error from Web API");
                 Log.e(TAG, "ResponseCode : " + con.getResponseCode());
                 Log.e(TAG, "ResponseMethod : " + con.getRequestMethod());
@@ -93,6 +95,10 @@ public class GetUserInterestsTask extends AsyncTask<Void, Void, List<UserInteres
                     Log.e(TAG, entry.getKey() + " : " + entry.getValue());
                 }
                 throw new Exception("Error from Web API");
+            }
+
+            if (con.getResponseCode() == RESPONSE_CODE_EMPTY) {
+                return new ArrayList<UserInterest>();
             }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));

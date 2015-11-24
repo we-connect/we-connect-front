@@ -2,14 +2,12 @@ package berlin.weconnect.weconnect.view.adapters;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,18 +18,19 @@ import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.InterestsController;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
+import berlin.weconnect.weconnect.model.entities.InterestCategory;
 import berlin.weconnect.weconnect.model.entities.User;
 
-public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements Filterable {
+public class InterestCategoriesShowAdapter extends ArrayAdapter<InterestCategory> implements Filterable {
     private Activity activity;
 
-    private InterestsController interestsController;
     private UsersController usersController;
+    private InterestsController interestsController;
 
     // Filter
     @NonNull
-    private List<Interest> filteredItems = new ArrayList<>();
-    private List<Interest> originalItems = new ArrayList<>();
+    private List<InterestCategory> filteredItems = new ArrayList<>();
+    private List<InterestCategory> originalItems = new ArrayList<>();
     private InterestFilter interestFilter;
     private final Object lock = new Object();
 
@@ -39,14 +38,14 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
     // Constructors
     // --------------------
 
-    public InterestsDisplayAdapter(Activity activity, int resource, @NonNull List<Interest> items) {
+    public InterestCategoriesShowAdapter(Activity activity, int resource, @NonNull List<InterestCategory> items) {
         super(activity, resource, items);
         this.activity = activity;
         this.filteredItems = items;
         this.originalItems = items;
 
-        interestsController = InterestsController.getInstance();
         usersController = UsersController.getInstance();
+        interestsController = InterestsController.getInstance();
 
         filter();
     }
@@ -61,39 +60,51 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
     }
 
     @Override
-    public Interest getItem(int position) {
+    public InterestCategory getItem(int position) {
         return filteredItems.get(position);
     }
 
     @NonNull
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
-        final Interest interest = getItem(position);
-        return getInterestView(position, interest, parent);
+        final InterestCategory interestCategory = getItem(position);
+        return getCategoryView(position, interestCategory, parent);
     }
 
     @NonNull
-    private View getInterestView(final int position, @NonNull final Interest interest, final ViewGroup parent) {
+    private View getCategoryView(final int position, @NonNull final InterestCategory interestCategory, final ViewGroup parent) {
         // Layout inflater
         LayoutInflater vi;
         vi = LayoutInflater.from(getContext());
 
         // Load views
-        final LinearLayout llInterest = (LinearLayout) vi.inflate(R.layout.list_item_interest_display, parent, false);
-        final ImageView ivIcon = (ImageView) llInterest.findViewById(R.id.ivIcon);
-        final TextView tvName = (TextView) llInterest.findViewById(R.id.tvName);
+        final LinearLayout llInterestCategory = (LinearLayout) vi.inflate(R.layout.list_item_interest_category_show, parent, false);
+        final TextView tvCategoryName = (TextView) llInterestCategory.findViewById(R.id.tvCategoryName);
+        final LinearLayout llInterests = (LinearLayout) llInterestCategory.findViewById(R.id.llInterests);
 
         // Set values
-        if (interest.getName() != null)
-            tvName.setText(interest.getName());
-        if (interest.getIcon() != 0)
-            ivIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), interest.getIcon()));
+        if (interestCategory.getName() != null)
+            tvCategoryName.setText(interestCategory.getName());
 
         // Set color
         int[] colors = activity.getResources().getIntArray(R.array.interests);
-        llInterest.setBackgroundColor(colors[position % colors.length]);
+        llInterestCategory.setBackgroundColor(colors[position % colors.length]);
 
-        return llInterest;
+        // Iterate over all interests of this category
+        for (final Interest interest : interestCategory.getInterests()) {
+            final LinearLayout gridItemInterest = (LinearLayout) vi.inflate(R.layout.grid_item_interest_show, parent, false);
+            final TextView tvName = (TextView) gridItemInterest.findViewById(R.id.tvName);
+
+            final User user = usersController.getCurrentUser();
+
+            // Set values
+            if (interest.getName() != null)
+                tvName.setText(interest.getName());
+
+            llInterests.addView(gridItemInterest);
+        }
+
+        return llInterestCategory;
     }
 
     // --------------------
@@ -101,7 +112,7 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
     // --------------------
 
     @NonNull
-    public List<Interest> getFilteredItems() {
+    public List<InterestCategory> getFilteredItems() {
         return filteredItems;
     }
 
@@ -113,6 +124,18 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
         getFilter().filter(user.getFacebookId());
     }
 
+
+    /**
+     * Determines if an interest category shall be displayed
+     *
+     * @param interestCategory interestCategory
+     * @param user     user
+     * @return true if item is visible
+     */
+    protected boolean filterInterest(InterestCategory interestCategory, User user) {
+        return interestsController.isVisible(interestCategory, user);
+    }
+
     @Override
     public Filter getFilter() {
         if (interestFilter == null) {
@@ -122,24 +145,13 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
     }
 
     /**
-     * Determines if an interest shall be displayed
+     * Determines if an interest category shall be displayed
      *
-     * @param interest interest
+     * @param interestCategory interest category
      * @return true if item is visible
      */
-    protected boolean filterInterest(Interest interest) {
-        return interestsController.isVisible(interest);
-    }
-
-    /**
-     * Determines if an interest shall be displayed
-     *
-     * @param interest interest
-     * @param user     user
-     * @return true if item is visible
-     */
-    protected boolean filterInterest(Interest interest, User user) {
-        return interestsController.isVisible(interest, user);
+    protected boolean filterInterest(InterestCategory interestCategory) {
+        return interestsController.isVisible(interestCategory);
     }
 
     // --------------------
@@ -153,18 +165,18 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
             FilterResults results = new FilterResults();
 
             // Copy items
-            originalItems = interestsController.getInterests();
+            // originalItems = interestsController.getInterestCategories();
 
-            ArrayList<Interest> values;
+            ArrayList<InterestCategory> values;
             synchronized (lock) {
                 values = new ArrayList<>(originalItems);
             }
 
             final int count = values.size();
-            final ArrayList<Interest> newValues = new ArrayList<>();
+            final ArrayList<InterestCategory> newValues = new ArrayList<>();
 
             for (int i = 0; i < count; i++) {
-                final Interest value = values.get(i);
+                final InterestCategory value = values.get(i);
                 if (prefix.toString().isEmpty()) {
                     if (filterInterest(value)) {
                         newValues.add(value);
@@ -186,7 +198,7 @@ public class InterestsDisplayAdapter extends ArrayAdapter<Interest> implements F
         @Override
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
-            filteredItems = (List<Interest>) results.values;
+            filteredItems = (List<InterestCategory>) results.values;
 
             if (results.count > 0) {
                 notifyDataSetChanged();

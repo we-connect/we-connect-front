@@ -4,17 +4,19 @@ import android.support.annotation.NonNull;
 
 public class Interest {
     private String id;
+    private String category;
     private String name;
-    private int icon;
 
+    private transient int icon;
     private transient boolean selected;
 
     // ------------------------
     // Constructors
     // ------------------------
 
-    public Interest(String id, String name, int icon) {
+    public Interest(String id, String category, String name, int icon) {
         this.id = id;
+        this.category = category;
         this.name = name;
         this.icon = icon;
     }
@@ -25,7 +27,7 @@ public class Interest {
 
     @NonNull
     public String toString() {
-        return "[Interest " + getId() + " " + getName() + "]";
+        return "[Interest " + getId() + " " + getCategory()+ " " + getName() + "]";
     }
 
     // ------------------------
@@ -38,6 +40,14 @@ public class Interest {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {

@@ -24,7 +24,7 @@ import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
-import berlin.weconnect.weconnect.view.adapters.InterestsDisplayAdapter;
+import berlin.weconnect.weconnect.view.adapters.InterestCategoriesShowAdapter;
 
 public class ContactDialog extends DialogFragment {
     public static final String TAG = "contact";
@@ -48,11 +48,10 @@ public class ContactDialog extends DialogFragment {
         final ImageView ivProfilePicture = (ImageView) v.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) v.findViewById(R.id.tvName);
         final TextView tvSharedInterests = (TextView) v.findViewById(R.id.tvSharedInterests);
-        final ListView lvInterests = (ListView) v.findViewById(R.id.lvInterests);
+        final ListView lvInterestCategories = (ListView) v.findViewById(R.id.lvInterestCategories);
 
         // Get arguments
         Bundle bundle = this.getArguments();
-        // final String dialogTitle = bundle.getString(res.getString(R.string.bundle_dialog_title));
         final String contactFacebookId = bundle.getString(res.getString(R.string.bundle_contact_facebook_id));
 
         User currentUser = usersController.getCurrentUser();
@@ -65,7 +64,6 @@ public class ContactDialog extends DialogFragment {
         // Fill views with arguments
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v);
-        // builder.setTitle(dialogTitle);
 
         if (user != null) {
             Bitmap bmp = null;
@@ -82,10 +80,9 @@ public class ContactDialog extends DialogFragment {
             List<Interest> sharedInterests = user.getSharedInterestsWith(currentUser);
             tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
-            final InterestsDisplayAdapter interestsSelectionAdapter = new InterestsDisplayAdapter(getActivity(), R.layout.list_item_interest_display, sharedInterests);
-            lvInterests.setAdapter(interestsSelectionAdapter);
-
-            interestsSelectionAdapter.filter(user);
+            final InterestCategoriesShowAdapter interestCategoriesShowAdapter = new InterestCategoriesShowAdapter(getActivity(), R.layout.list_item_interest_category_show, user.getInterestCategories());
+            lvInterestCategories.setAdapter(interestCategoriesShowAdapter);
+            interestCategoriesShowAdapter.filter(currentUser);
         }
 
         // Add positive button
