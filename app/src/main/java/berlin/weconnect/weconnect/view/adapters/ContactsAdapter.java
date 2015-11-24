@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
+import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.ConnectionUtil;
@@ -87,10 +89,11 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         user.updateInterests();
 
         // Load views
-        final LinearLayout llUser = (LinearLayout) vi.inflate(R.layout.list_item_contact, parent, false);
-        final ImageView ivProfilePicture = (ImageView) llUser.findViewById(R.id.ivProfilePicture);
-        final TextView tvName = (TextView) llUser.findViewById(R.id.tvName);
-        final TextView tvSharedInterests = (TextView) llUser.findViewById(R.id.tvSharedInterests);
+        final RelativeLayout rlUser = (RelativeLayout) vi.inflate(R.layout.list_item_contact, parent, false);
+        final ImageView ivProfilePicture = (ImageView) rlUser.findViewById(R.id.ivProfilePicture);
+        final TextView tvName = (TextView) rlUser.findViewById(R.id.tvName);
+        final ImageView ivType = (ImageView) rlUser.findViewById(R.id.ivType);
+        final TextView tvSharedInterests = (TextView) rlUser.findViewById(R.id.tvSharedInterests);
 
         // Set values
         if (user.getFacebookId() != null) {
@@ -107,12 +110,16 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
         if (user.getFirstName() != null)
             tvName.setText(user.getFirstName());
+        if (user.getType().equals(EType.NEWCOMER.getValue()))
+            ivType.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_action_web_site_light));
+        else if (user.getType().equals(EType.LOCAL.getValue()))
+            ivType.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_action_berlin_light));
 
         List<Interest> sharedInterests = user.getSharedInterestsWith(usersController.getCurrentUser());
         tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
         // Add actions
-        llUser.setOnClickListener(new View.OnClickListener() {
+        rlUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) activity).testInternetConnection();
@@ -129,7 +136,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
             }
         });
 
-        return llUser;
+        return rlUser;
     }
 
     // --------------------

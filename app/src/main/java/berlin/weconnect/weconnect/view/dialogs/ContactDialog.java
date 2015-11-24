@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
+import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
@@ -48,6 +50,7 @@ public class ContactDialog extends DialogFragment {
         final ImageView ivProfilePicture = (ImageView) v.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) v.findViewById(R.id.tvName);
         final TextView tvSharedInterests = (TextView) v.findViewById(R.id.tvSharedInterests);
+        final ImageView ivType = (ImageView) v.findViewById(R.id.ivType);
         final ListView lvInterestCategories = (ListView) v.findViewById(R.id.lvInterestCategories);
 
         // Get arguments
@@ -61,7 +64,7 @@ public class ContactDialog extends DialogFragment {
         if (user == null)
             dismiss();
 
-        // Fill views with arguments
+        // Set values
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v);
 
@@ -79,6 +82,12 @@ public class ContactDialog extends DialogFragment {
             tvName.setText(user.getFirstName());
             List<Interest> sharedInterests = user.getSharedInterestsWith(currentUser);
             tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
+
+
+            if (user.getType().equals(EType.NEWCOMER.getValue()))
+                ivType.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_web_site));
+            else if (user.getType().equals(EType.LOCAL.getValue()))
+                ivType.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_berlin));
 
             final InterestCategoriesShowAdapter interestCategoriesShowAdapter = new InterestCategoriesShowAdapter(getActivity(), R.layout.list_item_interest_category_show, user.getInterestCategories());
             lvInterestCategories.setAdapter(interestCategoriesShowAdapter);
