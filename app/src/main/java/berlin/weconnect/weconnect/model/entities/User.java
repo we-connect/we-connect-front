@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import berlin.weconnect.weconnect.controller.UserInterestsController;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class User {
     private String id;
@@ -51,18 +52,21 @@ public class User {
 
     /**
      * Loads user's interests
+     *
+     * @para activity activity
      */
-    public void updateInterests() {
-        interests = UserInterestsController.getInstance().getInterestsByUser(this);
+    public void updateInterests(BaseActivity activity) {
+        interests = UserInterestsController.getInstance(activity).getInterestsByUser(this);
     }
 
     /**
      * Updates a certain @param interest
      *
      * @param interest interest to be updated
+     * @param activity activity
      */
-    public void updateInterest(@NonNull Interest interest) {
-        UserInterestsController userInterestsController = UserInterestsController.getInstance();
+    public void updateInterest(BaseActivity activity, @NonNull Interest interest) {
+        UserInterestsController userInterestsController = UserInterestsController.getInstance(activity);
 
         UserInterest userInterest = userInterestsController.getUserInterestByUserAndInterest(this, interest);
 
@@ -76,7 +80,7 @@ public class User {
         }
 
         userInterestsController.get();
-        updateInterests();
+        updateInterests(activity);
     }
 
     /**
@@ -133,10 +137,12 @@ public class User {
 
             if (containsCategory(category)) {
                 InterestCategory ic = getCategoryByName(category);
-                ic.getInterests().add(i);
+                if (ic != null && ic.getInterests() != null)
+                    ic.getInterests().add(i);
             } else {
                 InterestCategory ic = new InterestCategory(category);
-                ic.getInterests().add(i);
+                if (ic != null && ic.getInterests() != null)
+                    ic.getInterests().add(i);
 
                 interestCategories.add(ic);
             }

@@ -26,6 +26,7 @@ import berlin.weconnect.weconnect.model.entities.EType;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 import berlin.weconnect.weconnect.view.adapters.InterestCategoriesShowAdapter;
 
 public class ContactDialog extends DialogFragment {
@@ -42,7 +43,7 @@ public class ContactDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         final Resources res = getActivity().getResources();
 
-        UsersController usersController = UsersController.getInstance();
+        UsersController usersController = UsersController.getInstance((BaseActivity) getActivity());
 
         // Load layout
         final View v = View.inflate(getActivity(), R.layout.dialog_contact, null);

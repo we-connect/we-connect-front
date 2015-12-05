@@ -22,6 +22,7 @@ import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.InterestCategory;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class InterestCategoriesSelectionAdapter extends ArrayAdapter<InterestCategory> implements Filterable {
     private Activity activity;
@@ -46,8 +47,8 @@ public class InterestCategoriesSelectionAdapter extends ArrayAdapter<InterestCat
         this.filteredItems = items;
         this.originalItems = items;
 
-        usersController = UsersController.getInstance();
-        interestsController = InterestsController.getInstance();
+        usersController = UsersController.getInstance((BaseActivity) activity);
+        interestsController = InterestsController.getInstance((BaseActivity) activity);
 
         filter();
     }
@@ -112,14 +113,14 @@ public class InterestCategoriesSelectionAdapter extends ArrayAdapter<InterestCat
                 public void onClick(View v) {
                     cb.toggle();
                     interest.setSelected(cb.isChecked());
-                    user.updateInterest(interest);
+                    user.updateInterest((BaseActivity) activity, interest);
                 }
             });
             cb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     interest.setSelected(cb.isChecked());
-                    user.updateInterest(interest);
+                    user.updateInterest((BaseActivity) activity, interest);
                 }
             });
 

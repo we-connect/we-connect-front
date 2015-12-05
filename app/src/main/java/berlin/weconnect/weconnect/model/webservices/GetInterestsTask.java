@@ -44,7 +44,7 @@ public class GetInterestsTask extends AsyncTask<Void, Void, List<Interest>> {
             e.printStackTrace();
         }
 
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

@@ -7,6 +7,11 @@ import android.net.NetworkInfo;
 import berlin.weconnect.weconnect.App;
 
 public class ConnectionUtil {
+    /**
+     * Tests if there is an internet connection
+     *
+     * @return whether there is an internet connection or not
+     */
     public static boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);

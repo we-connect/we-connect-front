@@ -53,7 +53,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         this.filteredItems = items;
         this.originalItems = items;
 
-        usersController = UsersController.getInstance();
+        usersController = UsersController.getInstance((BaseActivity) activity);
 
         filter();
     }
@@ -86,7 +86,7 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
         vi = LayoutInflater.from(getContext());
 
         Resources res = activity.getResources();
-        user.updateInterests();
+        user.updateInterests((BaseActivity) activity);
 
         // Load views
         final RelativeLayout rlUser = (RelativeLayout) vi.inflate(R.layout.list_item_contact, parent, false);

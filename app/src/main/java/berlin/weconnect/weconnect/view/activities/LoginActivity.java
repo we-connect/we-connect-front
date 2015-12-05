@@ -1,6 +1,5 @@
 package berlin.weconnect.weconnect.view.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -8,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -18,18 +16,13 @@ import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import java.util.List;
-
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
-import berlin.weconnect.weconnect.model.entities.Interest;
-import berlin.weconnect.weconnect.model.entities.User;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private CallbackManager callbackManager;
-    private Activity activity;
 
     // --------------------
     // Methods - Lifecycle
@@ -38,15 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        activity = this;
     }
 
     public void onResume() {
         super.onResume();
 
-        LoginButton btnLogin = (LoginButton) findViewById(R.id.btnLogin);
+        // Load layout
+        final LoginButton btnLogin = (LoginButton) findViewById(R.id.btnLogin);
 
         // Check if user is already logged in to Facebook with this app
         if (FacebookController.getInstance(this).isLoggedIn()) {
@@ -74,6 +65,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_login;
+    }
+
     /**
      * Writes Facebook profile information into preferences
      *
@@ -97,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString(res.getString(R.string.pref_fb_username), name);
             editor.putString(res.getString(R.string.pref_fb_firstname), firstName);
             editor.putString(res.getString(R.string.pref_fb_lastname), lastName);
-            editor.putString(res.getString(R.string.pref_fb_email), id + "@weconnect.berlin");
+            editor.putString(res.getString(R.string.pref_fb_email), id + res.getString(R.string.at_weconnect_berlin));
             editor.putString(res.getString(R.string.pref_fb_profile_uri), profileUri.getPath());
             editor.putString(res.getString(R.string.pref_fb_profile_picture_uri), profilePictureUri.getPath());
             editor.apply();
@@ -108,44 +104,11 @@ public class LoginActivity extends AppCompatActivity {
      * Handles behavior after a Facebook login has taken place
      */
     private void onLoginSuccessful() {
-        Resources res = activity.getResources();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        String facebookId = prefs.getString(res.getString(R.string.pref_fb_facebook_id), "");
+        UsersController usersController = UsersController.getInstance(this);
 
-        UsersController usersController = UsersController.getInstance();
-        User user;
-
-        // Check if user already exists
-        if (usersController.getUserByFacebookId(facebookId) != null) {
-            user = usersController.getUserByFacebookId(facebookId);
-        } else {
-            user = new User();
-            user.setFacebookId(prefs.getString(res.getString(R.string.pref_fb_facebook_id), ""));
-            user.setUsername(prefs.getString(res.getString(R.string.pref_fb_username), ""));
-            user.setFirstName(prefs.getString(res.getString(R.string.pref_fb_firstname), ""));
-            user.setLastName(prefs.getString(res.getString(R.string.pref_fb_lastname), ""));
-            user.setEmail(prefs.getString(res.getString(R.string.pref_fb_email), ""));
-            user.setPassword("password");
-            user.setEnabled(true);
-            usersController.setCurrentUser(user);
-        }
-
-        // Set current user
-        usersController.setCurrentUser(user);
-
-        // Show welcome message
-        String username = prefs.getString(res.getString(R.string.pref_fb_username), "");
-        Toast.makeText(LoginActivity.this, getResources().getString(R.string.logged_in_as) + " " + username, Toast.LENGTH_LONG).show();
-
-        // Check if user already has defined gender preferences
-        String gender = usersController.getCurrentUser().getGender();
-
-        // Check if user already has defined preferred interests
-        List<Interest> interests = usersController.getCurrentUser().getInterests();
-
-        if (gender == null) {
-            startActivity(new Intent(LoginActivity.this, GenderActivity.class));
-        } else if (interests != null && interests.isEmpty()) {
+        if (usersController.getCurrentUser() == null) {
+            startActivity(new Intent(LoginActivity.this, PreferencesActivity.class));
+        } else if (usersController.getCurrentUser().getInterests().isEmpty()) {
             startActivity(new Intent(LoginActivity.this, InterestsActivity.class));
         } else {
             startActivity(new Intent(LoginActivity.this, ContactsActivity.class));

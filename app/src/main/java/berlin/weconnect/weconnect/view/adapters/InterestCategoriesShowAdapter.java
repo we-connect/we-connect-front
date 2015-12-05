@@ -20,6 +20,7 @@ import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.InterestCategory;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class InterestCategoriesShowAdapter extends ArrayAdapter<InterestCategory> implements Filterable {
     private Activity activity;
@@ -44,8 +45,8 @@ public class InterestCategoriesShowAdapter extends ArrayAdapter<InterestCategory
         this.filteredItems = items;
         this.originalItems = items;
 
-        usersController = UsersController.getInstance();
-        interestsController = InterestsController.getInstance();
+        usersController = UsersController.getInstance((BaseActivity) activity);
+        interestsController = InterestsController.getInstance((BaseActivity) activity);
 
         filter();
     }

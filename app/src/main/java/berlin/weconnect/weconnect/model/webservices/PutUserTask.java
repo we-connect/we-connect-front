@@ -70,7 +70,7 @@ public class PutUserTask extends AsyncTask<User, Void, Void> {
 
         // Add JSON
         String json = new Gson().toJson(user, User.class);
-        OutputStreamWriter out = new   OutputStreamWriter(con.getOutputStream());
+        OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
         out.write(json);
         out.close();
 

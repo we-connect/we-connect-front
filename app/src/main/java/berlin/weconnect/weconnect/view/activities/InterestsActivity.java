@@ -7,19 +7,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.InterestsController;
+import berlin.weconnect.weconnect.controller.UsersController;
 import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 import berlin.weconnect.weconnect.view.adapters.InterestCategoriesSelectionAdapter;
 
-public class InterestsActivity extends SwipeRefreshBaseActivity {
+public class InterestsActivity extends SwipeRefreshBaseActivity implements View.OnClickListener {
+    // View
+    private ListView lvInterestCategories;
+    private TextView tvQuestion;
+    private Button btnContinue;
+
+    // Controller
     private InterestsController interestsController;
+    private UsersController usersController;
 
     // --------------------
     // Methods - Lifecycle
@@ -30,17 +37,23 @@ public class InterestsActivity extends SwipeRefreshBaseActivity {
         super.onCreate(savedInstanceState);
         setDisplayHomeAsUpEnabled(false);
 
-        interestsController = InterestsController.getInstance();
+        interestsController = InterestsController.getInstance(this);
+        usersController = UsersController.getInstance(this);
+
+        // Skip if there is already a user
+        if (usersController.getCurrentUser() != null && !usersController.getCurrentUser().getInterests().isEmpty()) {
+            startActivity(new Intent(InterestsActivity.this, ContactsActivity.class));
+            finish();
+        }
     }
 
     public void onResume() {
         super.onResume();
 
         // Load layout
-        final LinearLayout toolbar_wrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
-        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
-        final TextView tvQuestion = (TextView) getLayoutInflater().inflate(R.layout.tv_question, null);
-        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
+        tvQuestion = (TextView) getLayoutInflater().inflate(R.layout.tv_question, null);
+        btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
 
         // Set values
         tvQuestion.setText(R.string.what_are_you_interested_in);
@@ -55,14 +68,7 @@ public class InterestsActivity extends SwipeRefreshBaseActivity {
         lvInterestCategories.setAdapter(interestCategoriesSelectionAdapter);
 
         // Add actions
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(InterestsActivity.this, ContactsActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+        btnContinue.setOnClickListener(this);
     }
 
     @Override
@@ -103,5 +109,14 @@ public class InterestsActivity extends SwipeRefreshBaseActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnContinue) {
+            Intent i = new Intent(InterestsActivity.this, ContactsActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 }

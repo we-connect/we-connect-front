@@ -11,12 +11,14 @@ import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.InterestCategory;
 import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.webservices.GetInterestsTask;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class InterestsController {
     // Model
     private List<Interest> interests;
     private List<InterestCategory> interestCategories;
 
+    private static BaseActivity activity;
     private static InterestsController instance;
 
     // --------------------
@@ -27,7 +29,10 @@ public class InterestsController {
         init();
     }
 
-    public static InterestsController getInstance() {
+    public static InterestsController getInstance(BaseActivity activity) {
+        if (activity != null)
+            InterestsController.activity = activity;
+
         if (instance == null) {
             instance = new InterestsController();
         }
@@ -57,7 +62,7 @@ public class InterestsController {
      * Determines whether a given interest be displayed considering all filters
      *
      * @param interestCategory interestCategory to determine visibility of
-     * @param user     user
+     * @param user             user
      * @return whether interest is visible or not
      */
     public boolean isVisible(@Nullable InterestCategory interestCategory, User user) {
@@ -68,6 +73,8 @@ public class InterestsController {
      * Calls webservice to get interests
      */
     public void get() {
+        activity.testInternetConnection();
+
         try {
             interests = new GetInterestsTask().execute().get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -95,10 +102,12 @@ public class InterestsController {
 
             if (containsCategory(category)) {
                 InterestCategory ic = getCategoryByName(category);
-                ic.getInterests().add(i);
+                if (ic != null && ic.getInterests() != null)
+                    ic.getInterests().add(i);
             } else {
                 InterestCategory ic = new InterestCategory(category);
-                ic.getInterests().add(i);
+                if (ic != null && ic.getInterests() != null)
+                    ic.getInterests().add(i);
 
                 interestCategories.add(ic);
             }
@@ -123,9 +132,5 @@ public class InterestsController {
         }
 
         return null;
-    }
-
-    public void setInterestCategories(List<InterestCategory> interestCategories) {
-        this.interestCategories = interestCategories;
     }
 }

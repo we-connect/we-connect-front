@@ -22,8 +22,14 @@ import berlin.weconnect.weconnect.view.adapters.ContactsAdapter;
 import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
 public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener, ContactDialog.OnCompleteListener {
-    private UsersController usersController;
+    // View
+    private ListView lvContacts;
+    private LinearLayout toolbarWrapper;
+    private SwipeRefreshLayout srl;
     private ContactsAdapter contactsAdapter;
+
+    // Controller
+    private UsersController usersController;
 
     // Properties
     private static int REFRESH_DELAY;
@@ -35,7 +41,7 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
 
         REFRESH_DELAY = getResources().getInteger(R.integer.refresh_delay);
 
-        usersController = UsersController.getInstance();
+        usersController = UsersController.getInstance(this);
     }
 
     public void onResume() {
@@ -47,10 +53,10 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 
         usersController.getSuggested(usersController.getCurrentUser());
-
         contactsAdapter = new ContactsAdapter(this, R.layout.list_item_contact, usersController.getSuggestedUsers());
         lvContacts.setAdapter(contactsAdapter);
 
+        // Set values
         srl.setEnabled(false);
         srl.setOnRefreshListener(this);
         srl.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);

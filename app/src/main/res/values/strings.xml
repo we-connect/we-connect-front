@@ -30,7 +30,7 @@
     <string name="i_am_a_local">local</string>
     <string name="only_same_gender">same gender</string>
     <string name="who_to_meet">Who would you like to meet?</string>
-    <string name="everybody">Everybody</string>
+    <string name="everybody">everybody</string>
     <string name="maleOrFemale">Are you male or female?</string>
     <string name="male">male</string>
     <string name="female">female</string>
@@ -56,4 +56,7 @@
     <string name="by">by</string>
     <string name="about">About</string>
     <string name="interest_category">Interest Category</string>
+    <string name="both" translatable="false">both</string>
+    <string name="at_weconnect_berlin" translatable="false">\@weconnect.berlin</string>
+    <string name="password">password</string>
 </resources>

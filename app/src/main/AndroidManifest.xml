@@ -48,7 +48,7 @@
             android:name=".view.activities.AboutActivity"
             android:parentActivityName=".view.activities.ContactsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activities.GenderActivity" >
+        <activity android:name=".view.activities.PreferencesActivity" >
         </activity>
     </application>
 

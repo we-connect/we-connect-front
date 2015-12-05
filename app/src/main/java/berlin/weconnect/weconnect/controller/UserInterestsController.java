@@ -13,11 +13,13 @@ import berlin.weconnect.weconnect.model.entities.UserInterest;
 import berlin.weconnect.weconnect.model.webservices.DeleteUserInterestTask;
 import berlin.weconnect.weconnect.model.webservices.GetUserInterestsTask;
 import berlin.weconnect.weconnect.model.webservices.PostUserInterestTask;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
 public class UserInterestsController {
     // Model
     private List<UserInterest> userInterests;
 
+    private static BaseActivity activity;
     private static UserInterestsController instance;
 
     // --------------------
@@ -28,7 +30,10 @@ public class UserInterestsController {
         init();
     }
 
-    public static UserInterestsController getInstance() {
+    public static UserInterestsController getInstance(BaseActivity activity) {
+        if (activity != null)
+            UserInterestsController.activity = activity;
+
         if (instance == null) {
             instance = new UserInterestsController();
         }
@@ -48,6 +53,8 @@ public class UserInterestsController {
      * Calls webservice to get interests
      */
     public void get() {
+        activity.testInternetConnection();
+
         try {
             setUserInterests(new GetUserInterestsTask().execute().get());
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -61,6 +68,8 @@ public class UserInterestsController {
      * @param userInterest user interest to be posted
      */
     public void post(UserInterest userInterest) {
+        activity.testInternetConnection();
+
         try {
             new PostUserInterestTask().execute(userInterest).get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -74,6 +83,8 @@ public class UserInterestsController {
      * @param userInterest user interest to be deleted
      */
     public void delete(UserInterest userInterest) {
+        activity.testInternetConnection();
+
         try {
             new DeleteUserInterestTask().execute(userInterest).get();
         } catch (@NonNull InterruptedException | ExecutionException e) {
@@ -81,8 +92,17 @@ public class UserInterestsController {
         }
     }
 
+    /**
+     * Returns a list containing a given user's interest
+     *
+     * @param user user
+     * @return list of interests
+     */
     @NonNull
     public List<Interest> getInterestsByUser(@NonNull User user) {
+        if (userInterests == null || userInterests.isEmpty())
+            get();
+
         List<Interest> interests = new ArrayList<>();
 
         for (UserInterest userInterest : getUserInterests()) {
@@ -93,8 +113,17 @@ public class UserInterestsController {
         return interests;
     }
 
-    @Nullable
+    /**
+     * Returns a user interest by user and interest
+     *
+     * @param user     user
+     * @param interest interest
+     * @return user interest
+     */
     public UserInterest getUserInterestByUserAndInterest(@Nullable User user, @Nullable Interest interest) {
+        if (userInterests == null || userInterests.isEmpty())
+            get();
+
         if (user != null && interest != null) {
             for (UserInterest userInterest : getUserInterests()) {
                 if (userInterest != null && userInterest.getUser().getId().equals(user.getId()) && userInterest.getInterest().getId().equals(interest.getId()))
