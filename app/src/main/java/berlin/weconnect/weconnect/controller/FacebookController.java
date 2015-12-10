@@ -3,9 +3,6 @@ package berlin.weconnect.weconnect.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -15,7 +12,6 @@ import com.facebook.login.LoginManager;
 
 import java.io.File;
 
-import berlin.weconnect.weconnect.R;
 import berlin.weconnect.weconnect.view.activities.LoginActivity;
 
 public class FacebookController {
@@ -64,6 +60,7 @@ public class FacebookController {
         FacebookSdk.sdkInitialize(activity);
         clearCache(activity);
 
+        /*
         Resources res = activity.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = prefs.edit();
@@ -76,6 +73,7 @@ public class FacebookController {
         editor.putString(res.getString(R.string.pref_fb_profile_uri), null);
         editor.putString(res.getString(R.string.pref_fb_profile_picture_uri), null);
         editor.apply();
+        */
 
         Intent i = new Intent(activity, LoginActivity.class);
         activity.startActivity(i);

@@ -23,6 +23,9 @@ import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
 public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener, ContactDialog.OnCompleteListener {
     // View
+    private ListView lvContacts;
+    private LinearLayout toolbarWrapper;
+    private SwipeRefreshLayout srl;
     private ContactsAdapter contactsAdapter;
 
     // Controller
@@ -45,9 +48,9 @@ public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeR
         super.onResume();
 
         // Load layout
-        final ListView lvContacts = (ListView) findViewById(R.id.lvContacts);
-        final LinearLayout toolbarWrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
-        final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        lvContacts = (ListView) findViewById(R.id.lvContacts);
+        toolbarWrapper = (LinearLayout) findViewById(R.id.toolbar_wrapper);
+        srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 
         usersController.getSuggested(usersController.getCurrentUser());
         contactsAdapter = new ContactsAdapter(this, R.layout.list_item_contact, usersController.getSuggestedUsers());

@@ -16,6 +16,9 @@ import berlin.weconnect.weconnect.controller.WebController;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 
 public class WebActivity extends BaseActivity {
+    // View
+    private WebView wbFacebook;
+
     // Controller
     private WebController webController;
 
@@ -35,7 +38,7 @@ public class WebActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        final WebView wbFacebook = (WebView) findViewById(R.id.wbFacebook);
+        wbFacebook = (WebView) findViewById(R.id.wbFacebook);
 
         // Configure web view
         wbFacebook.getSettings().setJavaScriptEnabled(true);

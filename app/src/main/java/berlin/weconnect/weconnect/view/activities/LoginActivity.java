@@ -21,6 +21,8 @@ import berlin.weconnect.weconnect.controller.FacebookController;
 import berlin.weconnect.weconnect.controller.UsersController;
 
 public class LoginActivity extends BaseActivity {
+    // View
+    private LoginButton btnLogin;
 
     private CallbackManager callbackManager;
 
@@ -37,7 +39,7 @@ public class LoginActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        final LoginButton btnLogin = (LoginButton) findViewById(R.id.btnLogin);
+        btnLogin = (LoginButton) findViewById(R.id.btnLogin);
 
         // Check if user is already logged in to Facebook with this app
         if (FacebookController.getInstance(this).isLoggedIn()) {

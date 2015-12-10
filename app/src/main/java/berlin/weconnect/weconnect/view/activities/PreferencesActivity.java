@@ -31,6 +31,22 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
     private EMeetingPref meetingPref;
     private boolean btnContinueActivated;
 
+    // View
+    private TextView tvName;
+    private LinearLayout llNewcomer;
+    private CheckBox cbNewcomer;
+    private LinearLayout llLocal;
+    private CheckBox cbLocal;
+    private LinearLayout llMale;
+    private CheckBox cbMale;
+    private LinearLayout llFemale;
+    private CheckBox cbFemale;
+    private LinearLayout llOnlySameGender;
+    private CheckBox cbOnlySameGender;
+    private LinearLayout llEverybody;
+    private CheckBox cbEverybody;
+    private Button btnContinue;
+
     // Controller
     private UsersController usersController;
 
@@ -136,20 +152,6 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        final LinearLayout llNewcomer = (LinearLayout) findViewById(R.id.llNewcomer);
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final LinearLayout llLocal = (LinearLayout) findViewById(R.id.llLocal);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
-        final LinearLayout llMale = (LinearLayout) findViewById(R.id.llMale);
-        final CheckBox cbMale = (CheckBox) findViewById(R.id.cbMale);
-        final LinearLayout llFemale = (LinearLayout) findViewById(R.id.llFemale);
-        final CheckBox cbFemale = (CheckBox) findViewById(R.id.cbFemale);
-        final LinearLayout llOnlySameGender = (LinearLayout) findViewById(R.id.llOnlySameGender);
-        final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
-        final LinearLayout llEverybody = (LinearLayout) findViewById(R.id.llEverybody);
-        final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
-        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
-
         if (v == cbNewcomer) {
             selectType(EType.NEWCOMER);
         } else if (v == llNewcomer) {
@@ -224,9 +226,6 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
      * @param t type
      */
     private void selectType(EType t) {
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
-
         switch (t) {
             case NEWCOMER: {
                 type = EType.NEWCOMER;
@@ -249,9 +248,6 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
      * @param g gender
      */
     private void selectGender(EGender g) {
-        final CheckBox cbMale = (CheckBox) findViewById(R.id.cbMale);
-        final CheckBox cbFemale = (CheckBox) findViewById(R.id.cbFemale);
-
         switch (g) {
             case MALE: {
                 gender = EGender.MALE;
@@ -274,9 +270,6 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
      * @param p meeting pref
      */
     private void selectMeetingPreference(EMeetingPref p) {
-        final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
-        final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
-
         switch (p) {
             case ONLY_OWN_GENDER: {
                 meetingPref = EMeetingPref.ONLY_OWN_GENDER;
@@ -297,14 +290,6 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
      * Updates the status of the continue button
      */
     private void updateContinueButton() {
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
-        final CheckBox cbMale = (CheckBox) findViewById(R.id.cbMale);
-        final CheckBox cbFemale = (CheckBox) findViewById(R.id.cbFemale);
-        final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
-        final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
-        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
-
         btnContinueActivated = ((cbNewcomer.isChecked() || cbLocal.isChecked()) && (cbMale.isChecked() || cbFemale.isChecked()) && (cbOnlySameGender.isChecked() || cbEverybody.isChecked()));
 
         if (btnContinueActivated) {

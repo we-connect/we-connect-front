@@ -29,6 +29,19 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     // Model
     private EMeetingPref meetingPref;
 
+    // View
+    private LinearLayout llMeetingPref;
+    private LinearLayout llOnlySameGender;
+    private CheckBox cbOnlySameGender;
+    private LinearLayout llEverybody;
+    private CheckBox cbEverybody;
+    private LinearLayout llQuestion;
+    private TextView tvQuestion;
+    private ListView lvInterestCategories;
+    private Button btnContinue;
+    private Button btnDeleteMyAccount;
+    private LinearLayout llSpace;
+
     // Controller
     private UsersController usersController;
     private InterestsController interestsController;
@@ -50,18 +63,17 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onResume();
 
         // Load layout
-        final LinearLayout llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
-        final LinearLayout llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
-        final CheckBox cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
-        final LinearLayout llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
-        final CheckBox cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
-        final LinearLayout llQuestion = (LinearLayout) getLayoutInflater().inflate(R.layout.ll_question, null);
-        final TextView tvQuestion = (TextView) llQuestion.findViewById(R.id.tvQuestion);
-        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
-        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
-        final View vSeparatorLine = getLayoutInflater().inflate(R.layout.separator_line, null);
-        final Button btnDeleteMyAccount = (Button) getLayoutInflater().inflate(R.layout.btn_delete_my_account, null);
-        final LinearLayout llSpace = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_space, null);
+        llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
+        llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
+        cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
+        llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
+        cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
+        llQuestion = (LinearLayout) getLayoutInflater().inflate(R.layout.ll_question, null);
+        tvQuestion = (TextView) llQuestion.findViewById(R.id.tvQuestion);
+        lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
+        btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        btnDeleteMyAccount = (Button) getLayoutInflater().inflate(R.layout.btn_delete_my_account, null);
+        llSpace = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_space, null);
 
         // Set values
         User user = usersController.getCurrentUser();
@@ -78,7 +90,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
         if (lvInterestCategories.getFooterViewsCount() < 1) {
             lvInterestCategories.addFooterView(btnContinue);
-            lvInterestCategories.addFooterView(vSeparatorLine);
             lvInterestCategories.addFooterView(btnDeleteMyAccount);
             lvInterestCategories.addFooterView(llSpace);
         }
@@ -185,15 +196,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        // Load layout
-        final LinearLayout llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
-        final LinearLayout llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
-        final CheckBox cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
-        final LinearLayout llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
-        final CheckBox cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
-        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
-        final Button btnDeleteMyAccount = (Button) getLayoutInflater().inflate(R.layout.btn_delete_my_account, null);
-
         if (v == cbOnlySameGender) {
             selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
         } else if (v == llOnlySameGender) {

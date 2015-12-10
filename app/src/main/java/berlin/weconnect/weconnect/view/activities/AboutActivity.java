@@ -16,6 +16,15 @@ import berlin.weconnect.weconnect.model.util.Configuration;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 
 public class AboutActivity extends BaseActivity {
+    // View
+    private TextView tvName;
+    private TextView tvCompany;
+    private TextView tvVersion;
+    private TextView tvLicense;
+    private TextView tvWebsite;
+    private ImageView ivMail;
+    private ImageView ivGithub;
+
     private Activity activity;
 
     // --------------------
@@ -37,13 +46,13 @@ public class AboutActivity extends BaseActivity {
         final Resources res = getResources();
 
         // Load layout
-        final TextView tvName = (TextView) findViewById(R.id.tvName);
-        final TextView tvCompany = (TextView) findViewById(R.id.tvCompany);
-        final TextView tvVersion = (TextView) findViewById(R.id.tvVersion);
-        final TextView tvLicense = (TextView) findViewById(R.id.tvLicense);
-        final TextView tvWebsite = (TextView) findViewById(R.id.tvWebsite);
-        final ImageView ivMail = (ImageView) findViewById(R.id.ivMail);
-        final ImageView ivGithub = (ImageView) findViewById(R.id.ivGithub);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvCompany = (TextView) findViewById(R.id.tvCompany);
+        tvVersion = (TextView) findViewById(R.id.tvVersion);
+        tvLicense = (TextView) findViewById(R.id.tvLicense);
+        tvWebsite = (TextView) findViewById(R.id.tvWebsite);
+        ivMail = (ImageView) findViewById(R.id.ivMail);
+        ivGithub = (ImageView) findViewById(R.id.ivGithub);
 
         String versionMajor = Configuration.getGradleProperty(this, res.getString(R.string.gradle_version_major));
         String versionMinor = Configuration.getGradleProperty(this, res.getString(R.string.gradle_version_minor));

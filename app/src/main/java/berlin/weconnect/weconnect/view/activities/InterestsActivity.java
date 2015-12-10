@@ -20,6 +20,13 @@ import berlin.weconnect.weconnect.model.util.MailUtil;
 import berlin.weconnect.weconnect.view.adapters.InterestCategoriesSelectionAdapter;
 
 public class InterestsActivity extends SwipeRefreshBaseActivity implements View.OnClickListener {
+    // View
+    private ListView lvInterestCategories;
+    private LinearLayout llQuestion;
+    private TextView tvQuestion;
+    private Button btnContinue;
+    private LinearLayout llSpace;
+
     // Controller
     private InterestsController interestsController;
     private UsersController usersController;
@@ -47,23 +54,23 @@ public class InterestsActivity extends SwipeRefreshBaseActivity implements View.
         super.onResume();
 
         // Load layout
-        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
-        final LinearLayout llQuestion = (LinearLayout) getLayoutInflater().inflate(R.layout.ll_question, null);
-        final TextView tvQuestion = (TextView) llQuestion.findViewById(R.id.tvQuestion);
-        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
-        final LinearLayout llSpace = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_space, null);
+        lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
+        llQuestion = (LinearLayout) getLayoutInflater().inflate(R.layout.ll_question, null);
+        tvQuestion = (TextView) llQuestion.findViewById(R.id.tvQuestion);
+        btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        llSpace = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_space, null);
 
         // Set values
         tvQuestion.setText(R.string.what_are_you_interested_in);
         btnContinue.setText(R.string.continue_);
 
         if (lvInterestCategories.getHeaderViewsCount() < 1) {
-            // lvInterestCategories.addHeaderView(llSpace);
+            lvInterestCategories.addHeaderView(llSpace);
             lvInterestCategories.addHeaderView(llQuestion);
         }
         if (lvInterestCategories.getFooterViewsCount() < 1) {
             lvInterestCategories.addFooterView(btnContinue);
-            // lvInterestCategories.addFooterView(llSpace);
+            lvInterestCategories.addFooterView(llSpace);
         }
 
         final InterestCategoriesSelectionAdapter interestCategoriesSelectionAdapter = new InterestCategoriesSelectionAdapter(this, R.layout.list_item_interest_category_selection, interestsController.getInterestCategories());
@@ -115,8 +122,6 @@ public class InterestsActivity extends SwipeRefreshBaseActivity implements View.
 
     @Override
     public void onClick(View v) {
-        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
-
         if (v == btnContinue) {
             Intent i = new Intent(InterestsActivity.this, ContactsActivity.class);
             startActivity(i);

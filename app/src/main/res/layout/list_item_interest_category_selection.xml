@@ -24,12 +24,17 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <GridLayout
-        android:id="@+id/grdInterests"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:horizontalSpacing="@dimen/grid_item_spacing"
-        android:verticalSpacing="@dimen/grid_item_spacing" />
+        android:gravity="center_horizontal">
 
+        <GridLayout
+            android:id="@+id/grdInterests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:horizontalSpacing="@dimen/grid_item_spacing"
+            android:verticalSpacing="@dimen/grid_item_spacing" />
+    </LinearLayout>
 </LinearLayout>
