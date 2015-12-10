@@ -1,6 +1,7 @@
 package berlin.weconnect.weconnect.view.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Menu;
@@ -22,20 +23,11 @@ import berlin.weconnect.weconnect.model.entities.User;
 import berlin.weconnect.weconnect.model.util.MailUtil;
 import berlin.weconnect.weconnect.model.webservices.PutUserTask;
 import berlin.weconnect.weconnect.view.adapters.InterestCategoriesSelectionAdapter;
+import berlin.weconnect.weconnect.view.dialogs.DeleteAccountDialog;
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity implements View.OnClickListener, DeleteAccountDialog.OnCompleteListener {
     // Model
     private EMeetingPref meetingPref;
-
-    // View
-    private LinearLayout llMeetingPref;
-    private LinearLayout llOnlySameGender;
-    private CheckBox cbOnlySameGender;
-    private LinearLayout llEverybody;
-    private CheckBox cbEverybody;
-    private TextView tvQuestion;
-    private ListView lvInterestCategories;
-    private Button btnContinue;
 
     // Controller
     private UsersController usersController;
@@ -58,14 +50,18 @@ public class SettingsActivity extends BaseActivity {
         super.onResume();
 
         // Load layout
-        llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
-        llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
-        cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
-        llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
-        cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
-        tvQuestion = (TextView) getLayoutInflater().inflate(R.layout.tv_question, null);
-        lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
-        btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        final LinearLayout llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
+        final LinearLayout llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
+        final CheckBox cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
+        final LinearLayout llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
+        final CheckBox cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
+        final LinearLayout llQuestion = (LinearLayout) getLayoutInflater().inflate(R.layout.ll_question, null);
+        final TextView tvQuestion = (TextView) llQuestion.findViewById(R.id.tvQuestion);
+        final ListView lvInterestCategories = (ListView) findViewById(R.id.lvInterestCategories);
+        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        final View vSeparatorLine = getLayoutInflater().inflate(R.layout.separator_line, null);
+        final Button btnDeleteMyAccount = (Button) getLayoutInflater().inflate(R.layout.btn_delete_my_account, null);
+        final LinearLayout llSpace = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_space, null);
 
         // Set values
         User user = usersController.getCurrentUser();
@@ -75,51 +71,28 @@ public class SettingsActivity extends BaseActivity {
         btnContinue.setText(R.string.done);
 
         if (lvInterestCategories.getHeaderViewsCount() < 1) {
+            lvInterestCategories.addHeaderView(llSpace);
             lvInterestCategories.addHeaderView(llMeetingPref);
-            lvInterestCategories.addHeaderView(tvQuestion);
+            lvInterestCategories.addHeaderView(llQuestion);
         }
 
-        if (lvInterestCategories.getFooterViewsCount() < 1)
+        if (lvInterestCategories.getFooterViewsCount() < 1) {
             lvInterestCategories.addFooterView(btnContinue);
+            lvInterestCategories.addFooterView(vSeparatorLine);
+            lvInterestCategories.addFooterView(btnDeleteMyAccount);
+            lvInterestCategories.addFooterView(llSpace);
+        }
 
         final InterestCategoriesSelectionAdapter interestCategoriesSelectionAdapter = new InterestCategoriesSelectionAdapter(this, R.layout.list_item_interest_category_selection, interestsController.getInterestCategories());
         lvInterestCategories.setAdapter(interestCategoriesSelectionAdapter);
 
-        cbOnlySameGender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
-            }
-        });
-        llOnlySameGender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cbOnlySameGender.toggle();
-                selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
-            }
-        });
-
-        cbEverybody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectMeetingPreference(EMeetingPref.EVERYBODY);
-            }
-        });
-        llEverybody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cbEverybody.toggle();
-                selectMeetingPreference(EMeetingPref.EVERYBODY);
-            }
-        });
-
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new PutUserTask().execute(usersController.getCurrentUser());
-                finish();
-            }
-        });
+        // Add actions
+        cbOnlySameGender.setOnClickListener(this);
+        llOnlySameGender.setOnClickListener(this);
+        cbEverybody.setOnClickListener(this);
+        llEverybody.setOnClickListener(this);
+        btnContinue.setOnClickListener(this);
+        btnDeleteMyAccount.setOnClickListener(this);
     }
 
     @Override
@@ -208,5 +181,53 @@ public class SettingsActivity extends BaseActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        // Load layout
+        final LinearLayout llMeetingPref = (LinearLayout) getLayoutInflater().inflate(R.layout.fragment_meeting_pref, null);
+        final LinearLayout llOnlySameGender = (LinearLayout) llMeetingPref.findViewById(R.id.llOnlySameGender);
+        final CheckBox cbOnlySameGender = (CheckBox) llMeetingPref.findViewById(R.id.cbOnlySameGender);
+        final LinearLayout llEverybody = (LinearLayout) llMeetingPref.findViewById(R.id.llEverybody);
+        final CheckBox cbEverybody = (CheckBox) llMeetingPref.findViewById(R.id.cbEverybody);
+        final Button btnContinue = (Button) getLayoutInflater().inflate(R.layout.btn_continue, null);
+        final Button btnDeleteMyAccount = (Button) getLayoutInflater().inflate(R.layout.btn_delete_my_account, null);
+
+        if (v == cbOnlySameGender) {
+            selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
+        } else if (v == llOnlySameGender) {
+            cbOnlySameGender.toggle();
+            selectMeetingPreference(EMeetingPref.ONLY_OWN_GENDER);
+        } else if (v == cbEverybody) {
+            selectMeetingPreference(EMeetingPref.EVERYBODY);
+        } else if (v == llEverybody) {
+            cbEverybody.toggle();
+            selectMeetingPreference(EMeetingPref.EVERYBODY);
+        } else if (v == btnContinue) {
+            new PutUserTask().execute(usersController.getCurrentUser());
+            finish();
+        } else if (v == btnDeleteMyAccount) {
+            final Resources res = getResources();
+            Bundle b = new Bundle();
+            b.putString(res.getString(R.string.bundle_dialog_title), res.getString(R.string.delete_account));
+            b.putString(res.getString(R.string.bundle_message), res.getString(R.string.delete_account_question));
+
+            DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog();
+            deleteAccountDialog.setArguments(b);
+            deleteAccountDialog.setCancelable(false);
+            deleteAccountDialog.show(getFragmentManager(), DeleteAccountDialog.TAG);
+        }
+    }
+
+    // --------------------
+    // Methods - Callbacks
+    // --------------------
+
+    @Override
+    public void onDeleteAccount() {
+        User user = usersController.getCurrentUser();
+        usersController.deleteUser(user);
+        FacebookController.getInstance(this).logout();
     }
 }

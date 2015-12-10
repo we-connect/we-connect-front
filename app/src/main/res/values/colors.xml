@@ -23,4 +23,5 @@
 
     <color name="button_active">#38761D</color>
     <color name="button_inactive">#777</color>
+    <color name="button_delete">#B00</color>
 </resources>

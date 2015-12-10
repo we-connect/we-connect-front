@@ -47,7 +47,6 @@ public class ContactDialog extends DialogFragment {
 
         // Load layout
         final View v = View.inflate(getActivity(), R.layout.dialog_contact, null);
-
         final ImageView ivProfilePicture = (ImageView) v.findViewById(R.id.ivProfilePicture);
         final TextView tvName = (TextView) v.findViewById(R.id.tvName);
         final TextView tvSharedInterests = (TextView) v.findViewById(R.id.tvSharedInterests);
@@ -85,9 +84,9 @@ public class ContactDialog extends DialogFragment {
             tvSharedInterests.setText(String.format(res.getQuantityString(R.plurals.shared_interests, sharedInterests.size()), sharedInterests.size()));
 
 
-            if (user.getType().equals(EType.NEWCOMER.getValue()))
+            if (user.getType() != null && user.getType().equals(EType.NEWCOMER.getValue()))
                 ivType.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_web_site));
-            else if (user.getType().equals(EType.LOCAL.getValue()))
+            else if (user.getType() != null && user.getType().equals(EType.LOCAL.getValue()))
                 ivType.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_berlin));
 
             final InterestCategoriesShowAdapter interestCategoriesShowAdapter = new InterestCategoriesShowAdapter(getActivity(), R.layout.list_item_interest_category_show, user.getInterestCategories());

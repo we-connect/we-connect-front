@@ -59,4 +59,8 @@
     <string name="both" translatable="false">both</string>
     <string name="at_weconnect_berlin" translatable="false">\@weconnect.berlin</string>
     <string name="password">password</string>
+    <string name="delete_my_account">Delete my account</string>
+    <string name="delete_account">Delete account</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_account_question">Do you really want to delete your account? All data will be removed permanently.</string>
 </resources>

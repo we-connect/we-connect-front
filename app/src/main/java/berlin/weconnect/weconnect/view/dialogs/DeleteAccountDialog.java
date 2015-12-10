@@ -6,14 +6,25 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.controller.UsersController;
+import berlin.weconnect.weconnect.model.entities.EFacebookPictureType;
+import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.webservices.FacebookGetProfilePictureTask;
+import berlin.weconnect.weconnect.view.activities.BaseActivity;
 
-public class NoInternetDialog extends DialogFragment {
-    public static final String TAG = "no_internet";
+public class DeleteAccountDialog extends DialogFragment {
+    public static final String TAG = "delete_account";
 
     private OnCompleteListener ocListener;
 
@@ -26,23 +37,47 @@ public class NoInternetDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         final Resources res = getActivity().getResources();
 
-        // Fill views with arguments
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        UsersController usersController = UsersController.getInstance((BaseActivity) getActivity());
+        User currentUser = usersController.getCurrentUser();
+
+        // Load layout
+        final View v = View.inflate(getActivity(), R.layout.dialog_delete_account, null);
+        final ImageView ivProfilePicture = (ImageView) v.findViewById(R.id.ivProfilePicture);
+        final TextView tvName = (TextView) v.findViewById(R.id.tvName);
+        final TextView tvMessage = (TextView) v.findViewById(R.id.tvMessage);
 
         // Get arguments
         Bundle bundle = this.getArguments();
         final String dialogTitle = bundle.getString(res.getString(R.string.bundle_dialog_title));
+        final String message = bundle.getString(res.getString(R.string.bundle_message));
 
-        // Set values
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(dialogTitle);
 
-        // Add positive button
-        builder.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+        // Set values
+        if (currentUser != null) {
+            Bitmap bmp = null;
+            try {
+                bmp = new FacebookGetProfilePictureTask().execute(currentUser.getFacebookId(), EFacebookPictureType.LARGE.getValue()).get();
+            } catch (@NonNull InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            if (bmp != null)
+                ivProfilePicture.setImageBitmap(bmp);
+
+            tvName.setText(currentUser.getFirstName());
+        }
+
+        tvMessage.setText(message);
+
+        // Add buttons
+        builder.setPositiveButton(R.string.delete_account, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        builder.setNegativeButton(R.string.close_app, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -62,7 +97,7 @@ public class NoInternetDialog extends DialogFragment {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ocListener.onRetry();
+                ocListener.onDeleteAccount();
                 dismiss();
             }
         });
@@ -71,7 +106,6 @@ public class NoInternetDialog extends DialogFragment {
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ocListener.onCloseApp();
                 dismiss();
             }
         });
@@ -82,8 +116,7 @@ public class NoInternetDialog extends DialogFragment {
     // --------------------
 
     public interface OnCompleteListener {
-        void onRetry();
-        void onCloseApp();
+        void onDeleteAccount();
     }
 
     public void onAttach(Activity activity) {

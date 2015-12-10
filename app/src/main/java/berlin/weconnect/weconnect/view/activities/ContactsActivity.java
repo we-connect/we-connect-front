@@ -23,9 +23,6 @@ import berlin.weconnect.weconnect.view.dialogs.ContactDialog;
 
 public class ContactsActivity extends SwipeRefreshBaseActivity implements SwipeRefreshLayout.OnRefreshListener, ContactDialog.OnCompleteListener {
     // View
-    private ListView lvContacts;
-    private LinearLayout toolbarWrapper;
-    private SwipeRefreshLayout srl;
     private ContactsAdapter contactsAdapter;
 
     // Controller

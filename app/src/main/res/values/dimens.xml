@@ -58,4 +58,6 @@
     <dimen name="dialog_fragment_padding">8dp</dimen>
     <dimen name="divider_caption_margin_top">12dp</dimen>
     <dimen name="divider_caption_margin_bottom">6dp</dimen>
+
+    <dimen name="separator_height">2dp</dimen>
 </resources>

@@ -2,4 +2,5 @@
 <resources>
     <string name="bundle_dialog_title" translatable="false">dialog_title</string>
     <string name="bundle_contact_facebook_id" translatable="false">contact_facebook_id</string>
+    <string name="bundle_message" translatable="false">message</string>
 </resources>

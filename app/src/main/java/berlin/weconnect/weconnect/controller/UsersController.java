@@ -10,7 +10,9 @@ import java.util.concurrent.ExecutionException;
 
 import berlin.weconnect.weconnect.App;
 import berlin.weconnect.weconnect.R;
+import berlin.weconnect.weconnect.model.entities.Interest;
 import berlin.weconnect.weconnect.model.entities.User;
+import berlin.weconnect.weconnect.model.entities.UserInterest;
 import berlin.weconnect.weconnect.model.webservices.DeleteUserTask;
 import berlin.weconnect.weconnect.model.webservices.GetSuggestedUsersTask;
 import berlin.weconnect.weconnect.model.webservices.GetUsersTask;
@@ -21,6 +23,9 @@ public class UsersController {
     // Model
     private List<User> users;
     private List<User> suggestedUsers;
+
+    // Controller
+    private UserInterestsController userInterestsController;
 
     private static BaseActivity activity;
     private static UsersController instance;
@@ -49,6 +54,7 @@ public class UsersController {
     // --------------------
 
     public void init() {
+        userInterestsController = UserInterestsController.getInstance(activity);
         get();
     }
 
@@ -183,6 +189,20 @@ public class UsersController {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
         String facebookId = prefs.getString(App.getContext().getResources().getString(R.string.pref_fb_facebook_id), "");
         return getUserByFacebookId(facebookId);
+    }
+
+    public void deleteUser(User user) {
+        // Delete user interests
+        for (Interest interest : user.getInterests()) {
+            UserInterest userInterest = userInterestsController.getUserInterestByUserAndInterest(user, interest);
+
+            if (userInterest != null) {
+                userInterestsController.delete(userInterest);
+            }
+        }
+
+        // Delete user itself
+        delete(user);
     }
 
     // --------------------

@@ -110,9 +110,9 @@ public class ContactsAdapter extends ArrayAdapter<User> implements Filterable {
 
         if (user.getFirstName() != null)
             tvName.setText(user.getFirstName());
-        if (user.getType().equals(EType.NEWCOMER.getValue()))
+        if (user.getType() != null && user.getType().equals(EType.NEWCOMER.getValue()))
             ivType.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_action_web_site_light));
-        else if (user.getType().equals(EType.LOCAL.getValue()))
+        else if (user.getType() != null && user.getType().equals(EType.LOCAL.getValue()))
             ivType.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_action_berlin_light));
 
         List<Interest> sharedInterests = user.getSharedInterestsWith(usersController.getCurrentUser());
