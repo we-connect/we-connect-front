@@ -72,20 +72,20 @@ public class PreferencesActivity extends BaseActivity implements View.OnClickLis
         super.onResume();
 
         // Load layout
-        final TextView tvName = (TextView) findViewById(R.id.tvName);
-        final LinearLayout llNewcomer = (LinearLayout) findViewById(R.id.llNewcomer);
-        final CheckBox cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
-        final LinearLayout llLocal = (LinearLayout) findViewById(R.id.llLocal);
-        final CheckBox cbLocal = (CheckBox) findViewById(R.id.cbLocal);
-        final LinearLayout llMale = (LinearLayout) findViewById(R.id.llMale);
-        final CheckBox cbMale = (CheckBox) findViewById(R.id.cbMale);
-        final LinearLayout llFemale = (LinearLayout) findViewById(R.id.llFemale);
-        final CheckBox cbFemale = (CheckBox) findViewById(R.id.cbFemale);
-        final LinearLayout llOnlySameGender = (LinearLayout) findViewById(R.id.llOnlySameGender);
-        final CheckBox cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
-        final LinearLayout llEverybody = (LinearLayout) findViewById(R.id.llEverybody);
-        final CheckBox cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
-        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
+        tvName = (TextView) findViewById(R.id.tvName);
+        llNewcomer = (LinearLayout) findViewById(R.id.llNewcomer);
+        cbNewcomer = (CheckBox) findViewById(R.id.cbNewcomer);
+        llLocal = (LinearLayout) findViewById(R.id.llLocal);
+        cbLocal = (CheckBox) findViewById(R.id.cbLocal);
+        llMale = (LinearLayout) findViewById(R.id.llMale);
+        cbMale = (CheckBox) findViewById(R.id.cbMale);
+        llFemale = (LinearLayout) findViewById(R.id.llFemale);
+        cbFemale = (CheckBox) findViewById(R.id.cbFemale);
+        llOnlySameGender = (LinearLayout) findViewById(R.id.llOnlySameGender);
+        cbOnlySameGender = (CheckBox) findViewById(R.id.cbOnlySameGender);
+        llEverybody = (LinearLayout) findViewById(R.id.llEverybody);
+        cbEverybody = (CheckBox) findViewById(R.id.cbEverybody);
+        btnContinue = (Button) findViewById(R.id.btnContinue);
 
         // Set values
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);

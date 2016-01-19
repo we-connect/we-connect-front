@@ -14,9 +14,7 @@ import berlin.weconnect.weconnect.R;
 
 public abstract class SwipeRefreshBaseActivity extends BaseActivity {
     // View
-    @NonNull
     private ArrayList<View> hideableHeaderViews = new ArrayList<>();
-    @NonNull
     private ArrayList<View> hideableFooterViews = new ArrayList<>();
 
     private int actionBarAutoHideSensivity = 0;
